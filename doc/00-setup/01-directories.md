@@ -6,4 +6,8 @@ directories will be created manually:
 
 -	`doc`, which contains documentation files
 	written in Markdown (like this one)
-
+-	`src/Command`
+-	`src/Configuration`
+-	`src/DataFixtures`
+-	`src/Factory`
+-	`src/Menu`
