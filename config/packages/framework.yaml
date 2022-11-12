@@ -19,6 +19,7 @@ framework:
             field_name: _crsf_token
     php_errors:
         log: true
+#    error_controller: App\Controller\...\Controller::index
 
 when@test:
     framework:
