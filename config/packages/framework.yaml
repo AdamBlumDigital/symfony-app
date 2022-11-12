@@ -14,6 +14,9 @@ framework:
 
     #esi: true
     #fragments: true
+    form:
+        csrf_protection:
+            field_name: _crsf_token
     php_errors:
         log: true
 
