@@ -84,6 +84,7 @@
             "@auto-scripts"
         ],
     	"phpstan": "vendor/bin/phpstan analyse",
+		"phpstan-baseline": "vendor/bin/phpstan analyse --generate-baseline",
     	"tests": "vendor/bin/phpunit",
     	"ci": [
 			"@phpstan",
