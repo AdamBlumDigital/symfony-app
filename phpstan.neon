@@ -3,5 +3,7 @@ parameters:
 	paths:
 		- src
 		- tests
-	excludePaths:
-		- 'tests/bootstrap.php'
+	ignoreErrors:
+		- 
+			message: '#^Call to function method_exists\(\) with ''Symfony\\\\Component\\\\Dotenv\\\\Dotenv'' and ''bootEnv'' will always evaluate to true\.$#'
+			path: tests/bootstrap.php
