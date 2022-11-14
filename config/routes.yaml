@@ -1,5 +1,5 @@
 controllers:
-    resource: ../src/Controller/
+    resource: ../src/Modules/*/Application/Controller/
     type: annotation
     prefix: (_locale)
     requirements:
@@ -9,3 +9,8 @@ controllers:
 kernel:
     resource: ../src/Kernel.php
     type: annotation
+home:
+    path: /
+    controller: App\Modules\Module\Application\Controller\GetModuleController
+    # if the action is implemented as the __invoke() method of the
+    # controller class, you can skip the '::method_name' part:

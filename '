@@ -1,0 +1,34 @@
+
+
+Don't use Domain Objects unless they are requirements of the domain
+
+
+src
+	Shared
+		Event
+			DomainEventInterface
+	Modules
+		Module
+			Domain
+				Entity
+					Module
+				Repository
+					ModuleRepositoryInterface
+			Application
+				Controller
+					GetModuleController
+						__invoke(): Response
+				Event
+				EventSubscriber
+				Model
+					ModuleCommand
+					ModuleQuery
+				Service
+			Infrastructure
+				Repository
+					ModuleRepository extends ModuleRepositoryInterface
+				DoctrineMapping
+					Module.orm.xml
+	
+
+
