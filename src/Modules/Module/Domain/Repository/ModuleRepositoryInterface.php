@@ -11,7 +11,7 @@ interface ModuleRepositoryInterface
 	/**
 	 *	@return ?array<Module>
 	 *
-	 *	@param	mixed $id
+	 *	@param	string $id
 	 *	@param	mixed $lockMode
 	 *	@param	mixed $lockVersion
 	 *

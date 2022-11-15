@@ -9,7 +9,7 @@ use App\Shared\Event\DomainEventInterface;
 abstract class AggregateRoot
 {
 	/**
-	 * @var		array<mixed>
+	 * @var		array<object>
 	 *
 	 * @todo	Once DomainEventInterface is being used,
 	 * 			update array type to accurately reflect
@@ -25,7 +25,7 @@ abstract class AggregateRoot
     }
 
 	/**
-	 * @return	array<mixed>
+	 * @return	array<object>
 	 *
 	 * @todo	Once DomainEventInterface is being used,
 	 * 			update this method return type to accurately

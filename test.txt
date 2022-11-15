@@ -1,0 +1,313 @@
+
+Autowirable Types
+=================
+
+ The following classes & interfaces can be used as type-hints when autowiring:
+ 
+ App\Kernel (kernel)
+ 
+ App\Modules\Module\Application\Controller\GetModuleController
+ 
+ App\Modules\Module\Application\Model\CreateModuleCommand
+ 
+ App\Modules\Module\Application\Model\FindModuleQuery
+ 
+ App\Modules\Module\Application\Service\ModuleFinderHandler
+ 
+ App\Modules\Module\Domain\Event\ModuleCreatedEvent
+ 
+ App\Shared\Event\DomainEventInterface (App\Modules\Module\Domain\Event\ModuleCreatedEvent)
+ 
+ @internal
+ Doctrine\Bundle\DoctrineBundle\Controller\ProfilerController
+ 
+ Doctrine\Bundle\DoctrineBundle\Dbal\ManagerRegistryAwareConnectionProvider
+ 
+ Interface for annotation readers.
+ Doctrine\Common\Annotations\Reader (annotations.cached_reader)
+ 
+ Doctrine\Common\Persistence\ManagerRegistry (doctrine)
+ 
+ A database abstraction-level connection that implements features like events, transaction isolation levels, configuration, emulated transaction nesting, lazy connecting and more.
+ Doctrine\DBAL\Connection (doctrine.dbal.default_connection)
+ Doctrine\DBAL\Connection $defaultConnection (doctrine.dbal.default_connection)
+ 
+ Connection interface. Driver connections must implement this interface.
+ Doctrine\DBAL\Driver\Connection (doctrine.dbal.default_connection)
+ 
+ Task for executing arbitrary SQL that can come from a file or directly from the command line.
+ Doctrine\DBAL\Tools\Console\Command\RunSqlCommand
+ 
+ EntityManager interface
+ Doctrine\ORM\EntityManagerInterface (doctrine.orm.default_entity_manager)
+ Doctrine\ORM\EntityManagerInterface $defaultEntityManager (doctrine.orm.default_entity_manager)
+ 
+ Contract covering object managers for a Doctrine persistence layer ManagerRegistry class to implement.
+ Doctrine\Persistence\ManagerRegistry (doctrine)
+ 
+ CacheItemPoolInterface generates CacheItemInterface objects.
+ Psr\Cache\CacheItemPoolInterface (cache.app)
+ 
+ Psr\Container\ContainerInterface $parameterBag (parameter_bag)
+ 
+ Defines a dispatcher for events.
+ Psr\EventDispatcher\EventDispatcherInterface (debug.event_dispatcher)
+ 
+ Describes a logger instance.
+ Psr\Log\LoggerInterface (monolog.logger)
+ Psr\Log\LoggerInterface $cacheLogger (monolog.logger.cache)
+ Psr\Log\LoggerInterface $consoleLogger (monolog.logger.console)
+ Psr\Log\LoggerInterface $deprecationLogger (monolog.logger.deprecation)
+ Psr\Log\LoggerInterface $doctrineLogger (monolog.logger.doctrine)
+ Psr\Log\LoggerInterface $eventLogger (monolog.logger.event)
+ Psr\Log\LoggerInterface $httpClientLogger (monolog.logger.http_client)
+ Psr\Log\LoggerInterface $lockLogger (monolog.logger.lock)
+ Psr\Log\LoggerInterface $messengerLogger (monolog.logger.messenger)
+ Psr\Log\LoggerInterface $phpLogger (monolog.logger.php)
+ Psr\Log\LoggerInterface $profilerLogger (monolog.logger.profiler)
+ Psr\Log\LoggerInterface $requestLogger (monolog.logger.request)
+ Psr\Log\LoggerInterface $routerLogger (monolog.logger.router)
+ Psr\Log\LoggerInterface $securityLogger (monolog.logger.security)
+ Psr\Log\LoggerInterface $translationLogger (monolog.logger.translation)
+ 
+ SessionHandlerInterface (session.handler.native_file)
+ 
+ Redirects a request to another URL.
+ Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+ 
+ TemplateController.
+ Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+ 
+ Helps manage asset URLs.
+ Symfony\Component\Asset\Packages (assets.packages)
+ 
+ ContainerBagInterface is the interface implemented by objects that manage service container parameters.
+ Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface (parameter_bag)
+ 
+ ParameterBagInterface is the interface implemented by objects that manage service container parameters.
+ Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface (parameter_bag)
+ 
+ Turns public and "container.reversible" services back to their ids.
+ Symfony\Component\DependencyInjection\ReverseContainer (reverse_container)
+ 
+ The EventDispatcherInterface is the central point of Symfony's event listener system. Listeners are registered on the manager and events are dispatched through the manager.
+ Symfony\Component\EventDispatcher\EventDispatcherInterface (debug.event_dispatcher)
+ 
+ Provides basic utility to manipulate the file system.
+ Symfony\Component\Filesystem\Filesystem (filesystem)
+ 
+ Allows creating a form based on a name, a class or a property.
+ Symfony\Component\Form\FormFactoryInterface (form.factory)
+ 
+ The central registry of the Form component.
+ Symfony\Component\Form\FormRegistryInterface (form.registry)
+ 
+ Creates ResolvedFormTypeInterface instances.
+ Symfony\Component\Form\ResolvedFormTypeFactoryInterface (form.resolved_type_factory)
+ 
+ Request stack that controls the lifecycle of requests.
+ Symfony\Component\HttpFoundation\RequestStack (request_stack)
+ 
+ A helper service for manipulating URLs within and outside the request scope.
+ Symfony\Component\HttpFoundation\UrlHelper (url_helper)
+ 
+ FileLocator uses the KernelInterface to locate resources in bundles.
+ Symfony\Component\HttpKernel\Config\FileLocator (file_locator)
+ 
+ Formats debug file links.
+ Symfony\Component\HttpKernel\Debug\FileLinkFormatter (debug.file_link_formatter)
+ 
+ Interface implemented by rendering strategies able to generate an URL for a fragment.
+ Symfony\Component\HttpKernel\Fragment\FragmentUriGeneratorInterface (fragment.uri_generator)
+ 
+ Interface implemented by HTTP cache stores.
+ Symfony\Component\HttpKernel\HttpCache\StoreInterface (http_cache.store)
+ 
+ HttpKernelInterface handles a Request to convert it to a Response.
+ Symfony\Component\HttpKernel\HttpKernelInterface (http_kernel)
+ 
+ The Kernel is the heart of the Symfony system.
+ Symfony\Component\HttpKernel\KernelInterface (kernel)
+ 
+ Signs URIs.
+ Symfony\Component\HttpKernel\UriSigner (uri_signer)
+ 
+ Factory provides method to create locks.
+ Symfony\Component\Lock\LockFactory (lock.default.factory)
+ 
+ Symfony\Component\Messenger\MessageBusInterface (debug.traced.messenger.bus.default)
+ 
+ Symfony\Component\Messenger\Transport\Serialization\SerializerInterface (messenger.transport.native_php_serializer)
+ 
+ Interface for the Notifier system.
+ Symfony\Component\Notifier\NotifierInterface (notifier)
+ 
+ PasswordHasherFactoryInterface to support different password hashers for different user accounts.
+ Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface (security.password_hasher_factory)
+ 
+ Interface for the user password hasher service.
+ Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface (security.user_password_hasher)
+ 
+ Writes and reads values to/from an object/array graph.
+ Symfony\Component\PropertyAccess\PropertyAccessorInterface (property_accessor)
+ 
+ Guesses if the property can be accessed or mutated.
+ Symfony\Component\PropertyInfo\PropertyAccessExtractorInterface (property_info)
+ 
+ Guesses the property's human readable description.
+ Symfony\Component\PropertyInfo\PropertyDescriptionExtractorInterface (property_info)
+ 
+ Gets info about PHP class properties.
+ Symfony\Component\PropertyInfo\PropertyInfoExtractorInterface (property_info)
+ 
+ Guesses if the property can be initialized through the constructor.
+ Symfony\Component\PropertyInfo\PropertyInitializableExtractorInterface (property_info)
+ 
+ Extracts the list of properties available for the given class.
+ Symfony\Component\PropertyInfo\PropertyListExtractorInterface (property_info)
+ 
+ Extract read information for the property of a class.
+ Symfony\Component\PropertyInfo\PropertyReadInfoExtractorInterface (property_info.reflection_extractor)
+ 
+ Type Extractor Interface.
+ Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface (property_info)
+ 
+ Extract write information for the property of a class.
+ Symfony\Component\PropertyInfo\PropertyWriteInfoExtractorInterface (property_info.reflection_extractor)
+ 
+ UrlGeneratorInterface is the interface that all URL generator classes must implement.
+ Symfony\Component\Routing\Generator\UrlGeneratorInterface (router.default)
+ 
+ UrlMatcherInterface is the interface that all URL matcher classes must implement.
+ Symfony\Component\Routing\Matcher\UrlMatcherInterface (router.default)
+ 
+ Holds information about the current request.
+ Symfony\Component\Routing\RequestContext (router.request_context)
+ 
+ Symfony\Component\Routing\RequestContextAwareInterface (router.default)
+ 
+ RouterInterface is the interface that all Router classes must implement.
+ Symfony\Component\Routing\RouterInterface (router.default)
+ 
+ The TokenStorageInterface.
+ Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface (security.token_storage)
+ 
+ AccessDecisionManagerInterface makes authorization decisions.
+ Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface (debug.security.access.decision_manager)
+ 
+ The AuthorizationCheckerInterface.
+ Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface (security.authorization_checker)
+ 
+ RoleHierarchyInterface is the interface for a role hierarchy.
+ Symfony\Component\Security\Core\Role\RoleHierarchyInterface (security.role_hierarchy)
+ 
+ Helper class for commonly-needed security tasks.
+ Symfony\Component\Security\Core\Security (security.helper)
+ 
+ Implement to throw AccountStatusException during the authentication process.
+ Symfony\Component\Security\Core\User\UserCheckerInterface (security.user_checker)
+ 
+ Represents a class that loads UserInterface objects from some source for the authentication system.
+ Symfony\Component\Security\Core\User\UserProviderInterface (security.user.provider.concrete.users_in_memory)
+ 
+ Manages CSRF tokens.
+ Symfony\Component\Security\Csrf\CsrfTokenManagerInterface (security.csrf.token_manager)
+ 
+ Generates CSRF tokens.
+ Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface (security.csrf.token_generator)
+ 
+ Stores CSRF tokens.
+ Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface (security.csrf.token_storage)
+ 
+ Extracts Security Errors from Request.
+ Symfony\Component\Security\Http\Authentication\AuthenticationUtils (security.authentication_utils)
+ 
+ Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface (security.user_authenticator)
+ 
+ Firewall uses a FirewallMap to register security listeners for the given request.
+ Symfony\Component\Security\Http\Firewall (debug.security.firewall)
+ 
+ This interface must be implemented by firewall maps.
+ Symfony\Component\Security\Http\FirewallMapInterface (security.firewall.map)
+ 
+ Encapsulates the logic needed to create sub-requests, redirect the user, and match URLs.
+ Symfony\Component\Security\Http\HttpUtils (security.http_utils)
+ 
+ SessionAuthenticationStrategyInterface.
+ Symfony\Component\Security\Http\Session\SessionAuthenticationStrategyInterface (security.authentication.session_strategy)
+ 
+ Symfony\Component\Serializer\Encoder\DecoderInterface (debug.serializer)
+ 
+ Symfony\Component\Serializer\Encoder\EncoderInterface (debug.serializer)
+ 
+ Knows how to get the class discriminator mapping for classes and objects.
+ Symfony\Component\Serializer\Mapping\ClassDiscriminatorResolverInterface (serializer.mapping.class_discriminator_resolver)
+ 
+ Returns a {@see ClassMetadataInterface}.
+ Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface (serializer.mapping.class_metadata_factory)
+ 
+ Symfony\Component\Serializer\Normalizer\DenormalizerInterface (debug.serializer)
+ 
+ Symfony\Component\Serializer\Normalizer\NormalizerInterface (debug.serializer)
+ 
+ Converts between objects and arrays using the PropertyAccess component.
+ Symfony\Component\Serializer\Normalizer\ObjectNormalizer (debug.serializer.normalizer.object)
+ 
+ Converts between objects and arrays by mapping properties.
+ Symfony\Component\Serializer\Normalizer\PropertyNormalizer (serializer.normalizer.property)
+ 
+ Symfony\Component\Serializer\SerializerInterface (debug.serializer)
+ 
+ Stopwatch provides a way to profile code.
+ Symfony\Component\Stopwatch\Stopwatch (debug.stopwatch)
+ 
+ Creates a URL-friendly slug from a given string.
+ Symfony\Component\String\Slugger\SluggerInterface (slugger)
+ 
+ Extracts translation messages from a directory or files to the catalogue. New found messages are injected to the catalogue using the prefix.
+ Symfony\Component\Translation\Extractor\ExtractorInterface (translation.extractor)
+ 
+ Symfony\Component\Translation\LocaleSwitcher (translation.locale_switcher)
+ 
+ TranslationReader reads translation messages from translation files.
+ Symfony\Component\Translation\Reader\TranslationReaderInterface (translation.reader)
+ 
+ TranslationWriter writes translation messages.
+ Symfony\Component\Translation\Writer\TranslationWriterInterface (translation.writer)
+ 
+ Symfony\Component\Uid\Factory\NameBasedUuidFactory (name_based_uuid.factory)
+ 
+ Symfony\Component\Uid\Factory\RandomBasedUuidFactory (random_based_uuid.factory)
+ 
+ Symfony\Component\Uid\Factory\TimeBasedUuidFactory (time_based_uuid.factory)
+ 
+ Symfony\Component\Uid\Factory\UlidFactory (ulid.factory)
+ 
+ Symfony\Component\Uid\Factory\UuidFactory (uuid.factory)
+ 
+ Validates PHP values against constraints.
+ Symfony\Component\Validator\Validator\ValidatorInterface (debug.validator)
+ 
+ Symfony\Component\Workflow\Registry (workflow.registry)
+ 
+ Covers most simple to advanced caching needs.
+ Symfony\Contracts\Cache\CacheInterface (cache.app)
+ 
+ Allows invalidating cached items using tags.
+ Symfony\Contracts\Cache\TagAwareCacheInterface (cache.app.taggable)
+ 
+ Allows providing hooks on domain-specific lifecycles by dispatching events.
+ Symfony\Contracts\EventDispatcher\EventDispatcherInterface (debug.event_dispatcher)
+ 
+ Provides flexible methods for requesting HTTP resources synchronously or asynchronously.
+ Symfony\Contracts\HttpClient\HttpClientInterface (.debug.http_client)
+ 
+ Symfony\Contracts\Translation\LocaleAwareInterface (translation.locale_switcher)
+ 
+ Symfony\Contracts\Translation\TranslatorInterface (translator.data_collector)
+ 
+ Stores the Twig configuration and renders templates.
+ Twig\Environment (twig)
+
+ Pro-tip: use interfaces in your type-hints instead of classes to benefit from the dependency inversion principle.
+
