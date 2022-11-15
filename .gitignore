@@ -7,7 +7,9 @@
 /public/bundles/
 /var/
 /vendor/
+/migrations/*
 /notes.md
+/test.txt
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
