@@ -31,8 +31,8 @@ final class GetModuleController extends AbstractController
 		/** @var string $module */
 		$module = $this->handle(new FindModuleQuery($id));
 
-		$this->logger->critical($module);
-		$result = trim(stripslashes($module), '"');
+		$this->logger->info($module);
+		$result = $module;
 		return JsonResponse::fromJsonString($result);
 	}
 }

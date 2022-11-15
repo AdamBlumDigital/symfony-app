@@ -8,7 +8,7 @@ use App\Modules\Module\Application\Model\FindModuleQuery;
 use App\Modules\Module\Domain\Repository\ModuleRepositoryInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
-use json_encode;
+use Psr\Log\LoggerInterface;
 
 final class ModuleFinderHandler implements MessageHandlerInterface
 {
@@ -16,22 +16,28 @@ final class ModuleFinderHandler implements MessageHandlerInterface
 
 	private SerializerInterface $serializer;
 
+	private LoggerInterface $logger;
+
 	public function __construct(
 		ModuleRepositoryInterface $moduleRepository, 
-		SerializerInterface $serializer
+		SerializerInterface $serializer,
+		LoggerInterface $logger
 	)
 	{
 		$this->moduleRepository = $moduleRepository;
 		$this->serializer = $serializer;
+		$this->logger = $logger;
 	}
 
 	public function __invoke(FindModuleQuery $findModuleQuery): string
 	{
 		$moduleId = $findModuleQuery->getModuleId();
 
+		$this->logger->info('Module Finder Handler Invoked');
+
 		$module = $this->moduleRepository->find($moduleId);	
 		$result = $this->serializer->serialize($module, 'json');
-		return json_encode($result, JSON_THROW_ON_ERROR);
+		return $result;
 	}
 
 
