@@ -28,10 +28,13 @@ final class GetModuleController extends AbstractController
 
 	public function __invoke(string $id): JsonResponse
 	{
+		$this->logger->info('Invoked <GetModuleController>');
+		$this->logger->info('Going to handle <FindModuleQuery>');
 		/** @var string $module */
 		$module = $this->handle(new FindModuleQuery($id));
 
-		$this->logger->info($module);
+		$this->logger->info('<FindModuleQuery> returned data');
+
 		$result = $module;
 		return JsonResponse::fromJsonString($result);
 	}

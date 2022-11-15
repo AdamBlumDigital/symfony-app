@@ -8,18 +8,30 @@ use App\Modules\Module\Application\Event\OnCreationRequestedEvent;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Psr\Log\LoggerInterface;
 
 final class CreationRequestedEventSubscriber implements EventSubscriberInterface
 {
-	private MessageBusInterface $messageBus;
+	private MessageBusInterface $messageBus;	
+	private LoggerInterface $logger;
 
+	/**
+	 * Dependency Injection
+	 */
 	public function __construct(
-		MessageBusInterface $messageBus
+		MessageBusInterface $messageBus,
+		LoggerInterface $logger
 	)
 	{
 		$this->messageBus = $messageBus;
+		$this->logger = $logger;
 	}
 
+	/**
+	 * Listen to OnCreationRequestedEvent
+	 *
+	 * @see	App\Modules\Module\Application\Event\OnCreationRequestedEvent
+	 */
 	public static function getSubscribedEvents(): array
     {
         return [
@@ -27,11 +39,19 @@ final class CreationRequestedEventSubscriber implements EventSubscriberInterface
         ];
     }
 
+	/**
+	 * When OnCreationRequestedEvent is received, 
+	 * dispatch CreateModuleCommand
+	 *
+	 * @see App\Modules\Module\Application\Model\CreateModuleCommand
+	 */
 	public function createModule(OnCreationRequestedEvent $event): void
 	{
+		$this->logger->info('Going to instantiate <CreateModuleCommand> from <CreationRequestedEventSubscriber>');
 		$createModuleCommand = new CreateModuleCommand();
 		$createModuleCommand->setTitle($event->getTitle());	
 
+		$this->logger->info('Dispatching <CreateModuleCommand>');
 		$this->messageBus->dispatch($createModuleCommand);
 	}
 }

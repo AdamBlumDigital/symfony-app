@@ -10,6 +10,7 @@
 /migrations/*
 /notes.md
 /test.txt
+/doc/phpdoc
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
