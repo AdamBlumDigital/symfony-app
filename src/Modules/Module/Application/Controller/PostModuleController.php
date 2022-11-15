@@ -26,24 +26,30 @@ final class PostModuleController extends AbstractController
 		$this->logger = $logger;
 	}
 
-	public function __invoke(/*Request $request*/ string $title): JsonResponse
+	public function __invoke(Request $request): JsonResponse
 	{
-		/** @@@@var array{'title': string} $parameters */
-		/*$parameters = json_decode(
+		/**
+		 *	@todo	Does this `json_decode` function
+		 *			need to be replaced by `deserialize`
+		 *			or `normalize`?
+		 */
+		/** @var array{'title': string} $parameters */
+		$parameters = json_decode(
 			$request->getContent(),
         	true, 512,
         	JSON_THROW_ON_ERROR
-		);*/
+		);
 
 		$this->logger->info('<PostModuleController> Invoked');
-		$this->logger->info('Going to dispatch new <OnCreationRequestedEvent>');
+		$this->logger->info('<OnCreationRequestedEvent> will be dispatched');
 		$this->eventDispatcher->dispatch(new OnCreationRequestedEvent(
-//			$parameters['title']
-			$title
+			$parameters['title']
 		));
 
+		$this->logger->info('<PostModuleController> will respond');
 		return new JsonResponse(
 //			$request->getSession()->get('last_article_created')
+			$parameters
 		);
 	}
 }

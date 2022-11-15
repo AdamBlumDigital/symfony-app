@@ -34,6 +34,7 @@ final class CreateModuleHandler implements MessageHandlerInterface
 	public function __invoke(CreateModuleCommand $createModuleCommand):void
 	{
 		$this->logger->info('<CreateModuleHandler> Invoked');
+		$this->logger->info('<Module> will be created');
 		$module = Module::create(
 			new ModuleId(
 				Uuid::v4()->jsonSerialize()	// Return UUID as string, not object
@@ -41,11 +42,11 @@ final class CreateModuleHandler implements MessageHandlerInterface
 			$createModuleCommand->getTitle()
 		);
 
-		$this->logger->info('New <Module> being saved to <ModuleRepository>');
+		$this->logger->info('<Module> being saved to <ModuleRepository>');
 		$this->moduleRepository->save($module);
 
 		foreach ($module->pullDomainEvents() as $domainEvent) {
-			$this->logger->info('Dispatching domain events');
+			$this->logger->info('<Module> Domain Events being dispatched');
 			$this->eventDispatcher->dispatch($domainEvent);
 		}
 	}
