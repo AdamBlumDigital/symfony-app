@@ -4,29 +4,29 @@ declare(strict_types=1);
 
 namespace App\Shared\ValueObject;
 
-use Symfony\Component\Uid\Ulid;
+use Symfony\Component\Uid\Uuid;
 use InvalidArgumentException;
 
 abstract class AggregateRootId
 {
-	protected string $ulid;
+	protected string $uuid;
 
-	public function __construct(string $ulid)
+	public function __construct(string $uuid)
 	{
-		if (!Ulid::isValid($ulid)) {
-			throw new InvalidArgumentException('Not valid ULID');
+		if (!Uuid::isValid($uuid)) {
+			throw new InvalidArgumentException('Not valid UUID');
 		}
 
-		$this->ulid = $ulid;
+		$this->uuid = $uuid;
 	}
 
 	public function getValue(): string 
 	{
-		return $this->ulid;
+		return $this->uuid;
 	}
 
 	public function __toString(): string
 	{
-		return $this->ulid;
+		return $this->uuid;
 	}
 }

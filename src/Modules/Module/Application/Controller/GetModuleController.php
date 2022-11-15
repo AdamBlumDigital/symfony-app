@@ -9,15 +9,30 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Psr\Log\LoggerInterface;
 
 final class GetModuleController extends AbstractController
 {
 	use HandleTrait;
 
-	public function __invoke(/*string $id*/): JsonResponse
+	private LoggerInterface $logger;
+
+	public function __construct(
+		MessageBusInterface $messageBus,
+		LoggerInterface $logger
+	)
 	{
-//		$module = $this->handle(new FindModuleQuery($id));
-//		return JsonResponse::FromJsonString($module);
-		return new JsonResponse(['title' => 'GetModuleController']);
+		$this->messageBus = $messageBus;
+		$this->logger = $logger;
+	}
+
+	public function __invoke(string $id): JsonResponse
+	{
+		/** @var string $module */
+		$module = $this->handle(new FindModuleQuery($id));
+
+		$this->logger->critical($module);
+		$result = trim(stripslashes($module), '"');
+		return JsonResponse::fromJsonString($result);
 	}
 }

@@ -15,26 +15,29 @@ final class PostModuleController extends AbstractController
 {
 	private EventDispatcherInterface $eventDispatcher;
 
-	public function __construct(EventDispatcherInterface $eventDispatcher)
+	public function __construct(
+		EventDispatcherInterface $eventDispatcher
+	)
 	{
 		$this->eventDispatcher = $eventDispatcher;
 	}
 
-	public function __invoke(Request $request): JsonResponse
+	public function __invoke(/*Request $request*/ string $title): JsonResponse
 	{
-		/** @var array{'title': string} $parameters */
-		$parameters = json_decode(
-        	$request->getContent(),
+		/** @@@@var array{'title': string} $parameters */
+		/*$parameters = json_decode(
+			$request->getContent(),
         	true, 512,
         	JSON_THROW_ON_ERROR
-        );
+		);*/
 
 		$this->eventDispatcher->dispatch(new OnCreationRequestedEvent(
-			$parameters['title']
+//			$parameters['title']
+			$title
 		));
 
 		return new JsonResponse(
-			$request->getSession()->get('last_article_created')
+//			$request->getSession()->get('last_article_created')
 		);
 	}
 }

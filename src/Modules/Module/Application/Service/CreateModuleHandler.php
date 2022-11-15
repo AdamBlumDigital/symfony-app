@@ -11,43 +11,35 @@ use App\Modules\Module\Domain\Repository\ModuleRepositoryInterface;
 use App\Shared\ValueObject\AggregateRootId;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Uid\Ulid;
+use Symfony\Component\Uid\Uuid;
+use Psr\Log\LoggerInterface;
 
 final class CreateModuleHandler implements MessageHandlerInterface
 {
 	private ModuleRepositoryInterface $moduleRepository;
 	private EventDispatcherInterface $eventDispatcher;
-	private RequestStack $requestStack;
-	private SerializerInterface $serializer;
+	private LoggerInterface $logger;
 
 	public function __construct(
 		ModuleRepositoryInterface $moduleRepository,
 		EventDispatcherInterface $eventDispatcher,
-		RequestStack $requestStack,
-		SerializerInterface $serializer
+		LoggerInterface $logger
 	)
 	{
 		$this->moduleRepository = $moduleRepository;
 		$this->eventDispatcher = $eventDispatcher;
-		$this->requestStack = $requestStack;
-		$this->serializer = $serializer;
+		$this->logger = $logger;
 	}
 
 	public function __invoke(CreateModuleCommand $createModuleCommand):void
 	{
+		$this->logger->info('CreateModuleHandler Invoked');
 		$module = Module::create(
-			new ModuleId(Ulid::generate()),
-			'Title'
-		);	
+			new ModuleId(Uuid::v4()->jsonSerialize()),
+			$createModuleCommand->getTitle()
+		);
 
 		$this->moduleRepository->save($module);
-
-		$this->requestStack->getSession()->set(
-			'last_article_created',
-			$this->serializer->serialize($module, 'json')
-		);
 
 		foreach ($module->pullDomainEvents() as $domainEvent) {
 			$this->eventDispatcher->dispatch($domainEvent);
