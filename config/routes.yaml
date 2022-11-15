@@ -9,8 +9,13 @@ controllers:
 kernel:
     resource: ../src/Kernel.php
     type: annotation
-home:
-    path: /
+get_module:
+    path: /view/{id}
     controller: App\Modules\Module\Application\Controller\GetModuleController
+    methods: GET 
+post_module:
+    path: /make/{title}
+    controller: App\Modules\Module\Application\Controller\PostModuleController
+    methods: GET
     # if the action is implemented as the __invoke() method of the
     # controller class, you can skip the '::method_name' part:
