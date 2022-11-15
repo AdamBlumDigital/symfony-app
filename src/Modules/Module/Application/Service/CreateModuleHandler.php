@@ -13,6 +13,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Uid\Ulid;
 
 final class CreateModuleHandler implements MessageHandlerInterface
 {
@@ -37,7 +38,7 @@ final class CreateModuleHandler implements MessageHandlerInterface
 	public function __invoke(CreateModuleCommand $createModuleCommand):void
 	{
 		$module = Module::create(
-			new ModuleId('1'),
+			new ModuleId(Ulid::generate()),
 			'Title'
 		);	
 

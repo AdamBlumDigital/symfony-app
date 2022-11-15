@@ -7,12 +7,17 @@ namespace App\Modules\Module\Domain\Entity;
 use App\Shared\Aggregate\AggregateRoot;
 use App\Modules\Module\Domain\Entity\ModuleId;
 use App\Modules\Module\Domain\Event\ModuleCreatedEvent;
+use DateTimeImmutable;
 
 class Module extends AggregateRoot
 {
 	private string $id;
 
 	private string $title;
+
+	private DateTimeImmutable $createdAt;
+
+	private DateTimeImmutable $updatedAt;
 
 	public function __construct(ModuleId $id)
 	{
@@ -36,10 +41,40 @@ class Module extends AggregateRoot
 		return $this;
 	}
 
-	public static function create(ModuleId $moduleId, string $title): self
+
+	public function getCreatedAt(): ?DateTimeImmutable
+	{
+		return $this->createdAt;
+	}
+
+	public function setCreatedAt(DateTimeImmutable $createdAt): self
+	{
+		$this->createdAt = $createdAt;
+
+		return $this;
+	}
+
+	public function getUpdatedAt(): ?DateTimeImmutable
+	{
+		return $this->updatedAt;
+	}
+
+	public function setUpdatedAt(DateTimeImmutable $updatedAt): self
+	{
+		$this->updatedAt = $updatedAt;
+
+		return $this;
+	}
+
+	public static function create(
+		ModuleId $moduleId, 
+		string $title
+	): self
 	{
 		$module = new self($moduleId);
 		$module->setTitle($title);
+		$module->setCreatedAt(new DateTimeImmutable('now'));
+		$module->setUpdatedAt(new DateTimeImmutable('now'));
 
 		$module->recordDomainEvent(new ModuleCreatedEvent($moduleId));
 

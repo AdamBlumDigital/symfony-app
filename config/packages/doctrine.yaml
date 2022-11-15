@@ -11,8 +11,9 @@ doctrine:
         auto_mapping: true
         mappings:
             Module:
+                type: xml
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Modules/Module/Domain/Entity'
+                dir: '%kernel.project_dir%/src/Modules/Module/Infrastructure/DoctrineMapping'
                 prefix: 'App\Modules\Module\Domain\Entity'
                 alias: Module
 
