@@ -32,15 +32,21 @@ final class ModuleFinderHandler implements MessageHandlerInterface
 	public function __invoke(FindModuleQuery $findModuleQuery): string
 	{
 		$this->logger->info('<Module Finder Handler> Invoked');
+
 		$moduleId = $findModuleQuery->getModuleId();
+
 		$this->logger->info(
 			'<Module Finder Handler> looking for <Module> with ID <' . $moduleId . '>'
 		);
+
 		$module = $this->moduleRepository->find($moduleId);	
+
 		$result = $this->serializer->serialize($module, 'json');
+
 		$this->logger->info(
 			'<Module Repository> found Module: <' . $result . '>'
 		);
+
 		return $result;
 	}
 

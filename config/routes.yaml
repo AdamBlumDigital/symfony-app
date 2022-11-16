@@ -14,8 +14,8 @@ get_module:
     controller: App\Modules\Module\Application\Controller\GetModuleController
     methods: GET 
 post_module:
-    path: /make/{title}
+    path: /create
     controller: App\Modules\Module\Application\Controller\PostModuleController
-    methods: GET
+    methods: POST
     # if the action is implemented as the __invoke() method of the
     # controller class, you can skip the '::method_name' part:

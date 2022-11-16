@@ -41,14 +41,15 @@ final class PostModuleController extends AbstractController
 		);
 
 		$this->logger->info('<PostModuleController> Invoked');
+
 		$this->logger->info('<OnCreationRequestedEvent> will be dispatched');
+
 		$this->eventDispatcher->dispatch(new OnCreationRequestedEvent(
 			$parameters['title']
 		));
 
 		$this->logger->info('<PostModuleController> will respond');
 		return new JsonResponse(
-//			$request->getSession()->get('last_article_created')
 			$parameters
 		);
 	}

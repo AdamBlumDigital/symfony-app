@@ -48,11 +48,15 @@ final class CreationRequestedEventSubscriber implements EventSubscriberInterface
 	public function createModule(OnCreationRequestedEvent $event): void
 	{
 		$this->logger->info('<OnCreationRequestedEvent> heard by <CreationRequestedEventSubscriber>');
+
 		$this->logger->info('<CreateModuleCommand> will be instantiated');
+
 		$createModuleCommand = new CreateModuleCommand();
+
 		$createModuleCommand->setTitle($event->getTitle());	
 
 		$this->logger->info('<CreateModuleCommand> will be dispatched');
+
 		$this->messageBus->dispatch($createModuleCommand);
 	}
 }
