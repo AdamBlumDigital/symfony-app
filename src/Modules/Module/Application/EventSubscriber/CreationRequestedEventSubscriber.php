@@ -9,6 +9,7 @@ use App\Modules\Module\Application\Event\OnCreationRequestedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Psr\Log\LoggerInterface;
+use App\Modules\Module\Domain\Event\ModuleCreatedEvent;
 
 final class CreationRequestedEventSubscriber implements EventSubscriberInterface
 {
@@ -36,6 +37,7 @@ final class CreationRequestedEventSubscriber implements EventSubscriberInterface
     {
         return [
             OnCreationRequestedEvent::class => 'createModule',
+			ModuleCreatedEvent::class => 'testing'
         ];
     }
 
@@ -58,5 +60,11 @@ final class CreationRequestedEventSubscriber implements EventSubscriberInterface
 		$this->logger->info('<CreateModuleCommand> will be dispatched');
 
 		$this->messageBus->dispatch($createModuleCommand);
+	}
+
+	public function testing(ModuleCreatedEvent $event): void
+	{
+		$serialized = \json_encode($event->getOccur());
+		$this->logger->info('<Module> created: ' . $serialized);
 	}
 }

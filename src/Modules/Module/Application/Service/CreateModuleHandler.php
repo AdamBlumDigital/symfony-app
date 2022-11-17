@@ -48,12 +48,13 @@ final class CreateModuleHandler implements MessageHandlerInterface
 
 		$this->moduleRepository->save($module);
 
-		$moduleDomainEventsSerialized = \json_encode($module->pullDomainEvents());
-		$this->logger->info('Domain Events: '.$moduleDomainEventsSerialized);
+		$this->logger->info('<Module> Domain Events will be dispatched');
 
+		/**
+		 *	Do not call pullDomainEvents() more than once
+		 */
 		foreach ($module->pullDomainEvents() as $domainEvent) {
-			$this->logger->info('<Module> Domain Events being dispatched');
-
+			$this->logger->info('<Module> Domain Event dispatched');
 			$this->eventDispatcher->dispatch($domainEvent);
 		}
 	}
