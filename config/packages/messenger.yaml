@@ -11,8 +11,8 @@ framework:
 
         routing:
             # Route your messages to the transports
-            'App\Modules\Module\Application\Model\CreateModuleCommand': async
-#            'App\Modules\Module\Application\Model\FindModuleQuery': async
+            'App\Shared\Message\AsyncMessageInterface': async
+
 
 # when@test:
 #    framework:
