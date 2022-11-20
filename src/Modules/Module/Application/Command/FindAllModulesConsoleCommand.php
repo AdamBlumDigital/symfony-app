@@ -53,6 +53,9 @@ final class FindAllModulesConsoleCommand extends Command
 			
 			$modules = $this->moduleRepository->findAll();	
 
+			/**
+			 *	@todo	Fix this
+			 */
 			$normalizedModules = $this->serializer->normalize($modules);
 
 			/**
