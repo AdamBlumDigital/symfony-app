@@ -56,6 +56,7 @@ final class FindAllModulesConsoleCommand extends Command
 			/**
 			 *	@todo	Fix this
 			 */
+			/** @phpstan-ignore-next-line */
 			$normalizedModules = $this->serializer->normalize($modules);
 
 			/**

@@ -6,16 +6,13 @@
 			{% if modules is not empty %}
 			<dl>
 				{% for module in modules %}
-				<dt>{{ module.id }}</dt>
+				<dt><a href='{{ path("view_get_module", {id: module.id}) }}'>{{ module.id }}</a></dt>
 				<dd>{{ module.title }}</dd>
 				{% endfor %}
 			</dl>
 			{% else %}
 			<p>No Modules Found</p>
 		{% endif %}
-<pre>.class {
-	color: Canvas;
-}</pre>
     {%- endblock content -%}
 {%- endembed -%}
 {%- endblock body -%}

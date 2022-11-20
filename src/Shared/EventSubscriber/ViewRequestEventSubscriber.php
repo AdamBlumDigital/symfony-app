@@ -23,7 +23,13 @@ class ViewRequestEventSubscriber implements EventSubscriberInterface
 	{
 		$response = $event->getResponse();
 
-		if ($event->getRequestType() != HttpKernelInterface::MAIN_REQUEST) {
+		if (
+			($event->getRequestType() != HttpKernelInterface::MAIN_REQUEST)
+			|| (substr(
+					strval(
+						$event->getRequest()->get('_route')
+					), 0, 1
+				) === '_')) {
 			return $response;
 		}
 
