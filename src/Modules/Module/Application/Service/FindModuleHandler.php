@@ -10,7 +10,7 @@ use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Psr\Log\LoggerInterface;
 
-final class ModuleFinderHandler implements MessageHandlerInterface
+final class FindModuleHandler implements MessageHandlerInterface
 {
 	private ModuleRepositoryInterface $moduleRepository;
 

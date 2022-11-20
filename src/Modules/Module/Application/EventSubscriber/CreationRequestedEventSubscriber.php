@@ -16,9 +16,6 @@ final class CreationRequestedEventSubscriber implements EventSubscriberInterface
 	private MessageBusInterface $messageBus;	
 	private LoggerInterface $logger;
 
-	/**
-	 * Dependency Injection
-	 */
 	public function __construct(
 		MessageBusInterface $messageBus,
 		LoggerInterface $logger
@@ -32,6 +29,9 @@ final class CreationRequestedEventSubscriber implements EventSubscriberInterface
 	 * Listen to OnCreationRequestedEvent
 	 *
 	 * @see	App\Modules\Module\Application\Event\OnCreationRequestedEvent
+	 *
+	 * The `ModuleCreatedEvent` is only here to serve as an example for now,
+	 * since nothing utilizes this event yet.
 	 */
 	public static function getSubscribedEvents(): array
     {
@@ -62,6 +62,12 @@ final class CreationRequestedEventSubscriber implements EventSubscriberInterface
 		$this->messageBus->dispatch($createModuleCommand);
 	}
 
+	/**
+	 *	Just an example of another event being subscribed to.
+	 *
+	 *	There will likely be a `ModuleCreatedEventSubscriber`
+	 *	class soon enough that will listen to this event.
+	 */
 	public function testing(ModuleCreatedEvent $event): void
 	{
 		$serialized = \json_encode($event->getOccur());
