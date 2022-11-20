@@ -2,19 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Module\Application\Controller;
+namespace App\Modules\Module\Application\Controller\View;
 
 use App\Modules\Module\Domain\Repository\ModuleRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Messenger\HandleTrait;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
 use Psr\Log\LoggerInterface;
 
 final class GetAllModulesController extends AbstractController
 {
-	use HandleTrait;
-
 	private LoggerInterface $logger;
 	private ModuleRepositoryInterface $moduleRepository;
 	private SerializerInterface $serializer;
@@ -30,16 +27,14 @@ final class GetAllModulesController extends AbstractController
 		$this->moduleRepository = $moduleRepository;
 	}
 
-	public function __invoke(): JsonResponse
+	public function __invoke(): Response
 	{
 		$this->logger->info('<GetAllModulesController> Invoked');
 		
 		$modules = $this->moduleRepository->findAll();	
 
-		$result = $this->serializer->serialize($modules, 'json');
-
-		$this->logger->info('<GetAllModulesController> will respond');
-
-		return JsonResponse::fromJsonString($result);
+		return $this->render('view/module/all_modules.html.twig', [
+			'modules' => $modules
+		]);
 	}
 }

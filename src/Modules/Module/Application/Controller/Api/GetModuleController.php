@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Module\Application\Controller;
+namespace App\Modules\Module\Application\Controller\Api;
 
 use App\Modules\Module\Application\Model\FindModuleQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

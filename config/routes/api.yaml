@@ -1,0 +1,14 @@
+get_all_modules:
+    path: /view/all
+    controller: App\Modules\Module\Application\Controller\Api\GetAllModulesController
+    methods: GET 
+get_module:
+    path: /view/{id}
+    controller: App\Modules\Module\Application\Controller\Api\GetModuleController
+    methods: GET 
+post_module:
+    path: /create
+    controller: App\Modules\Module\Application\Controller\Api\PostModuleController
+    methods: POST
+    # if the action is implemented as the __invoke() method of the
+    # controller class, you can skip the '::method_name' part:

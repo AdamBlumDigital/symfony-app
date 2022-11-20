@@ -1,7 +1,13 @@
-controllers:
-    resource: ../src/Modules/*/Application/Controller/
-    type: annotation
-    prefix: (_locale)
+api_controllers:
+    resource: 'routes/api.yaml'
+    prefix: /{_locale}/api
+    requirements:
+      _locale: '%app.locales_supported%'
+    defaults:
+      _locale: '%app.locales_default%'
+view_controllers:
+    resource: 'routes/view.yaml'
+    prefix: /{_locale}
     requirements:
       _locale: '%app.locales_supported%'
     defaults:
@@ -9,17 +15,3 @@ controllers:
 kernel:
     resource: ../src/Kernel.php
     type: annotation
-get_all_modules:
-    path: /view/all
-    controller: App\Modules\Module\Application\Controller\GetAllModulesController
-    methods: GET 
-get_module:
-    path: /view/{id}
-    controller: App\Modules\Module\Application\Controller\GetModuleController
-    methods: GET 
-post_module:
-    path: /create
-    controller: App\Modules\Module\Application\Controller\PostModuleController
-    methods: POST
-    # if the action is implemented as the __invoke() method of the
-    # controller class, you can skip the '::method_name' part:

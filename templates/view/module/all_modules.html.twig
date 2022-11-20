@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<p>This is the view for all Modules</p>
+{% if modules is not empty %}
+<dl>
+{% for module in modules %}
+		<dt>{{ module.id }}</dt>
+		<dd>{{ module.title }}</dd>
+{% endfor %}
+</dl>
+{% else %}
+<p>No Modules Found</p>
+{% endif %}
+{% endblock body %}

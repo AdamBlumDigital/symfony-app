@@ -1,0 +1,4 @@
+get_all_modules:
+    path: /view/all
+    controller: App\Modules\Module\Application\Controller\View\GetAllModulesController
+    methods: GET 
