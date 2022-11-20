@@ -40,7 +40,7 @@ final class GetModuleController extends AbstractController
 
 		$this->logger->info('<GetModuleController> will respond');
 
-		return $this->render('view/module/module.html.twig', [
+		return $this->render('@Module/view/single.html.twig', [
 			'module' => $module
 		]);
 	}

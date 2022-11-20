@@ -33,7 +33,7 @@ final class GetAllModulesController extends AbstractController
 		
 		$modules = $this->moduleRepository->findAll();	
 
-		return $this->render('view/module/all_modules.html.twig', [
+		return $this->render('@Module/view/list.html.twig', [
 			'modules' => $modules
 		]);
 	}
