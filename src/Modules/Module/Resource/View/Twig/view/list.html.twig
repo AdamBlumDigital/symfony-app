@@ -1,6 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends template.default %}
 {%- block body -%}
-{%- embed 'layout/default.html.twig' -%}
+{%- embed layout.default -%}
     {%- block content -%}
 		<h1>{{ 'generic.module.count' | trans ({'count': modules | length}) | title }}</h1>
 			{% if modules is not empty %}

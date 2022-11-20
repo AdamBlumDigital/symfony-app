@@ -1,9 +1,13 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
     globals:
+        template:
+            default:  'base.html.twig'
+        layout:
+            default:  'layout/default.html.twig'
         color_scheme: 'light dark'
     paths:
-      'src/Modules/Module/Resource/Twig': 'Module'
+      'src/Modules/Module/Resource/View/Twig': 'Module'
 
 when@test:
     twig:

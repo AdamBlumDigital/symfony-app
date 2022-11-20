@@ -2,6 +2,9 @@ framework:
     default_locale: en
     translator:
         default_path: '%kernel.project_dir%/translations'
+        # Unfortunately, translation paths do not allow wildcards
+        paths:
+            - '%kernel.project_dir%/src/Modules/Module/Resource/Translation/'
         fallbacks:
             - en
 #        providers:

@@ -2,7 +2,7 @@
 <html lang='{{ app.request.locale }}'>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}{{ 'generic.greeting' | trans }}{% endblock %}</title>
 		<meta name='color-scheme' content='{{ color_scheme }}'/>
 		<meta name='viewport' content='width=device-width,initial-scale=1'/>
     	<link rel="icon" href="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="/>
