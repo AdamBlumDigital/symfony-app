@@ -40,7 +40,7 @@ final class FindAllModulesConsoleCommand extends Command
 
 	protected function configure(): void
 	{
-		$this->setHelp('This command creates a new Module with the specified title.');
+		$this->setHelp('This command lists all Modules.');
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output): int
