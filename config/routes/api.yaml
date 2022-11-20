@@ -1,12 +1,12 @@
-get_all_modules:
+api_get_all_modules:
     path: /view/all
     controller: App\Modules\Module\Application\Controller\Api\GetAllModulesController
     methods: GET 
-get_module:
+api_get_module:
     path: /view/{id}
     controller: App\Modules\Module\Application\Controller\Api\GetModuleController
     methods: GET 
-post_module:
+api_post_module:
     path: /create
     controller: App\Modules\Module\Application\Controller\Api\PostModuleController
     methods: POST

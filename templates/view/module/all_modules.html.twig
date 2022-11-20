@@ -1,14 +1,18 @@
 {% extends 'base.html.twig' %}
-{% block body %}
-<p>This is the view for all Modules</p>
-{% if modules is not empty %}
-<dl>
-{% for module in modules %}
-		<dt>{{ module.id }}</dt>
-		<dd>{{ module.title }}</dd>
-{% endfor %}
-</dl>
-{% else %}
-<p>No Modules Found</p>
-{% endif %}
-{% endblock body %}
+{%- block body -%}
+{%- embed 'layout/default.html.twig' -%}
+    {%- block content -%}
+		<h1>{{ 'generic.module.count' | trans ({'count': modules | length}) | title }}</h1>
+			{% if modules is not empty %}
+			<dl>
+				{% for module in modules %}
+				<dt>{{ module.id }}</dt>
+				<dd>{{ module.title }}</dd>
+				{% endfor %}
+			</dl>
+			{% else %}
+			<p>No Modules Found</p>
+		{% endif %}
+    {%- endblock content -%}
+{%- endembed -%}
+{%- endblock body -%}

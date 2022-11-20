@@ -29,7 +29,7 @@ final class FindModuleHandler implements MessageHandlerInterface
 		$this->logger = $logger;
 	}
 
-	public function __invoke(FindModuleQuery $findModuleQuery): string
+	public function __invoke(FindModuleQuery $findModuleQuery): mixed /* was string */
 	{
 		$this->logger->info('<FindModuleHandler> Invoked');
 
@@ -47,7 +47,8 @@ final class FindModuleHandler implements MessageHandlerInterface
 			'<Module Repository> found Module: <' . $result . '>'
 		);
 
-		return $result;
+		/* return $result; */
+		return $module;
 	}
 
 

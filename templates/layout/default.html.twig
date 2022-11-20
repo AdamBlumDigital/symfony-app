@@ -1,0 +1,5 @@
+{% block content %}{% endblock content %}
+{%- set _block = block('sidebar') -%}
+{%- if _block is not empty -%}
+<aside>{%- block sidebar -%}{%- endblock sidebar -%}</aside>
+{%- endif -%}
