@@ -9,6 +9,10 @@ controllers:
 kernel:
     resource: ../src/Kernel.php
     type: annotation
+get_all_modules:
+    path: /view/all
+    controller: App\Modules\Module\Application\Controller\GetAllModulesController
+    methods: GET 
 get_module:
     path: /view/{id}
     controller: App\Modules\Module\Application\Controller\GetModuleController

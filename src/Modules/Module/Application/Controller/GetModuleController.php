@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class GetModuleController extends AbstractController
 {
@@ -26,14 +27,14 @@ final class GetModuleController extends AbstractController
 		$this->logger = $logger;
 	}
 
-	public function __invoke(string $id): JsonResponse
+	public function __invoke(Uuid $id): JsonResponse
 	{
 		$this->logger->info('<GetModuleController> Invoked');
 
 		$this->logger->info('<FindModuleQuery> will be handled');
 
 		/** @var string $module */
-		$module = $this->handle(new FindModuleQuery($id));
+		$module = $this->handle(new FindModuleQuery($id->__toString()));
 
 		$this->logger->info('<FindModuleQuery> returned data');
 

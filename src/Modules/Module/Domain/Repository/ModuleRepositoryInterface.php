@@ -20,5 +20,7 @@ interface ModuleRepositoryInterface
 	 */
 	public function find($id, $lockMode = null, $lockVersion = null);
 
+	public function findAll();
+
 	public function save(Module $module): void;
 }
