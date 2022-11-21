@@ -3,10 +3,11 @@ twig:
     globals:
         color_scheme: 'light dark'
         template:
-            default:  'base.html.twig'
+            default:  '@Shared/base.html.twig'
         layout:
-            default:  'layout/default.html.twig'
+            default:  '@Shared/layout/default.html.twig'
     paths:
+      'src/Shared/Resource/View/Twig': 'Shared'
       'src/Modules/Module/Resource/View/Twig': 'Module'
       'src/Modules/Writing/Article/Resource/View/Twig': 'Article'
 
