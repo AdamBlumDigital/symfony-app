@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use App\Modules\Writing\Article\Application\Event\OnCreationRequestedEvent;
+use App\Modules\Writing\Article\Application\Event\OnArticleCreationRequestedEvent;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
@@ -64,7 +64,7 @@ final class CreateArticleConsoleCommand extends Command
 
 			$io->success('Dispatching Creation Request');
 			/** @phpstan-ignore-next-line */
-			$this->eventDispatcher->dispatch(new OnCreationRequestedEvent($title));
+			$this->eventDispatcher->dispatch(new OnArticleCreationRequestedEvent($title));
 			return Command::SUCCESS;
 		} else {
             $io->error('Article Creation aborted.');

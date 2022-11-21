@@ -13,5 +13,5 @@ view_get_all_articles:
     methods: GET 
 view_get_article:
     path: /writing/view/{id}
-    controller: App\Modules\Article\Application\Controller\View\GetArticleController
+    controller: App\Modules\Writing\Article\Application\Controller\View\GetArticleController
     methods: GET 
