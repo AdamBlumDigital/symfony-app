@@ -6,6 +6,7 @@ twig:
             default:  '@Shared/base.html.twig'
         layout:
             default:  '@Shared/layout/default.html.twig'
+    form_themes: ['@Shared/form_theme/default.html.twig']
     paths:
       'src/Shared/Resource/View/Twig': 'Shared'
       'src/Modules/Module/Resource/View/Twig': 'Module'

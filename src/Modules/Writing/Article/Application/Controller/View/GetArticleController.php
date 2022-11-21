@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Modules\Writing\Article\Application\Controller\View;
 
 use App\Modules\Writing\Article\Application\Model\FindArticleQuery;
+use App\Modules\Writing\Article\Application\Form\ArticleType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\HandleTrait;
@@ -40,8 +41,14 @@ final class GetArticleController extends AbstractController
 
 		$this->logger->info('<GetArticleController> will respond');
 
+		/*
+		 *	Just trying some things out
+		 */
+		$articleForm = $this->createForm(ArticleType::class, $article);
+
 		return $this->render('@Article/view/single.html.twig', [
-			'article' => $article
+			'article' => $article,
+			'articleForm'	=> $articleForm->createView()
 		]);
 	}
 }
