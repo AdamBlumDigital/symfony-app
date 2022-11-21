@@ -1,0 +1,9 @@
+{% extends template.default %}
+{%- block body -%}
+{%- embed layout.default -%}
+    {%- block content -%}
+		<h1>{{ article.title }}</h1>
+		<p>{{ article.id }}</p>
+    {%- endblock content -%}
+{%- endembed -%}
+{%- endblock body -%}

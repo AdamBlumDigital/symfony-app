@@ -1,0 +1,18 @@
+{% extends template.default %}
+{%- block body -%}
+{%- embed layout.default -%}
+    {%- block content -%}
+		<h1>{{ 'generic.article.count' | trans ({'count': articles | length}) | title }}</h1>
+			{% if articles is not empty %}
+			<dl>
+				{% for article in articles %}
+				<dt><a href='{{ path("view_get_article", {id: article.id}) }}'>{{ article.id }}</a></dt>
+				<dd>{{ article.title }}</dd>
+				{% endfor %}
+			</dl>
+			{% else %}
+			<p>No Articles Found</p>
+		{% endif %}
+    {%- endblock content -%}
+{%- endembed -%}
+{%- endblock body -%}

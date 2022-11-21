@@ -6,3 +6,12 @@ view_get_module:
     path: /view/{id}
     controller: App\Modules\Module\Application\Controller\View\GetModuleController
     methods: GET 
+
+view_get_all_articles:
+    path: /writing/view/all
+    controller: App\Modules\Writing\Article\Application\Controller\View\GetAllArticlesController
+    methods: GET 
+view_get_article:
+    path: /writing/view/{id}
+    controller: App\Modules\Article\Application\Controller\View\GetArticleController
+    methods: GET 

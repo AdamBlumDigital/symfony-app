@@ -8,6 +8,7 @@ twig:
             default:  'layout/default.html.twig'
     paths:
       'src/Modules/Module/Resource/View/Twig': 'Module'
+      'src/Modules/Writing/Article/Resource/View/Twig': 'Article'
 
 when@test:
     twig:

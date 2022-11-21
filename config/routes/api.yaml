@@ -12,3 +12,18 @@ api_post_module:
     methods: POST
     # if the action is implemented as the __invoke() method of the
     # controller class, you can skip the '::method_name' part:
+
+api_get_all_articles:
+    path: /writing/view/all
+    controller: App\Modules\Writing\Article\Application\Controller\Api\GetAllArticlesController
+    methods: GET 
+api_get_article:
+    path: /writing/view/{id}
+    controller: App\Modules\Writing\Article\Application\Controller\Api\GetArticleController
+    methods: GET 
+api_post_article:
+    path: /writing/create
+    controller: App\Modules\Writing\Article\Application\Controller\Api\PostArticleController
+    methods: POST
+    # if the action is implemented as the __invoke() method of the
+    # controller class, you can skip the '::method_name' part:

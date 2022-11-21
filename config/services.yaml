@@ -20,6 +20,7 @@ services:
         exclude:
             - '../src/DependencyInjection/'
             - '../src/Modules/*/Domain/Entity/'
+            - '../src/Modules/Writing/*/Domain/Entity/'
             - '../src/Kernel.php'
 
     # add more service definitions when explicit configuration is needed
