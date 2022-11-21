@@ -54,6 +54,14 @@ final class CreateArticleConsoleCommand extends Command
 			return $value;
 		});
 
+		$description = $io->ask('Enter the Article description', null, function($value) {
+			if (!is_string($value)) {
+				throw new \RuntimeException('The Article Description must be a string');
+			}
+
+			return $value;
+		});
+
 		/**
 		 *	Specifies mixed return type, though it always (in this 
 		 *	use case) returns string.
@@ -64,7 +72,7 @@ final class CreateArticleConsoleCommand extends Command
 
 			$io->success('Dispatching Creation Request');
 			/** @phpstan-ignore-next-line */
-			$this->eventDispatcher->dispatch(new OnArticleCreationRequestedEvent($title));
+			$this->eventDispatcher->dispatch(new OnArticleCreationRequestedEvent($title, $description));
 			return Command::SUCCESS;
 		} else {
             $io->error('Article Creation aborted.');

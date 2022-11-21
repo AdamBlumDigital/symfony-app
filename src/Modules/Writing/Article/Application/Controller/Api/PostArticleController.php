@@ -35,7 +35,7 @@ final class PostArticleController extends AbstractController
 		 *			need to be replaced by `deserialize`
 		 *			or `normalize`?
 		 */
-		/** @var array{'title': string} $parameters */
+		/** @var array{'title': string, 'description': string} $parameters */
 		$parameters = json_decode(
 			$request->getContent(),
         	true, 512,
@@ -47,7 +47,8 @@ final class PostArticleController extends AbstractController
 		$this->logger->info('<OnCreationRequestedEvent> will be dispatched');
 
 		$this->eventDispatcher->dispatch(new OnArticleCreationRequestedEvent(
-			$parameters['title']
+			$parameters['title'],
+			$parameters['description']
 		));
 
 		$this->logger->info('<PostArticleController> will respond');

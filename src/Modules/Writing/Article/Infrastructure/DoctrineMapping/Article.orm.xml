@@ -6,5 +6,6 @@
 	<entity name="App\Modules\Writing\Article\Domain\Entity\Article" table="article" repository-class="App\Modules\Writing\Article\Infrastructure\Repository\ArticleRepository">
         <id name="id" type="guid" column="id"/>
 		<field name="title" column="title" length="255"/>
+		<field name="description" column="description" length="255"/>
 	</entity>
 </doctrine-mapping>

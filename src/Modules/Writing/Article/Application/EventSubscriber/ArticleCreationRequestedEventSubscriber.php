@@ -56,6 +56,7 @@ final class ArticleCreationRequestedEventSubscriber implements EventSubscriberIn
 		$createArticleCommand = new CreateArticleCommand();
 
 		$createArticleCommand->setTitle($event->getTitle());	
+		$createArticleCommand->setDescription($event->getDescription());	
 
 		$this->logger->info('<CreateArticleCommand> will be dispatched');
 
