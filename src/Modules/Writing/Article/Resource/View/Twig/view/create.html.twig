@@ -1,0 +1,9 @@
+{% extends template.default %}
+{%- block body -%}
+{%- embed layout.default -%}
+    {%- block content -%}
+	<h1>Create Article</h1>
+	{{ form(articleForm) }}
+    {%- endblock content -%}
+{%- endembed -%}
+{%- endblock body -%}

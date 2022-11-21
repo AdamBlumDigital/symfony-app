@@ -22,5 +22,10 @@
 	</head>
 	<body>
 		{%- block body -%}{%- endblock -%}
+		{% for label, messages in app.flashes %}
+			{% for message in messages %}
+				<p><b>{{ label }}:</b>&nbsp;{{ message }}</p>	
+			{% endfor %}
+		{% endfor %}
 	</body>
 </html>

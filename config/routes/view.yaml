@@ -15,3 +15,11 @@ view_get_article:
     path: /writing/view/{id}
     controller: App\Modules\Writing\Article\Application\Controller\View\GetArticleController
     methods: GET 
+view_create_article:
+    path: /writing/new
+    controller: App\Modules\Writing\Article\Application\Controller\View\CreateArticleController
+    methods: GET 
+view_post_article:
+    path: /writing/post
+    controller: App\Modules\Writing\Article\Application\Controller\View\PostArticleController
+    methods: POST 

@@ -44,7 +44,9 @@ final class GetArticleController extends AbstractController
 		/*
 		 *	Just trying some things out
 		 */
-		$articleForm = $this->createForm(ArticleType::class, $article);
+		$articleForm = $this->createForm(ArticleType::class, $article, [
+			'action' => $this->generateUrl('view_post_article')
+		]);
 
 		return $this->render('@Article/view/single.html.twig', [
 			'article' => $article,
