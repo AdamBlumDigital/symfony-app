@@ -1,0 +1,37 @@
+{%- macro item(name, route = null, params = {}, attrs = {}, loose = false ) -%}
+
+	{% if route is not null %}
+	{% if loose %}
+		{% set is_current = path(route, params) in (app.request.pathinfo) %}
+	{% else %}
+		{% set is_current = path(route, params) is same as(app.request.pathinfo) %}
+	{% endif %}
+	{% endif %}
+
+	{% set item_attrs %}
+		{% if attrs is not empty %}
+			{{ attrs | map( (value,key) => "#{key}=#{value} ")|join(' ') }}
+		{% endif %}
+	{% endset %}
+
+	{% set item_text %}
+		{{ name | trans }}
+	{% endset %}
+
+	<li role='none'>
+		{% if route is not null %}
+		<a 
+			href='{{ path(route, params) }}'
+			{% if is_current %}
+			aria-current='page'
+			{% endif %}
+			{{ item_attrs }}
+		>{{ item_text }}</a>
+		{% else %}
+		<a
+			aria-disabled='true'
+			{{ item_attrs }}
+		>{{ item_text }}</a>
+		{% endif %}
+	</li>
+{%- endmacro -%}

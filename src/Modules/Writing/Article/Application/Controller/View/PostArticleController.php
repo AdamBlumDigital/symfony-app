@@ -41,6 +41,10 @@ final class PostArticleController extends AbstractController
 			));
 		}
 
+		if ($articleForm->isSubmitted() && !$articleForm->isValid()) {
+			$this->addFlash('notice', 'There were problems with your submission.');
+		}
+
 		return $this->redirectToRoute('view_get_all_articles');	
 	}
 

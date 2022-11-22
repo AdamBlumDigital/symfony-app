@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Psr\Log\LoggerInterface;
 
-final class GetAllArticlesController extends AbstractController
+final class GetSomeArticlesController extends AbstractController
 {
 	private LoggerInterface $logger;
 	private ArticleRepositoryInterface $articleRepository;
@@ -23,14 +23,17 @@ final class GetAllArticlesController extends AbstractController
 		$this->articleRepository = $articleRepository;
 	}
 
-	public function __invoke(): Response
+	public function __invoke(int $page = 1, int $size = 3): Response
 	{
 		$this->logger->info('<GetAllArticlesController> Invoked');
 		
-		$articles = $this->articleRepository->findAll();	
+		$articles = $this->articleRepository->findSome($page, $size);	
 
 		return $this->render('@Article/view/index.html.twig', [
-			'articles' => $articles
+			'articles' => $articles,
+			'page'	=> $page,
+			'size'	=> $size,
+			'pages'	=> ceil( count($articles) / $size )
 		]);
 	}
 }

@@ -7,6 +7,15 @@ view_get_module:
     controller: App\Modules\Module\Application\Controller\View\GetModuleController
     methods: GET 
 
+
+view_get_some_articles:
+    path: /writing/{page}
+    controller: App\Modules\Writing\Article\Application\Controller\View\GetSomeArticlesController
+    methods: GET 
+    requirements:
+        page: '\d+'
+    defaults:
+        page: 1
 view_get_all_articles:
     path: /writing/view/all
     controller: App\Modules\Writing\Article\Application\Controller\View\GetAllArticlesController
@@ -18,7 +27,7 @@ view_get_article:
 view_create_article:
     path: /writing/new
     controller: App\Modules\Writing\Article\Application\Controller\View\CreateArticleController
-    methods: GET 
+    methods: GET|POST 
 view_post_article:
     path: /writing/post
     controller: App\Modules\Writing\Article\Application\Controller\View\PostArticleController

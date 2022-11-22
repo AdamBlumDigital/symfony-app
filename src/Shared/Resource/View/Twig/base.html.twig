@@ -7,25 +7,47 @@
 		<meta name='viewport' content='width=device-width,initial-scale=1'/>
 		{%- endblock meta -%}
         <title>{% block title %}{{ 'generic.greeting' | trans }}{% endblock %}</title>
-		{%- block style -%}
     	<link rel="icon" href="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="/>
-		{%- endblock style -%}
+		{%- block style -%}
+
+		<link rel='stylesheet' href='/static/css/style.css'/>
+		<link rel='preload' as='style' href='/static/css/style.css'/>
+		{#
 		<style>
-			* {font: inherit}
 			:root {
+				color-scheme: light dark;
 				font: 150%/1.6 system-ui;
-				max-inline-size: 50ch;
-				margin-inline: auto;
 			}
-			h1,h2,h3,h4,h5,h6 {font-weight:600}
+			p, dt, dd, li {
+				max-inline-size: 50ch;
+			}
+			[aria-current] {outline: thin solid}
+			nav, menu {
+				display: flex;
+				gap: 1em;
+			}
+			li[role='none'] {display: inherit}
 		</style>
+		#}
+		{%- endblock style -%}
 	</head>
 	<body>
-		{%- block body -%}{%- endblock -%}
+		{% import '@Shared/macro/menu.html.twig' as Menu %}
+		<header>
+			<p>Adam Blum Digital</p>
+			<nav>
+				<menu>
+					{{ Menu.item('generic.writing', 'view_get_some_articles', {}, {}, true ) }}
+					{{ Menu.item('action.article.create', 'view_create_article') }}
+				</menu>
+			</nav>
+		</header>
+		<main>{%- block body -%}{%- endblock -%}</main>
 		{% for label, messages in app.flashes %}
 			{% for message in messages %}
-				<p><b>{{ label }}:</b>&nbsp;{{ message }}</p>	
+				<p><b>{{ label }}:</b>&nbsp;{{ message }}</p>
 			{% endfor %}
 		{% endfor %}
+		<footer><p rel='copyright'>Copyright</p></footer>
 	</body>
 </html>

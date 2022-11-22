@@ -9,9 +9,12 @@
 	<header>
 		<h1>{{ article.title }}</h1>
 		<p>{{ article.description }}</p>
-		<p>{{ article.id }}</p>
+		<p><code>{{ article.id }}</code></p>
 	</header>
-	{{ form(articleForm) }}
+
     {%- endblock content -%}
+	{%- block sidebar -%}
+	{{ form(articleForm) }}
+	{%- endblock sidebar -%}
 {%- endembed -%}
 {%- endblock body -%}

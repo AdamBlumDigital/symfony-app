@@ -1,0 +1,32 @@
+{% extends template.default %}
+{%- block body -%}
+{%- embed layout.index with {
+	'items' : articles, 
+	'page': page ?? null,
+	'size': size ?? null,
+	'pages': pages ?? null,
+	'label_count' : 'count.articles', 
+	'label_count_word' : 'count.articles.word', 
+	'label_empty' : 'label.no_articles' 
+} -%}
+
+	{%- block heading -%}	
+	{%- endblock heading -%}	
+
+	{%- block item -%}	
+		<article>
+
+			<h1>
+				<a href='{{ path( 'view_get_article', { 'id' : item.id } )  }}'>
+					{{ item.title }}
+				</a>
+			</h1>
+
+			<p>{{ item.description }}</p>
+
+		</article>
+
+	{%- endblock item -%}	
+
+{%- endembed -%}
+{%- endblock body -%}

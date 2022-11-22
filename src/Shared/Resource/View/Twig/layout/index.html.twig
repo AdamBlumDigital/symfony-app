@@ -1,0 +1,84 @@
+
+{%- macro pagination(context) -%}
+{%- if context.page is not null and context.pages is not null and context.size is not null -%}
+	{% set page_count_start = (context.size * context.page) - context.size + 1 %}
+	{% set page_count_end = min( (context.size * context.page), context.items.count ) %}
+	{% set item_count = ( page_count_end - page_count_start) + 1 %}
+
+	{% set id = 'label-' ~ random(0, 100) %}
+	<p id='{{ id }}'>{{ 'generic.page.position' | trans({'page': context.page, 'pages': context.pages }) }}</p>
+
+	<nav>
+
+		<menu aria-labelledby='{{ id }}'>
+		{% import '@Shared/macro/menu.html.twig' as Menu %}
+
+		{% set has_prev = (context.page > 1) %}
+
+			{{ Menu.item( 
+				'generic.prev',  
+				has_prev ? context.app.request.get('_route') : null,
+				{ 'page': (context.page - 1) },
+				{'rel': 'prev'}
+			) }}
+
+
+		{%- for i in 1..context.pages -%}
+			{{ Menu.item(
+				i | format_number ({min_integer_digit: '2'}), 
+				context.app.request.get('_route'), 
+				{'page': i} 
+			) }}
+		{%- endfor -%}
+
+		{% set has_next = (context.page < context.pages) %}
+
+			{{ Menu.item( 
+				'generic.next',  
+				has_next ? context.app.request.get('_route') : null,
+				{ 'page': (context.page + 1) },
+				{'rel': 'next'}
+			) }}
+
+		</menu>
+	</nav>
+	<p>
+		{{ context.label_count_word | trans( {'count' : item_count } ) | title }}
+		{% if page_count_start is same as(page_count_end) %}
+			{{ page_count_start }}
+		{% else %}
+		{{  page_count_start }}&thinsp;&ndash;&thinsp;{{  page_count_end }}
+		{% endif %}
+		of {{  context.items.count }}
+	</p>
+{%- endif -%}
+{%- endmacro -%}
+
+<header>
+
+	{#<p>{{ label_count | trans( {'count' : items | length } ) | title }}</p>#}
+
+	{{ _self.pagination(_context) }}
+
+
+</header>
+
+
+{%- if items is not empty -%}
+
+	{%- for item in items -%}
+		{{ block('item') }}
+	{%- endfor -%}
+
+{%- else -%}
+
+	<p>{{ label_empty | trans }}</p>
+
+{%- endif -%}
+
+
+
+<footer>
+	{{ _self.pagination(_context) }}
+</footer>
+

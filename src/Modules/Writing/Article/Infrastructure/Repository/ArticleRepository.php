@@ -8,6 +8,7 @@ use App\Modules\Writing\Article\Domain\Entity\Article;
 use App\Modules\Writing\Article\Domain\Repository\ArticleRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * @extends ServiceEntityRepository<Article>
@@ -22,6 +23,21 @@ class ArticleRepository extends ServiceEntityRepository implements ArticleReposi
 	{
 		parent::__construct($registry, Article::class);
 	}
+
+	public function findSome(int $page = 1, int $length = 2): Paginator
+	{
+		$query = $this->createQueryBuilder('a')->getQuery();
+
+		$paginator = new Paginator($query);
+
+		$paginator->getQuery()
+			->setFirstResult($length * ($page - 1) )
+			->setMaxResults($length)
+		;
+
+		return $paginator;
+
+	}	
 
 	public function save(Article $article): void
 	{

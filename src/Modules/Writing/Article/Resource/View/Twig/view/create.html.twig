@@ -1,9 +1,10 @@
 {% extends template.default %}
 {%- block body -%}
-{%- embed layout.default -%}
-    {%- block content -%}
-	<h1>Create Article</h1>
-	{{ form(articleForm) }}
-    {%- endblock content -%}
+{%- embed layout.editor -%}
+    {%- block form -%}
+	{{ form_start(articleForm) }}
+		<h1>Create Article</h1>
+	{{ form_end(articleForm) }}
+    {%- endblock form -%}
 {%- endembed -%}
 {%- endblock body -%}

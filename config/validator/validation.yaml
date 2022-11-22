@@ -1,0 +1,6 @@
+App\Modules\Writing\Article\Application\Model\CreateArticleCommand:
+    properties:
+        title:
+            - NotBlank: ~
+        description:
+            - NotBlank: ~

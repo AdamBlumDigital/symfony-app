@@ -2,15 +2,34 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
 	<file source-language="es" datatype="plaintext" original="file.ext">
 		<body>
+			<trans-unit id="generic.writing">
+				<source>generic.writing</source>
+				<target>Escritura</target>
+			</trans-unit>
 			<trans-unit id="generic.article">
 				<source>generic.article</source>
 				<target>Artículo</target>
-				<note>Just a test Note</note>
 			</trans-unit>
-            <trans-unit id='generic.article.count'>
-                <source>generic.article.count</source>
+			<trans-unit id="generic.articles">
+				<source>generic.articles</source>
+				<target>Artículos</target>
+			</trans-unit>
+            <trans-unit id='count.articles'>
+                <source>count.articles</source>
                 <target>{count, plural, =0 {# artículos} one {# artículo} other {# artículos} }</target>
             </trans-unit>
+            <trans-unit id='count.articles.word'>
+                <source>count.articles.word</source>
+                <target>{count, plural, =0 {artículos} one {artículo} other {artículos} }</target>
+            </trans-unit>
+            <trans-unit id='label.no_articles'>
+                <source>label.no_articles</source>
+                <target>No hay artículos.</target>
+            </trans-unit>
+			<trans-unit id="action.article.create">
+				<source>action.article.create</source>
+				<target>Crear Artículo</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

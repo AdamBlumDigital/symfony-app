@@ -9,13 +9,16 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpFoundation\Response;
-
+/**
+ *	Not currently in use, since it seems like a pretty
+ *	bad idea to use RegEx for HTML
+ */
 class ViewRequestEventSubscriber implements EventSubscriberInterface
 {
 	public static function getSubscribedEvents(): array
 	{
 		return [
-			KernelEvents::RESPONSE => ['minifyView', -256]
+//			KernelEvents::RESPONSE => ['minifyView', -256]
 		];
 	}
 
