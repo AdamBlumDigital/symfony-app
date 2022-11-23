@@ -1,3 +1,4 @@
+
 /**
  * Design Tokens
  */
@@ -53,7 +54,6 @@
 	--color-background-primary-dark: hsl(249, 11%, 12%);
 	--color-background-secondary-dark: hsl(0, 0%, 21%);
 	--color-background-control-dark: hsl(247, 10%, 18%);
-	--color-background-control-hover-dark: hsl(240, 7%, 35%);
 	--color-background-field-dark: hsl(247, 10%, 18%);
 	--color-foreground-link-dark: hsl(196, 100%, 53%);
 	--color-border-dark: hsl(250, 3%, 47%);
@@ -63,7 +63,6 @@
 	--color-background-primary-light: hsl(0, 0%, 96%);
 	--color-background-secondary-light: hsl(30, 10%, 96%);
 	--color-background-control-light: hsl(240, 10%, 92%);
-	--color-background-control-hover-light: hsl(240, 8%, 83%);
 	--color-background-field-light: hsl(240, 10%, 92%);
 	--color-foreground-link-light: hsl(240, 100%, 43%);
 	--color-border-light: hsl(0, 0%, 43%);
@@ -77,7 +76,6 @@
 		--color-background-primary: var(--color-background-primary-dark);
 		--color-background-secondary: var(--color-background-secondary-dark);
 		--color-background-control: var(--color-background-control-dark);
-		--color-background-control-hover: var(--color-background-control-hover-dark);
 		--color-background-field: var(--color-background-field-dark);
 		--color-foreground-link: var(--color-foreground-link-dark);
 		--color-border: var(--color-border-dark);
@@ -90,7 +88,6 @@
 		--color-background-primary: var(--color-background-primary-light);
 		--color-background-secondary: var(--color-background-secondary-light);
 		--color-background-control: var(--color-background-control-light);
-		--color-background-control-hover: var(--color-background-control-hover-light);
 		--color-background-field: var(--color-background-field-light);
 		--color-foreground-link: var(--color-foreground-link-light);
 		--color-border: var(--color-border-light);
@@ -125,7 +122,6 @@ picture {
 dialog:not([open]) {
 	display: none;
 }
-
 /** Cursor/Pointer Adjustments	*/
 [disabled], [aria-disabled='true'] {
 	/**	By default, browsers only
@@ -133,7 +129,6 @@ dialog:not([open]) {
 		disabled elements, which
 		is not accessible. */
 	cursor: not-allowed;
-	pointer-events: none;
 }
 
 button,
@@ -170,6 +165,14 @@ textarea {
 }
 
 
+
+
+
+
+
+
+
+
 /*
  * Layout
  */
@@ -183,40 +186,163 @@ html {
 	block-size:			100%;
 }
 body {
-	padding:			var(--size-variable);
 	min-block-size:		100%;
 	display:			grid;
-	gap:				calc(var(--size-variable) * 2) var(--size-gap);
 	grid-template-rows:	min-content 1fr min-content;
 }
 
-:where(body, main) > :where(header, footer) {
+body > :where(header, main, footer) {
 	display:			flex;
 	flex-wrap:			wrap;
-	gap: var(--size-padding) var(--size-gap);
-	justify-content: space-between;
-	align-items:	center;
 }
+
+
+
+
+/* Main Header and Footer Item Positioning */
+
+:where(body, main) > :where(header, footer) {
+	align-items:		center;
+	justify-content:	space-between;
+	padding:			var(--size-gap);
+}
+
+/* Main Content Layout */
 
 main {
-	gap: var(--size-tab) var(--size-gap);
-	display: grid;
-	align-content: start;
+	display:				flex;
+	flex-wrap:				wrap;
 }
+
+
+
+
+
+/* Content Column Layout */
+
+main > :where(article, aside) {
+	--size-column-max:		var(--size-text-max);
+	display:				grid;
+	gap:					var(--size-gap) 0;
+	grid-template-columns:	[margin-start]	1fr 
+							[content-start]	min(var(--size-column-max), 100%) 
+							[content-end]	1fr	[margin-end];
+}
+
+main > article > header {
+	display:	inherit;
+	gap:		inherit;
+}
+
+/* Content Column Sizing */
+
+/* Primary Content Columns */
 
 main > :where(header, footer) {
-	block-size: min-content;
+	display:	flex;
+	flex-wrap:	wrap;
+	flex-basis: 100%;
+	padding-inline: var(--size-variable);
 }
 
-/* Article Layout */
+main > :where(article):only-of-type {
+	flex-basis:			0;
+	flex-grow:			999;
+	min-inline-size:	var(--size-column-primary-min);
+	align-content:		center;
+}
+main > :where(article):not(:only-of-type) {
+	flex-basis:			100%;
+}
 
-main article {
+/* Secondary Content Columns */
+
+main > :where(aside):last-child:only-of-type {
+	flex-basis:			clamp(var(--size-column-secondary-min), var(--size-column-secondary-ideal), 100%);
+	flex-grow:			1;
+/*	align-content:		end;*/
+	align-content:		start;
+}
+
+main > :where(form):only-child {
+	flex-basis:			100%;
+}
+
+main > :where(nav):first-child {
+	flex-basis:		min-content;
+	flex-grow:		1;
+	display:		flex;
+	gap:			var(--size-padding) var(--size-gap);
+	flex-direction:	column;
+}
+
+/* Content Column Item Positioning */
+
+main > :where(article, aside) > :where(figure, blockquote) {
+	grid-column:			margin-start / margin-end;
+}
+
+main > :where(article, aside) > :where(:not(figure, blockquote)) {
+	grid-column:			content-start / content-end;
+}
+
+/* Content Column Spacing */
+
+main > :where(article, aside, form, nav) {
+	padding:				var(--size-variable);
+	gap:					var(--size-variable) 0;
+}
+
+
+
+
+/* Figure Layout */
+
+figure, figcaption {
+	display:		flex;
+}
+
+figure {
+	display:			flex;
+	gap:				var(--size-gap);
+	justify-content:	center;
+	align-items:		center;
+	flex-wrap:			wrap-reverse;
+	max-inline-size:	100%;
+	margin-block:		clamp(var(--size-gap), var(--size-fluid), var(--size-tab));
+}
+
+figcaption {
+	gap:				var(--size-gap);
+	flex-wrap:			wrap;
+	font-size:			smaller;
+	flex-direction:		column;
+	flex-grow:			1;
+	flex-basis: var(--size-text-min);
 	max-inline-size: var(--size-text-max);
-	margin-inline: auto;
-	display: grid;
-	gap: var(--size-gap);
 }
 
+
+figure pre {
+	overflow-x:			auto;
+	font-size:			smaller;
+	line-height:		var(--type-leading-title);
+	tab-size:			4;
+	border:				var(--size-border) solid var(--color-border);
+	padding:			var(--size-gap);
+	background-color:	var(--color-background-field);
+}
+
+figure pre code ol {
+	list-style-position:	inside;
+}
+figure pre code ol ::marker {
+	color:				var(--color-border);
+}
+
+figure audio {
+	order: -1;
+}
 
 
 /* Navigation Layout */
@@ -233,29 +359,6 @@ nav > :where(menu, ul, ol) {
 }
 nav > :where(menu, ul, ol) > li {
 	list-style:	none;
-	display: contents;
-}
-nav > :where(menu, ul, ol) > li a {
-	display: block;
-	padding: var(--size-padding) calc(var(--size-padding) * 2);
-/*	border-radius: var(--size-radius);*/
-}
-
-
-main nav > :where(menu, ul, ol) > li a {
-	background-color: var(--color-background-control);
-	border-radius: var(--size-radius);
-}
-
-main nav > :where(menu, ul, ol) > li a:where([aria-current='page'], :hover) {
-	outline-offset: 0;
-	background-color: var(--color-background-control-hover);
-}
-
-@media (max-width: 50ch) {
-	main nav menu > li a:where([rel='prev'], [rel='next']) {
-		inline-size: 100%;
-	}
 }
 
 /* Form Layout */
@@ -354,7 +457,6 @@ button):focus-visible,
 :focus-visible::file-selector-button {
 	outline: 0;
 	--color-border:	currentColor;
-	--color-border:	var(--color-foreground-link);
 }
 
 input[type='file']:focus-visible {
@@ -435,22 +537,6 @@ input:where(
 select:where(:not([multiple])) {
 	/* Form Controls */
 	background-color:		var(--color-background-control);
-	color:					var(--color-foreground-control);
-}
-:where(
-	button,
-	input:where(
-		[type='button'],
-		[type='reset'],
-		[type='submit']
-		[type='color'],
-	),
-	::file-selector-button,
-	select:where(:not([multiple])) 
-	):hover
-	{
-	/* Form Control Hover Styles */
-	background-color:		var(--color-background-control-hover);
 	color:					var(--color-foreground-control);
 }
 form > :where(button,
@@ -536,15 +622,14 @@ nav > :where(h1, h2, h3, h4, h5, h6) {
 
 
 /* Hyperlinks */
-a {
+:any-link {
 	color: inherit;
 	text-decoration-color: var(--color-border);
 	text-decoration-thickness: var(--size-border);
 	text-underline-offset:	var(--size-border);
-	touch-action: manipulation;
 }
 
-a:where(:hover, :active, :focus, [aria-current='page']) {
+:any-link:where(:hover, :active, :focus, [aria-current='page']) {
 	text-decoration-color: var(--color-foreground-link);
 }
 
@@ -559,9 +644,9 @@ a:focus-visible {
 	text-decoration: none;
 }
 
-:where(h1, h2, h3, h4, h5, h6) a {
-	display: inherit;
-}
+
+
+
 
 :root {
 	background-color: var(--color-background-primary);
@@ -582,8 +667,8 @@ dl {
 	align-items: start;
 }
 
-dd {
-	grid-column: 2 / -1;
+dt {
+	flex-basis: 100%;
 }
 
 dt {
@@ -598,6 +683,10 @@ dd dd {
 	font-style: italic;
 }
 
+article > header:first-child, main > article:where(:not(:only-of-type)) {
+	gap: 1rem;
+}
+
 dd ul {
 	gap: 0 var(--size-gap);
 	display: flex;
@@ -608,26 +697,3 @@ dd ul {
 [disabled], [aria-disabled='true'] {
 	opacity: 0.5;
 }
-
-dialog[open] {
-	position: fixed;
-	inset: 50vh 50vw;
-	transform: translate(-50%, -50%);
-	inline-size: min(100%, var(--size-text-min));
-	padding-block-end: var(--size-gap);
-	border-color: var(--color-border);
-	display: grid;
-	gap: var(--size-gap);
-	border: var(--size-border) solid var(--color-border);
-}
-
-dialog > header {
-	background: var(--color-background-secondary);
-	padding: var(--size-padding) var(--size-gap);
-	border-block-end: var(--size-border) solid var(--color-border);
-}
-
-dialog > * {
-	padding-inline: var(--size-gap);
-}
-

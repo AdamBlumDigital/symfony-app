@@ -10,9 +10,6 @@
 	'label_empty' : 'label.no_articles' 
 } -%}
 
-	{%- block heading -%}	
-	{%- endblock heading -%}	
-
 	{%- block item -%}	
 		<article>
 
@@ -23,6 +20,14 @@
 			</h1>
 
 			<p>{{ item.description }}</p>
+
+			<dl style='font-size:smaller'>
+				<dt>Published</dt>
+				<dd>12 November 2022</dd>
+				<dt>Categories</dt>
+				<dd><a href>Content Strategy</a></dd>
+				<dd><a href>Accessibility</a></dd>
+			</dl>
 
 		</article>
 

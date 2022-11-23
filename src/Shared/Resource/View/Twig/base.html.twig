@@ -9,11 +9,11 @@
         <title>{% block title %}{{ 'generic.greeting' | trans }}{% endblock %}</title>
     	<link rel="icon" href="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="/>
 		{%- block style -%}
-
+		{#
 		<link rel='stylesheet' href='/static/css/style.css'/>
 		<link rel='preload' as='style' href='/static/css/style.css'/>
-		{#
 		<style>
+			* {font: inherit}
 			:root {
 				color-scheme: light dark;
 				font: 150%/1.6 system-ui;
@@ -22,13 +22,17 @@
 				max-inline-size: 50ch;
 			}
 			[aria-current] {outline: thin solid}
-			nav, menu {
+			[disabled], [aria-disabled='true'] {opacity: 0.7}
+			header, footer, nav, menu {
 				display: flex;
 				gap: 1em;
+				align-items: center;
+				justify-content: space-between;
 			}
 			li[role='none'] {display: inherit}
 		</style>
 		#}
+		<link rel='stylesheet' href='/static/css/style.css?v={{"now"|date("Uv")}}'/>
 		{%- endblock style -%}
 	</head>
 	<body>
@@ -45,7 +49,11 @@
 		<main>{%- block body -%}{%- endblock -%}</main>
 		{% for label, messages in app.flashes %}
 			{% for message in messages %}
-				<p><b>{{ label }}:</b>&nbsp;{{ message }}</p>
+				<dialog open>
+					<header><b>{{ label | humanize }}</b></header>
+					<p>{{ message }}</p>
+					<form method='dialog'><button type='submit'>{{ 'generic.dismiss' | trans }}</button></form>
+				</dialog>
 			{% endfor %}
 		{% endfor %}
 		<footer><p rel='copyright'>Copyright</p></footer>

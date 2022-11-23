@@ -46,7 +46,7 @@ final class CreateArticleController extends AbstractController
 				$articleData->getTitle(),
 				$articleData->getDescription()
 			));
-			return $this->redirectToRoute('view_get_all_articles');	
+			return $this->redirectToRoute('view_get_some_articles');	
 		}
 		
 		if ($articleForm->isSubmitted() && !$articleForm->isValid()) {

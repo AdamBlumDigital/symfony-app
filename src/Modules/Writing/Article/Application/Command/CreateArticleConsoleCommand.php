@@ -10,6 +10,11 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Path;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use App\Modules\Writing\Article\Application\Event\OnArticleCreationRequestedEvent;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -61,6 +66,32 @@ final class CreateArticleConsoleCommand extends Command
 
 			return $value;
 		});
+
+		/**
+		 * Create temporary file in which to
+		 * write content
+		 */
+		$filesystem = new Filesystem();
+		$tempFile = $filesystem->tempNam('/tmp', 'editor_', '.md');
+
+		/**
+		 *	Open a text editor to edit content
+		 */
+		$editorProcess = new Process(['vim', $tempFile]);
+		$editorProcess->setTty(true);
+
+		try {
+			$editorProcess->mustRun();
+		} catch (ProcessFailedException $exception) {
+			$io->error($exception->getMessage());
+		}
+
+		$content = file_get_contents($tempFile);
+
+		/**
+		 * @todo	Add content to Article Entity
+		 */
+
 
 		/**
 		 *	Specifies mixed return type, though it always (in this 

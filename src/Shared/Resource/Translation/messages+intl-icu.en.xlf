@@ -18,6 +18,30 @@
 				<source>generic.next</source>
 				<target>Next</target>
 			</trans-unit>
+			<trans-unit id="pagination.page">
+				<source>pagination.page</source>
+				<target>Page</target>
+			</trans-unit>
+			<trans-unit id="pagination.page.position">
+				<source>pagination.page.position</source>
+				<target>Page { page } of { pages }</target>
+			</trans-unit>
+			<trans-unit id="pagination.item.position">
+				<source>pagination.item.position</source>
+				<target>Item { page } of { pages }</target>
+			</trans-unit>
+			<trans-unit id="pagination.prev">
+				<source>pagination.prev</source>
+				<target>Previous</target>
+			</trans-unit>
+			<trans-unit id="pagination.next">
+				<source>pagination.next</source>
+				<target>Next</target>
+			</trans-unit>
+			<trans-unit id="generic.dismiss">
+				<source>generic.dismiss</source>
+				<target>Dismiss</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
