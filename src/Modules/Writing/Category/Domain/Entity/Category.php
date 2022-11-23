@@ -98,10 +98,16 @@ class Category extends AggregateRoot
 	public static function create(
 		CategoryId $categoryId, 
 		string $title,
-		string $slug
+		string $slug,
+		?string $description
 	): self
 	{
 		$category = new self($categoryId, $title, $slug);
+		
+		if (!is_null($description)) {
+			$category->setDescription($description);
+		}
+
 		$category->setCreatedAt(new DateTimeImmutable('now'));
 		$category->setUpdatedAt(new DateTimeImmutable('now'));
 
