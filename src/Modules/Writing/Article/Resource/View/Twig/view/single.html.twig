@@ -11,6 +11,9 @@
 		<p>{{ article.description }}</p>
 		<p><code>{{ article.id }}</code></p>
 	</header>
+	{% if article.content is not empty %}
+		{{ article.content|raw }}
+	{% endif %}
 
     {%- endblock content -%}
 	{%- block sidebar -%}

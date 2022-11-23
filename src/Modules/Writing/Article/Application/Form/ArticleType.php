@@ -17,6 +17,7 @@ class ArticleType extends AbstractType
 		$formBuilder
 			->add('title', TextType::class)
 			->add('description', TextareaType::class)
+			->add('content', TextareaType::class)
 			->add('submit', SubmitType::class)
 		;
 	}

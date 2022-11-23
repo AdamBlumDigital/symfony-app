@@ -37,7 +37,8 @@ final class PostArticleController extends AbstractController
 
 			$this->eventDispatcher->dispatch(new OnArticleCreationRequestedEvent(
 				$articleData->getTitle(),
-				$articleData->getDescription()
+				$articleData->getDescription(),
+				$articleData->getContent()
 			));
 		}
 

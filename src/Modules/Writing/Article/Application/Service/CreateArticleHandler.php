@@ -34,7 +34,8 @@ final class CreateArticleHandler implements MessageHandlerInterface
 				Uuid::v4()->jsonSerialize()	// Return UUID as string, not object
 			),
 			$createArticleCommand->getTitle(),
-			$createArticleCommand->getDescription()
+			$createArticleCommand->getDescription(),
+			$createArticleCommand->getContent()
 		);
 
 		$this->articleRepository->save($article);

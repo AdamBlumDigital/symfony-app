@@ -88,10 +88,6 @@ final class CreateArticleConsoleCommand extends Command
 
 		$content = file_get_contents($tempFile);
 
-		/**
-		 * @todo	Add content to Article Entity
-		 */
-
 
 		/**
 		 *	Specifies mixed return type, though it always (in this 
@@ -103,7 +99,7 @@ final class CreateArticleConsoleCommand extends Command
 
 			$io->success('Dispatching Creation Request');
 			/** @phpstan-ignore-next-line */
-			$this->eventDispatcher->dispatch(new OnArticleCreationRequestedEvent($title, $description));
+			$this->eventDispatcher->dispatch(new OnArticleCreationRequestedEvent($title, $description, $content));
 			return Command::SUCCESS;
 		} else {
             $io->error('Article Creation aborted.');

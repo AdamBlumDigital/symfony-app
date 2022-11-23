@@ -48,7 +48,8 @@ final class PostArticleController extends AbstractController
 
 		$this->eventDispatcher->dispatch(new OnArticleCreationRequestedEvent(
 			$parameters['title'],
-			$parameters['description']
+			$parameters['description'],
+			$parameters['content']
 		));
 
 		$this->logger->info('<PostArticleController> will respond');

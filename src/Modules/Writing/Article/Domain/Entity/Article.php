@@ -16,6 +16,8 @@ class Article extends AggregateRoot
 	private string $title;
 	
 	private string $description;
+	
+	private ?string $content = null;
 
 	private DateTimeImmutable $createdAt;
 
@@ -55,6 +57,18 @@ class Article extends AggregateRoot
 		return $this;
 	}
 
+	public function getContent(): ?string
+	{
+		return $this->content;
+	}
+
+	public function setContent(string $content): self
+	{
+		$this->content = $content;
+
+		return $this;
+	}
+
 	public function getCreatedAt(): ?DateTimeImmutable
 	{
 		return $this->createdAt;
@@ -82,12 +96,14 @@ class Article extends AggregateRoot
 	public static function create(
 		ArticleId $articleId, 
 		string $title,
-		string $description
+		string $description,
+		string $content
 	): self
 	{
 		$article = new self($articleId);
 		$article->setTitle($title);
 		$article->setDescription($description);
+		$article->setContent($content);
 		$article->setCreatedAt(new DateTimeImmutable('now'));
 		$article->setUpdatedAt(new DateTimeImmutable('now'));
 

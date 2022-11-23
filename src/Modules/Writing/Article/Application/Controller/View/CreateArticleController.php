@@ -44,7 +44,8 @@ final class CreateArticleController extends AbstractController
 
 			$this->eventDispatcher->dispatch(new OnArticleCreationRequestedEvent(
 				$articleData->getTitle(),
-				$articleData->getDescription()
+				$articleData->getDescription(),
+				$articleData->getContent()
 			));
 			return $this->redirectToRoute('view_get_some_articles');	
 		}
