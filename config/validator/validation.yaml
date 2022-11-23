@@ -1,4 +1,6 @@
 App\Modules\Writing\Article\Application\Model\CreateArticleCommand:
+#    constraints:
+#      - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: title
     properties:
         title:
             - NotBlank: ~

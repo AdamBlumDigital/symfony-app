@@ -22,6 +22,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Modules/Writing/Article/Infrastructure/DoctrineMapping'
                 prefix: 'App\Modules\Writing\Article\Domain\Entity'
                 alias: Article
+            Category:
+                type: xml
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Modules/Writing/Category/Infrastructure/DoctrineMapping'
+                prefix: 'App\Modules\Writing\Category\Domain\Entity'
+                alias: Category
 
 when@test:
     doctrine:

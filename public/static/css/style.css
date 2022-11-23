@@ -217,6 +217,9 @@ main article {
 	gap: var(--size-gap);
 }
 
+main > article > header {
+	all: inherit;
+}
 
 
 /* Navigation Layout */

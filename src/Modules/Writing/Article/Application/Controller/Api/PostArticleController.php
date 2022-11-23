@@ -35,7 +35,7 @@ final class PostArticleController extends AbstractController
 		 *			need to be replaced by `deserialize`
 		 *			or `normalize`?
 		 */
-		/** @var array{'title': string, 'description': string} $parameters */
+		/** @var array{'title': string, 'description': string, 'content': string} $parameters */
 		$parameters = json_decode(
 			$request->getContent(),
         	true, 512,

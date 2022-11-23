@@ -72,13 +72,14 @@ final class CreateArticleConsoleCommand extends Command
 		 * write content
 		 */
 		$filesystem = new Filesystem();
-		$tempFile = $filesystem->tempNam('/tmp', 'editor_', '.md');
+		$tempFile = $filesystem->tempnam('/tmp', 'editor_', '.md');
 
 		/**
 		 *	Open a text editor to edit content
 		 */
 		$editorProcess = new Process(['vim', $tempFile]);
 		$editorProcess->setTty(true);
+		$editorProcess->setTimeout(3600); // one hour
 
 		try {
 			$editorProcess->mustRun();
@@ -87,14 +88,15 @@ final class CreateArticleConsoleCommand extends Command
 		}
 
 		$content = file_get_contents($tempFile);
-
+		
+		$filesystem->remove([$tempFile]);
 
 		/**
 		 *	Specifies mixed return type, though it always (in this 
 		 *	use case) returns string.
 		 *	@see Symfony\Component\Console\Style\SymfonyStyle:245	
 		 */
-		/** @phpstan-ignore-next-line */
+		/* Need to use "phpstan-ignore-next-line" if on level 9 */
         if ($io->confirm(sprintf('Create Article with title %s?', $title), false)) {
 
 			$io->success('Dispatching Creation Request');

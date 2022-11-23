@@ -59,11 +59,11 @@ final class CreateModuleConsoleCommand extends Command
 		 *	use case) returns string.
 		 *	@see Symfony\Component\Console\Style\SymfonyStyle:245	
 		 */
-		/** @phpstan-ignore-next-line */
+		/* Need to use "phpstan-ignore-next-line" if on level 9 */
         if ($io->confirm(sprintf('Create Module with title %s?', $title), false)) {
 
 			$io->success('Dispatching Creation Request');
-			/** @phpstan-ignore-next-line */
+			/* Need to use "phpstan-ignore-next-line" if on level 9 */
 			$this->eventDispatcher->dispatch(new OnCreationRequestedEvent($title));
 			return Command::SUCCESS;
 		} else {

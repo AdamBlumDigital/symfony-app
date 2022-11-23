@@ -8,11 +8,11 @@
     {%- block content -%}
 	<header>
 		<h1>{{ article.title }}</h1>
-		<p>{{ article.description }}</p>
-		<p><code>{{ article.id }}</code></p>
+		<p style='font-size:larger'>{{ article.description }}</p>
+		{#<p><code>{{ article.id }}</code></p>#}
 	</header>
 	{% if article.content is not empty %}
-		{{ article.content|raw }}
+		{{ article.content | striptags('<p><a>') | raw }}
 	{% endif %}
 
     {%- endblock content -%}

@@ -14,7 +14,7 @@
 
 {%- else -%}
 
-	<p>{{ label_empty | trans }}</p>
+	{{ block('no_items') }}
 
 {%- endif -%}
 

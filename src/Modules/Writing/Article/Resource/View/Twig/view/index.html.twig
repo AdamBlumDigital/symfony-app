@@ -25,13 +25,23 @@
 				<dt>Published</dt>
 				<dd>12 November 2022</dd>
 				<dt>Categories</dt>
-				<dd><a href>Content Strategy</a></dd>
-				<dd><a href>Accessibility</a></dd>
+				<dd>
+					<ul>
+						<li><a href>Content Strategy</a></li>
+						<li><a href>Accessibility</a></li>
+					</ul>
+				</dd>
 			</dl>
 
 		</article>
 
 	{%- endblock item -%}	
+
+	{%- block no_items -%}
+		<article>
+			<h1>{{ 'label.no_articles' | trans }}</h1>
+		</article>
+	{%- endblock no_items -%}
 
 {%- endembed -%}
 {%- endblock body -%}
