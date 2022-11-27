@@ -23,8 +23,8 @@ interface CategoryRepositoryInterface
 	/**
 	 * @return ?Category
 	 *
-	 *	@param	array $criteria
-	 *	@param	array $orderBy = null
+	 *	@param	array<mixed> $criteria
+	 *	@param	array<mixed> $orderBy = null
 	 */
 	public function findOneBy(array $criteria, array $orderBy = null);
 

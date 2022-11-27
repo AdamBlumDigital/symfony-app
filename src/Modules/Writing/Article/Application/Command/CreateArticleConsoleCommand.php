@@ -14,6 +14,7 @@ use Symfony\Component\Process\Process;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use App\Modules\Writing\Article\Application\Event\OnArticleCreationRequestedEvent;
@@ -103,7 +104,13 @@ final class CreateArticleConsoleCommand extends Command
 			$io->error($exception->getMessage());
 		}
 
-		$content = file_get_contents($tempFile);
+		$content = ''; 
+
+		try {
+			$content = file_get_contents($tempFile);
+		} catch (FileNotFoundException $exception) {
+			$io->error($exception->getMessage());
+		}
 		
 		$filesystem->remove([$tempFile]);
 
@@ -116,11 +123,12 @@ final class CreateArticleConsoleCommand extends Command
         if ($io->confirm(sprintf('Create Article with title %s?', $title), false)) {
 
 			$io->success('Dispatching Creation Request');
-			/** @phpstan-ignore-next-line */
+
+			/* Need to use "phpstan-ignore-next-line" if on level 9 */
 			$this->eventDispatcher->dispatch(new OnArticleCreationRequestedEvent(
 				$title, 
 				$description, 
-				$content, 
+				(string) $content, 
 				$categoryId
 			));
 			return Command::SUCCESS;
