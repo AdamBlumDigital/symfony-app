@@ -1,0 +1,72 @@
+/**
+ *	Reset
+ */
+*, *::before, *::after {
+	font: inherit;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+img,
+video,
+audio,
+picture {
+	display: block;
+	max-inline-size: 100%;
+}
+
+dialog:not([open]) {
+	display: none;
+}
+
+[disabled], 
+[aria-disabled='true'] {
+	/**	By default, browsers only
+		use color to distinguish
+		disabled elements, which
+		is not accessible. */
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+button,
+select:where(:not([multiple])),
+select:where([multiple]) > option,
+input:where([type="button"], [type="reset"], [type="submit"], [type="color"]),
+::file-selector-button,
+summary {
+	/**	Interactive content should
+		be easily distinguished by
+		a 'pointer' cursor. */
+	cursor: pointer;
+}
+
+/**	By default, the label after the
+	file selector button also opens
+	the file browser dialog when 
+	clicked. This is unintuitive
+	and disorienting. */
+input[type="file"] {
+	/** Remove pointer events from 
+		the whole input */
+	pointer-events: none;
+}
+input[type='file']:focus-visible {
+	/**	Also remove focus outline */
+	outline: none;
+}
+::file-selector-button {
+	/**	Then add them back on just
+		the button */
+	pointer-events: auto;
+	font-size: 100%;
+	margin-inline-end: 1ch;
+}
+
+/* Textarea */
+textarea {
+	overflow-y:	auto;
+	resize:		vertical;
+}
+

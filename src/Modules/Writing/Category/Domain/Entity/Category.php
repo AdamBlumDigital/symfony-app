@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Modules\Writing\Category\Domain\Entity;
 
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use App\Shared\Aggregate\AggregateRoot;
 use App\Modules\Writing\Shared\Domain\Entity\ValueObject\CategoryId;
 use App\Modules\Writing\Category\Domain\Event\CategoryCreatedEvent;
@@ -19,6 +21,8 @@ class Category extends AggregateRoot
 	
 	private ?string $description = null;
 
+	private Collection $articles;
+
 	private DateTimeImmutable $createdAt;
 
 	private DateTimeImmutable $updatedAt;
@@ -28,11 +32,17 @@ class Category extends AggregateRoot
 		$this->id = $id->getValue();
 		$this->title = $title;
 		$this->slug = $slug;
+		$this->articles = new ArrayCollection();
 	}
 	
 	public function getId(): ?CategoryId
 	{
 		return new CategoryId($this->id);
+	}
+
+	public function getArticles(): Collection
+	{
+		return $this->articles;
 	}
 
 	public function getTitle(): string

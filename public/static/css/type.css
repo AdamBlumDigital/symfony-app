@@ -1,0 +1,31 @@
+p, dt, dd, li {
+	max-inline-size: 50ch;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: bold;
+	line-height: var(--type-leading-title);
+}
+
+h1 {
+	font-size: clamp(1.25em, var(--size-fluid), 2.25em);
+}
+h2 {
+	font-size: clamp(1.125em, var(--size-fluid), 1.5em);
+}
+h3 {
+	font-size: clamp(1em, var(--size-fluid), 1.25em);
+}
+
+dl {
+	gap: 0 var(--size-tab);
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	align-items: start;
+}
+
+dd {
+	grid-column: 2 / -1;
+}
+
+

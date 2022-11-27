@@ -1,0 +1,41 @@
+dialog {
+	background-color: var(--c-bg-1);
+	color: inherit;
+	border: var(--size-border) solid var(--c-fg-0);
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	left: auto;
+	margin: 1em;
+	max-inline-size: 100%;
+	padding-block-end: var(--size-gap);
+	border-radius: var(--size-radius);
+	gap: var(--size-gap);
+}
+
+dialog {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	z-index: 2;
+}
+
+::backdrop {
+	background: rgba(0,0,0,0.5);
+}
+
+dialog > header {
+	flex-basis: 100%;
+	padding: var(--form-element-padding);
+	background-color: var(--c-bg-0);
+	border-block-end: var(--size-border) solid var(--c-fg-0);
+}
+
+dialog form[method='dialog'] {
+	justify-self: end;
+}
+
+dialog > *:where(:not(header)) {
+	padding-inline: var(--size-gap);
+}

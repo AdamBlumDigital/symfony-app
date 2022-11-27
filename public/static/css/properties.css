@@ -1,0 +1,41 @@
+/**
+ *	Custom Properties
+ */
+:root {
+
+	/**
+	 *	Sizes
+	 *
+	 *	Commonly-used sizes
+	 */
+
+
+	--size-text-max: 50ch;
+	--size-text-min: 25ch;
+
+	--size-tab: 4ch;
+	--size-gap: 1em;
+	--size-padding: 0.5ex;
+
+	--size-border: max(0.2ex, 2px);
+	--size-radius: calc( var(--size-border) * 2 );
+
+	--size-fluid: 4vw;
+	--size-variable: clamp(var(--size-gap), var(--size-fluid), var(--size-tab));
+
+	--size-control: calc(
+		( var(--size-border) + var(--size-padding) ) * 2 + ( 1em * var(--type-leading-text) )
+	);
+
+	/**
+	 *	Typography
+	 */
+
+	/* Line-Height */
+	--type-leading-text: 1.6;
+	--type-leading-title: 1.35;
+
+	/* Font-Family */
+	--type-family-text: system-ui, ui-sans-serif, sans-serif;
+	--type-family-code: ui-monospace, monospace;
+}

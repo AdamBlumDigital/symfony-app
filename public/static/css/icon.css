@@ -1,0 +1,29 @@
+@media (prefers-color-scheme: light) {
+	:root {
+	/** Light */
+	--uri-up: url("data:image/svg+xml;utf8,<svg fill='none' stroke='black' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='M6 5 4 3 2 5'/></svg>");
+	--uri-down: url("data:image/svg+xml;utf8,<svg fill='none' stroke='black' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='M6 3 4 5 2 3'/></svg>");
+	--uri-left: url("data:image/svg+xml;utf8,<svg fill='none' stroke='black' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='M5 2 3 4l2 2'/></svg>");
+	--uri-right: url("data:image/svg+xml;utf8,<svg fill='none' stroke='black' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='m3 2 2 2-2 2'/></svg>");
+	--uri-menu: url("data:image/svg+xml;utf8,<svg fill='none' stroke='black' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='M1 6h6M1 4h6M1 2h6'/></svg>");
+	--uri-play: url("data:image/svg+xml;utf8,<svg fill='black' stroke='black' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='m3 3 2 1-2 1 0-2z'/></svg>");
+	--uri-pause: url("data:image/svg+xml;utf8,<svg fill='none' stroke='black' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='M3 2v4M5 2v4'/></svg>");
+	--uri-check: url("data:image/svg+xml;utf8,<svg fill='none' stroke='black' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='m2 4 2 1 2-3'/></svg>");
+	--uri-close: url("data:image/svg+xml;utf8,<svg fill='none' stroke='black' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='m2 2 4 4M2 6 6 2'/></svg>");
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+	/** Dark */
+	--uri-up: url("data:image/svg+xml;utf8,<svg fill='none' stroke='white' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='M6 5 4 3 2 5'/></svg>");
+	--uri-down: url("data:image/svg+xml;utf8,<svg fill='none' stroke='white' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='M6 3 4 5 2 3'/></svg>");
+	--uri-left: url("data:image/svg+xml;utf8,<svg fill='none' stroke='white' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='M5 2 3 4l2 2'/></svg>");
+	--uri-right: url("data:image/svg+xml;utf8,<svg fill='none' stroke='white' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='m3 2 2 2-2 2'/></svg>");
+	--uri-menu: url("data:image/svg+xml;utf8,<svg fill='none' stroke='white' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='M1 6h6M1 4h6M1 2h6'/></svg>");
+	--uri-play: url("data:image/svg+xml;utf8,<svg fill='white' stroke='white' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='m3 3 2 1-2 1 0-2z'/></svg>");
+	--uri-pause: url("data:image/svg+xml;utf8,<svg fill='none' stroke='white' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='M3 2v4M5 2v4'/></svg>");
+	--uri-check: url("data:image/svg+xml;utf8,<svg fill='none' stroke='white' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='m2 4 2 1 2-3'/></svg>");
+	--uri-close: url("data:image/svg+xml;utf8,<svg fill='none' stroke='white' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='m2 2 4 4M2 6 6 2'/></svg>");
+	}
+}

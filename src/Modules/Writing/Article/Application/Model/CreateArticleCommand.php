@@ -16,6 +16,7 @@ final class CreateArticleCommand implements AsyncMessageInterface
 	private string $title;
 	private string $description;
 	private string $content;
+	private string $categoryId;
 
 	public function getTitle(): string
     {
@@ -45,5 +46,15 @@ final class CreateArticleCommand implements AsyncMessageInterface
     public function setContent(string $content): void
     {
         $this->content = $content;
+    }
+
+	public function getCategoryId(): string
+    {
+        return $this->categoryId;
+    }
+
+    public function setCategoryId(string $categoryId): void
+    {
+        $this->categoryId = $categoryId;
     }
 }

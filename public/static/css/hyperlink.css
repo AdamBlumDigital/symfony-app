@@ -1,0 +1,17 @@
+a {
+	color: inherit;
+	text-decoration-color: var(--c-accent-1);
+	text-decoration-thickness: var(--size-border);
+	text-underline-offset:	var(--size-border);
+	outline-offset: var(--size-border);
+	touch-action: manipulation;
+}
+
+a:hover {
+	color: var(--c-accent-1);
+}
+
+a:focus-visible {
+	color: var(--c-accent-1);
+	text-decoration: none;
+}

@@ -8,6 +8,7 @@ use App\Modules\Writing\Article\Application\Model\CreateArticleCommand;
 use App\Modules\Writing\Article\Domain\Entity\Article;
 use App\Modules\Writing\Article\Domain\Entity\ArticleId;
 use App\Modules\Writing\Article\Domain\Repository\ArticleRepositoryInterface;
+use App\Modules\Writing\Category\Domain\Repository\CategoryRepositoryInterface;
 use App\Shared\ValueObject\AggregateRootId;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
@@ -16,26 +17,31 @@ use Symfony\Component\Uid\Uuid;
 final class CreateArticleHandler implements MessageHandlerInterface
 {
 	private ArticleRepositoryInterface $articleRepository;
+	private CategoryRepositoryInterface $categoryRepository;
 	private EventDispatcherInterface $eventDispatcher;
 
 	public function __construct(
 		ArticleRepositoryInterface $articleRepository,
+		CategoryRepositoryInterface $categoryRepository,
 		EventDispatcherInterface $eventDispatcher,
 	)
 	{
 		$this->articleRepository = $articleRepository;
+		$this->categoryRepository = $categoryRepository;
 		$this->eventDispatcher = $eventDispatcher;
 	}
 
 	public function __invoke(CreateArticleCommand $createArticleCommand):void
 	{
+		$categoryObject = $this->categoryRepository->findOneBy(['id' => $createArticleCommand->getCategoryId()]);
 		$article = Article::create(
 			new ArticleId(
 				Uuid::v4()->jsonSerialize()	// Return UUID as string, not object
 			),
 			$createArticleCommand->getTitle(),
 			$createArticleCommand->getDescription(),
-			$createArticleCommand->getContent()
+			$createArticleCommand->getContent(),
+			$categoryObject
 		);
 
 		$this->articleRepository->save($article);

@@ -8,6 +8,13 @@
     {%- block content -%}
 	<header>
 		<h1>{{ article.title }}</h1>
+		<dl style='font-size:smaller'>
+			<dt>Published</dt>
+			<dd>12 November 2022</dd>
+			<dt>Category</dt>
+			<dd>{{ article.category.title }}</dd>
+		</dl>
+
 		<p style='font-size:larger'>{{ article.description }}</p>
 		{#<p><code>{{ article.id }}</code></p>#}
 	</header>

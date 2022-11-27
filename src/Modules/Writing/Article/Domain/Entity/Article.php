@@ -7,6 +7,7 @@ namespace App\Modules\Writing\Article\Domain\Entity;
 use App\Shared\Aggregate\AggregateRoot;
 use App\Modules\Writing\Article\Domain\Entity\ArticleId;
 use App\Modules\Writing\Article\Domain\Event\ArticleCreatedEvent;
+use App\Modules\Writing\Category\Domain\Entity\Category;
 use App\Modules\Writing\Shared\Domain\Entity\ValueObject\CategoryId;
 use DateTimeImmutable;
 
@@ -20,7 +21,7 @@ class Article extends AggregateRoot
 	
 	private ?string $content = null;
 	
-//	private ?string $category = null;
+	private ?Category $category;
 
 	private DateTimeImmutable $createdAt;
 
@@ -36,18 +37,18 @@ class Article extends AggregateRoot
 		return new ArticleId($this->id);
 	}
 
-/*	public function getCategory(): CategoryId
+	public function getCategory(): ?Category
 	{
-		return new CategoryId($this->category);
+		return $this->category;
 	}
 
-	public function setCategory(CategoryId $category): self
+	public function setCategory(?Category $category): self
 	{
 		$this->category = $category;
 
 		return $this;
 	}
- */
+
 	public function getTitle(): string
 	{
 		return $this->title;
@@ -113,14 +114,14 @@ class Article extends AggregateRoot
 		string $title,
 		string $description,
 		string $content,
-	//	string $category
+		?Category $category
 	): self
 	{
 		$article = new self($articleId);
 		$article->setTitle($title);
 		$article->setDescription($description);
 		$article->setContent($content);
-	//	$article->setCategory($category);
+		$article->setCategory($category);
 		$article->setCreatedAt(new DateTimeImmutable('now'));
 		$article->setUpdatedAt(new DateTimeImmutable('now'));
 

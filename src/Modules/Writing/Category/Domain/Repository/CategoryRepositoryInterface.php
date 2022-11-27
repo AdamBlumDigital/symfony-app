@@ -21,6 +21,14 @@ interface CategoryRepositoryInterface
 	public function find($id, $lockMode = null, $lockVersion = null);
 
 	/**
+	 * @return ?Category
+	 *
+	 *	@param	array $criteria
+	 *	@param	array $orderBy = null
+	 */
+	public function findOneBy(array $criteria, array $orderBy = null);
+
+	/**
 	 *	@return Category[]
 	 */
 	public function findAll();

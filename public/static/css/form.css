@@ -1,0 +1,230 @@
+/**
+ *	Forms
+ *
+ *
+ *	Form-related tags are broken down 
+ *	into semantic categories:
+ *
+ *	Form Tags
+ *	┊
+ *	├──	Form Containers
+ *	┊	├──	<form>
+ *	┊	└──	<fieldset>
+ *	┊
+ *	├──	Form Elements
+ *	┊	┊
+ *	┊	├──	Form Fields
+ *	┊	┊	├──	<textarea>
+ *	┊	┊	├──	<select multiple>
+ *	┊	┊	├──	<input type='text'>
+ *	┊	┊	├──	<input type='checkbox'>
+ *	┊	┊	└──	<input type='radio'>
+ *	┊	┊
+ *	┊	└──	Form Controls
+ *	┊		├──	<select>
+ *	┊		├──	<input type='color'>
+ *	┊		├──	<input type='button'>
+ *	┊		├──	<input type='reset'>
+ *	┊		├──	<input type='submit'>
+ *	┊		└──	::file-selector-button
+ *	┊
+ *	└──	Form Labels
+ *		├──	<label>
+ *		└──	<legend>
+ */
+
+
+/**
+ *	Form Custom Properties
+ *
+ *	NOTE
+ *		
+ *		These custom properties are not scoped
+ *		to the <form> element, because Form Tags
+ *		can exist outside of <form>. They
+ *		can be associated with a <form> elsewhere
+ *		on the page using the form attribute.
+ */
+:root {
+	--form-element-padding: 0.5ch 1ch;
+	--form-element-leading: var(--type-leading-text);
+	--form-element-border: var(--size-border) solid var(--c-fg-0); 
+	--form-element-radius: var(--size-radius);
+
+	--form-field-background: var(--c-bg-1);
+	--form-field-foreground: var(--c-fg-1);
+	
+	--form-control-background: var(--c-bg-0);
+	--form-control-foreground: var(--c-fg-1);
+
+	--form-icon-check: var(--uri-check);
+	--form-icon-dropdown: var(--uri-down);
+}
+
+/** end Form Custom Properties */
+
+input:where(
+	[type='checkbox'],
+	[type='radio']
+),
+select:where(:not([multiple])) {
+	background-repeat: no-repeat;
+	background-position-y: center;
+}
+
+
+/**
+ *	Form Elements
+ *
+ *	NOTES
+ *		
+ *		<input type='file'> is neither a 
+ *		Form Field nor Form Control. It is
+ *		a wrapper for the ::file-selector-button,
+ *		which is a Form Control.
+ */
+
+input:where(:not([type='file'])), 
+select, 
+textarea, 
+button, 
+::file-selector-button {
+	appearance: none;
+	line-height: var(--form-element-leading);
+	padding: var(--form-element-padding);
+	border: var(--form-element-border);
+	border-radius: var(--form-element-radius);
+}
+:where(input:where(:not([type='file'])), 
+select, 
+textarea, 
+button):focus-visible, 
+:where(
+	input[type='file']:focus-visible)::file-selector-button {
+	outline: none;
+	border-color: var(--c-accent-1);
+}
+
+/** end Form Elements */
+
+
+/**
+ *	Form Fields
+ */
+/** Colors */
+input:where(:not([type])),
+input:where(
+	[type='text'],
+	[type='email'],
+	[type='url'],
+	[type='search'],
+	[type='password'],
+	[type='number'],
+	[type='tel'],
+	[type='time'],
+	[type='date'],
+	[type='datetime-local'],
+	[type='week'],
+	[type='month'],
+	[type='checkbox'],
+	[type='radio']
+),
+textarea,
+select:where([multiple]) {
+	background-color: var(--form-field-background);
+	color: var(--form-field-foreground);
+}
+/** Multi-select Sizing */
+select:where([multiple]) {
+	padding: 0;
+}
+select:where([multiple]) > option {
+	padding: 1ch;
+}
+select:where([multiple]) > option:where(:not(:last-child)) {
+	border-block-end: var(--form-element-border);
+}
+select:where([multiple]) option:checked {
+	background-color: var(--form-control-background);
+}
+/** Checkbox / Radio Button Sizing */
+input:where(
+	[type='checkbox'],
+	[type='radio']
+) {
+	block-size:		var(--size-control);
+	inline-size:	var(--size-control);
+}
+/** Radio Button Border-Radius */
+input[type='radio'] {
+	border-radius: 50%;
+}
+/** Checkbox / Radio Button Checked Styling */
+input:where(
+	[type='checkbox'],
+	[type='radio']
+):checked {
+	background-image: var(--form-icon-check);
+	background-position-x: center;
+	background-size: contain;
+}
+/** Textarea Sizing */
+textarea {
+	min-block-size: calc( var(--size-control) * 3 );
+}
+/** end Form Fields */
+
+
+/**
+ *	Form Controls
+ */
+button,
+input:where(
+	[type='button'],
+	[type='reset'],
+	[type='submit']
+	[type='color'],
+),
+::file-selector-button,
+select:where(:not([multiple])) {
+	background-color: var(--form-control-background);
+	color: var(--form-control-foreground);
+}
+/** Select Dropdown Icon Styling */
+select:where(:not([multiple])) {
+	--icon-size: 1em;
+	--position-inline: calc( 100% -  ( ( var(--size-control) - var(--icon-size) ) / 2 ) );
+	background-image: var(--form-icon-dropdown);
+	background-position-x: var(--position-inline);
+	background-size: var(--icon-size);
+	padding-inline-end: var(--size-control);
+}
+
+input:where([type='submit']),
+button[type='submit'] {
+/*	background-color: var(--c-accent-1);*/
+}
+
+/** end Form Controls */
+
+
+/**
+ *	Form Labels
+ */
+
+label {
+	display: inline-block;
+	margin-block-start: var(--size-gap);
+}
+
+label.required::after {
+	content: '\202F*';
+	font-weight: bold;
+	color: var(--c-error-1);
+}
+
+/** end Form Labels */
+
+
+
+

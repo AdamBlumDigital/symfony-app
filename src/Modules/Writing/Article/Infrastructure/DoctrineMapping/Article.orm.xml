@@ -8,5 +8,11 @@
 		<field name="title" column="title" length="255"/>
 		<field name="description" column="description" length="255"/>
 		<field name="content" column="content" type="text" nullable="true" />
+		<many-to-one 
+			field="category" 
+			target-entity="App\Modules\Writing\Category\Domain\Entity\Category"
+			inversed-by="articles">
+			<join-column nullable="false"/>
+		</many-to-one>
 	</entity>
 </doctrine-mapping>

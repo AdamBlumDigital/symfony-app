@@ -1,0 +1,57 @@
+@media (prefers-color-scheme: light) {
+	:root {
+		/** Foreground */
+		--c-fg-0: gray;
+		--c-fg-1: black;
+		--c-fg-2: ;
+		/** Background */
+		--c-bg-0: silver;
+		--c-bg-1: white;
+		--c-bg-2: ;
+		/** Info */
+		--c-info-0: ;
+		--c-info-1: green;
+		--c-info-2: ;
+		/** Warn */
+		--c-warn-0: ;
+		--c-warn-1: yellow;
+		--c-warn-2: ;
+		/** Error */
+		--c-error-0: ;
+		--c-error-1: red;
+		--c-error-2: ;
+		/** Accent */
+		--c-accent-0: ;
+		--c-accent-1: blue;
+		--c-accent-2: ;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		/** Foreground */
+		--c-fg-0: gray;
+		--c-fg-1: silver;
+		--c-fg-2: white;
+		/** Background */
+		--c-bg-0: ;
+		--c-bg-1: black;
+		--c-bg-2: ;
+		/** Info */
+		--c-info-0: ;
+		--c-info-1: green;
+		--c-info-2: ;
+		/** Warn */
+		--c-warn-0: ;
+		--c-warn-1: yellow;
+		--c-warn-2: ;
+		/** Error */
+		--c-error-0: ;
+		--c-error-1: red;
+		--c-error-2: ;
+		/** Accent */
+		--c-accent-0: ;
+		--c-accent-1: fuchsia;
+		--c-accent-2: ;
+	}
+}

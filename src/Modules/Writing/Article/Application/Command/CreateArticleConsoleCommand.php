@@ -17,6 +17,7 @@ use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use App\Modules\Writing\Article\Application\Event\OnArticleCreationRequestedEvent;
+use App\Modules\Writing\Category\Domain\Repository\CategoryRepositoryInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
@@ -31,11 +32,16 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 final class CreateArticleConsoleCommand extends Command
 {
-	private EventDispatcherInterface $eventDispatcher;	
+	private EventDispatcherInterface $eventDispatcher;
+	private CategoryRepositoryInterface $categoryRepository;
 
-	public function __construct(EventDispatcherInterface $eventDispatcher)
+	public function __construct(
+		EventDispatcherInterface $eventDispatcher,
+		CategoryRepositoryInterface $categoryRepository
+	)
 	{
 		$this->eventDispatcher = $eventDispatcher;
+		$this->categoryRepository = $categoryRepository;
 
 		parent::__construct();
 	}
@@ -66,6 +72,16 @@ final class CreateArticleConsoleCommand extends Command
 
 			return $value;
 		});
+
+		$categories = $this->categoryRepository->findAll();
+		$categoryArray = array();
+		foreach ($categories as $category) {
+			$catId = (string) $category->getId();
+			$catTitle = $category->getTitle();
+			$categoryArray[$catId] = $catTitle;
+		}
+
+		$categoryId = $io->choice('Choose a Category:', $categoryArray);
 
 		/**
 		 * Create temporary file in which to
@@ -101,7 +117,12 @@ final class CreateArticleConsoleCommand extends Command
 
 			$io->success('Dispatching Creation Request');
 			/** @phpstan-ignore-next-line */
-			$this->eventDispatcher->dispatch(new OnArticleCreationRequestedEvent($title, $description, $content));
+			$this->eventDispatcher->dispatch(new OnArticleCreationRequestedEvent(
+				$title, 
+				$description, 
+				$content, 
+				$categoryId
+			));
 			return Command::SUCCESS;
 		} else {
             $io->error('Article Creation aborted.');

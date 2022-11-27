@@ -8,5 +8,10 @@
 		<field name="title" column="title" length="255"/>
 		<field name="slug" column="slug" length="255"/>
 		<field name="description" column="description" length="255" nullable="true" />
+		<one-to-many 
+			field="articles"
+			target-entity="App\Modules\Writing\Article\Domain\Entity\Article"
+			mapped-by="category"
+		/>
 	</entity>
 </doctrine-mapping>

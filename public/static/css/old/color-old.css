@@ -1,0 +1,212 @@
+/**
+ * Colors
+ */
+
+:root {
+	/** Cool Gray */
+	--cool-0: #f8fafc;
+	--cool-1: #f1f5f9;
+	--cool-2: #e2e8f0;
+	--cool-3: #cbd5e1;
+	--cool-4: #94a3b8;
+	--cool-5: #64748b;
+	--cool-6: #475569;
+	--cool-7: #334155;
+	--cool-8: #1e293b;
+	--cool-9: #0f172a;
+
+	/** Neutral Gray */
+	--gray-0: #fafafa;
+	--gray-1: #f5f5f5;
+	--gray-2: #e5e5e5;
+	--gray-3: #d4d4d4;
+	--gray-4: #a3a3a3;
+	--gray-5: #737373;
+	--gray-6: #525252;
+	--gray-7: #404040;
+	--gray-8: #262626;
+	--gray-9: #171717;
+
+	/** Warm Gray */
+	--warm-0: #fafaf9;
+	--warm-1: #f5f5f4;
+	--warm-2: #e7e5e4;
+	--warm-3: #d6d3d1;
+	--warm-4: #a8a29e;
+	--warm-5: #78716c;
+	--warm-6: #57534e;
+	--warm-7: #44403c;
+	--warm-8: #292524;
+	--warm-9: #1c1917;
+	
+	/** Red */
+	--red-0: #fef2f2;
+	--red-1: #fee2e2;
+	--red-2: #fecaca;
+	--red-3: #fca5a5;
+	--red-4: #f87171;
+	--red-5: #ef4444;
+	--red-6: #dc2626;
+	--red-7: #b91c1c;
+	--red-8: #991b1b;
+	--red-9: #7f1d1d;
+	
+	/** Green */
+	--green-0: #ecfdf5;
+	--green-1: #d1fae5;
+	--green-2: #a7f3d0;
+	--green-3: #6ee7b7;
+	--green-4: #34d399;
+	--green-5: #10b981;
+	--green-6: #059669;
+	--green-7: #047857;
+	--green-8: #065f46;
+	--green-9: #064e3b;
+
+	/** Blue */
+	--blue-0: #f0f9ff;
+	--blue-1: #e0f2fe;
+	--blue-2: #bae6fd;
+	--blue-3: #7dd3fc;
+	--blue-4: #38bdf8;
+	--blue-5: #0ea5e9;
+	--blue-6: #0284c7;
+	--blue-7: #0369a1;
+	--blue-8: #075985;
+	--blue-9: #0c4a6e;
+}
+
+:root {
+	/** Dark */
+	--color-bg-primary-dark: var(--gray-9);
+	--color-bg-secondary-dark: var(--gray-8);
+	--color-bg-tertiary-dark: var(--gray-7);
+	--color-bg-quaternary-dark: var(--gray-6);
+
+	--color-fg-primary-dark: var(--gray-0);
+	--color-fg-secondary-dark: var(--gray-1);
+	--color-fg-tertiary-dark: var(--gray-2);
+	--color-fg-quaternary-dark: var(--gray-3);
+
+	--color-blue-dark: var(--blue-7);
+	--color-green-dark: var(--green-7);
+	--color-red-dark: var(--red-7);
+
+	--color-accent-primary-dark: var(--blue-6);
+	--color-accent-secondary-dark: ;
+	--color-accent-tertiary-dark: ;
+
+	/** Light */
+	--color-bg-primary-light: var(--gray-1);
+	--color-bg-secondary-light: var(--gray-2);
+	--color-bg-tertiary-light: var(--gray-3);
+
+	--color-fg-primary-light: var(--gray-9);
+	--color-fg-secondary-light: var(--gray-8);
+	--color-fg-tertiary-light: var(--gray-7);
+	--color-fg-quaternary-light: var(--gray-6);
+	
+	--color-blue-light: var(--blue-4);
+	--color-green-light: var(--green-3);
+	--color-red-light: var(--red-4);
+	
+	--color-accent-primary-light: var(--blue-5);
+	--color-accent-secondary-light: ;
+	--color-accent-tertiary-light: ;
+
+}
+
+:root.cool {
+	/** Dark */
+	--color-bg-primary-dark: var(--cool-9);
+	--color-bg-secondary-dark: var(--cool-8);
+	--color-bg-tertiary-dark: var(--cool-7);
+	--color-bg-quaternary-dark: var(--cool-6);
+
+	--color-fg-primary-dark: var(--cool-2);
+	--color-fg-secondary-dark: var(--cool-1);
+	--color-fg-tertiary-dark: var(--cool-0);
+	--color-fg-quaternary-dark: var(--cool-0);
+
+	/** Light */
+	--color-bg-primary-light: var(--cool-1);
+	--color-bg-secondary-light: var(--cool-2);
+	--color-bg-tertiary-light: var(--cool-3);
+
+	--color-fg-primary-light: var(--cool-7);
+	--color-fg-secondary-light: var(--cool-8);
+	--color-fg-tertiary-light: var(--cool-9);
+}
+:root.warm {
+	/** Dark */
+	--color-bg-primary-dark: var(--warm-9);
+	--color-bg-secondary-dark: var(--warm-8);
+	--color-bg-tertiary-dark: var(--warm-7);
+
+	--color-fg-primary-dark: var(--warm-2);
+	--color-fg-secondary-dark: var(--warm-1);
+	--color-fg-tertiary-dark: var(--warm-0);
+
+	/** Light */
+	--color-bg-primary-light: var(--warm-1);
+	--color-bg-secondary-light: var(--warm-2);
+	--color-bg-tertiary-light: var(--warm-3);
+
+	--color-fg-primary-light: var(--warm-7);
+	--color-fg-secondary-light: var(--warm-8);
+	--color-fg-tertiary-light: var(--warm-9);
+}
+
+/** Color Token Assignment */
+
+/** Dark Theme */
+@media (prefers-color-scheme: dark) {
+	:root {
+		/** Background */
+		--color-bg-primary: var(--color-bg-primary-dark);
+		--color-bg-secondary: var(--color-bg-secondary-dark);
+		--color-bg-tertiary: var(--color-bg-tertiary-dark);
+		
+		/** Foreground */
+		--color-fg-primary: var(--color-fg-primary-dark);
+		--color-fg-secondary: var(--color-fg-secondary-dark);
+		--color-fg-tertiary: var(--color-fg-tertiary-dark);
+		--color-fg-quaternary: var(--color-fg-quaternary-dark);
+		
+		/** Accent */
+		--color-accent-primary: var(--color-accent-primary-dark);
+		--color-accent-secondary: var(--color-accent-secondary-dark);
+		--color-accent-tertiary: var(--color-accent-tertiary-dark);
+
+		/** Named Colors */
+		--color-blue: var(--color-blue-dark);
+		--color-green: var(--color-green-dark);
+		--color-red: var(--color-red-dark);
+	}
+}
+/** Light Theme */
+@media (prefers-color-scheme: light) {
+	:root {
+		/** Background */
+		--color-bg-primary: var(--color-bg-primary-light);
+		--color-bg-secondary: var(--color-bg-secondary-light);
+		--color-bg-tertiary: var(--color-bg-tertiary-light);
+
+		/** Foreground */
+		--color-fg-primary: var(--color-fg-primary-light);
+		--color-fg-secondary: var(--color-fg-secondary-light);
+		--color-fg-tertiary: var(--color-fg-tertiary-light);
+		--color-fg-quaternary: var(--color-fg-quaternary-light);
+		
+		/** Accent */
+		--color-accent-primary: var(--color-accent-primary-light);
+		--color-accent-secondary: var(--color-accent-secondary-light);
+		--color-accent-tertiary: var(--color-accent-tertiary-light);
+
+		/** Named Colors */
+		--color-blue: var(--color-blue-light);
+		--color-green: var(--color-green-light);
+		--color-red: var(--color-red-light);
+	}
+}
+

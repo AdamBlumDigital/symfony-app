@@ -11,12 +11,19 @@ final class OnArticleCreationRequestedEvent extends Event
 	private string $title;
 	private string $description;
 	private string $content;
+	private string $categoryId;
 
-	public function __construct(string $title, string $description, string $content)
+	public function __construct(
+		string $title, 
+		string $description, 
+		string $content,
+		string $categoryId
+	)
 	{
 		$this->title = $title;
 		$this->description = $description;
 		$this->content = $content;
+		$this->categoryId = $categoryId;
 	}
 
 	public function getTitle(): string
@@ -32,5 +39,10 @@ final class OnArticleCreationRequestedEvent extends Event
 	public function getContent(): string
 	{
 		return $this->content;
+	}
+	
+	public function getCategoryId(): string
+	{
+		return $this->categoryId;
 	}
 }
