@@ -1,0 +1,14 @@
+{% extends template.default %}
+{%- block meta -%}
+	{{ parent() }}
+	<meta name='description' content=''/>
+{%- endblock meta -%}
+{%- block body -%}
+{%- embed layout.default -%}
+    {%- block content -%}
+	<article>
+		<p>Home page</p>
+	</article>
+    {%- endblock content -%}
+{%- endembed -%}
+{%- endblock body -%}
