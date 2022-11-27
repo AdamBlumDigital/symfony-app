@@ -29,6 +29,11 @@ interface ArticleRepositoryInterface
 	 *	@return \Doctrine\ORM\Tools\Pagination\Paginator
 	 */
 	public function findSome(int $page = 1, int $length = 1); 
+	
+	/**
+	 *	@return \Doctrine\ORM\Tools\Pagination\Paginator
+	 */
+	public function findSomeByCategoryId(string $categoryId, int $page = 1, int $length = 1); 
 
 	public function save(Article $article): void;
 }

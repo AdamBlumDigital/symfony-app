@@ -1,12 +1,10 @@
-
-
 /**
  *	Base Font Styles
  */
 :root {
 	font: 150%/1.6 system-ui;
-	background-color: var(--c-bg-1);
-	color: var(--c-fg-1);
+	background-color: var(--c-bg-0);
+	color: var(--c-fg-0);
 	accent-color: var(--c-accent-1);
 }
 
@@ -15,11 +13,12 @@ body {
 }
 
 [aria-current] {
-	outline: var(--size-border) solid var(--c-fg-0);
+	background-color: var(--c-bg-1);
+	text-decoration: none;
 }
 
 [disabled], [aria-disabled='true'] {
-	color: var(--c-fg-0);
+	color: var(--c-fg-1);
 }
 
 

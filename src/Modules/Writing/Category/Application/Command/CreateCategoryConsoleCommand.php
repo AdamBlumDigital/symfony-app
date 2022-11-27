@@ -16,7 +16,6 @@ use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Psr\EventDispatcher\EventDispatcherInterface;
-//use App\Modules\Writing\Category\Application\Event\OnArticleCreationRequestedEvent;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\String\UnicodeString;
@@ -36,15 +35,12 @@ use App\Modules\Writing\Category\Application\Model\CreateCategoryCommand;
 )]
 final class CreateCategoryConsoleCommand extends Command
 {
-//	private EventDispatcherInterface $eventDispatcher;	
 	private MessageBusInterface $messageBus;
 
 	public function __construct(
-//		EventDispatcherInterface $eventDispatcher,
 		MessageBusInterface $messageBus
 	)
 	{
-//		$this->eventDispatcher = $eventDispatcher;
 		$this->messageBus = $messageBus;
 
 		parent::__construct();

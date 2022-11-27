@@ -1,3 +1,13 @@
+:root {
+	/* Line-Height */
+	--type-leading-text: 1.6;
+	--type-leading-title: 1.35;
+
+	/* Font-Family */
+	--type-family-text: system-ui, ui-sans-serif, sans-serif;
+	--type-family-code: ui-monospace, monospace;
+}
+
 p, dt, dd, li {
 	max-inline-size: 50ch;
 }
@@ -18,7 +28,7 @@ h3 {
 }
 
 dl {
-	gap: 0 var(--size-tab);
+	gap: 0 var(--size-gap);
 	display: grid;
 	grid-template-columns: max-content 1fr;
 	align-items: start;

@@ -1,13 +1,13 @@
 @media (prefers-color-scheme: light) {
 	:root {
 		/** Foreground */
-		--c-fg-0: gray;
-		--c-fg-1: black;
+		--c-fg-0: black;
+		--c-fg-1: gray;
 		--c-fg-2: ;
 		/** Background */
-		--c-bg-0: silver;
-		--c-bg-1: white;
-		--c-bg-2: ;
+		--c-bg-0: whitesmoke;
+		--c-bg-1: gainsboro;
+		--c-bg-2: silver;
 		/** Info */
 		--c-info-0: ;
 		--c-info-1: green;
@@ -22,7 +22,7 @@
 		--c-error-2: ;
 		/** Accent */
 		--c-accent-0: ;
-		--c-accent-1: blue;
+		--c-accent-1: royalblue;
 		--c-accent-2: ;
 	}
 }
@@ -30,13 +30,13 @@
 @media (prefers-color-scheme: dark) {
 	:root {
 		/** Foreground */
-		--c-fg-0: gray;
-		--c-fg-1: silver;
-		--c-fg-2: white;
+		--c-fg-0: silver;
+		--c-fg-1: gray;
+		--c-fg-2: ;
 		/** Background */
-		--c-bg-0: ;
-		--c-bg-1: black;
-		--c-bg-2: ;
+		--c-bg-0: black;
+		--c-bg-1: #1b1b1b;
+		--c-bg-2: darkslategray;
 		/** Info */
 		--c-info-0: ;
 		--c-info-1: green;
@@ -50,8 +50,8 @@
 		--c-error-1: red;
 		--c-error-2: ;
 		/** Accent */
-		--c-accent-0: ;
-		--c-accent-1: fuchsia;
+		--c-accent-0: darkslateblue;
+		--c-accent-1: slateblue;
 		--c-accent-2: ;
 	}
 }

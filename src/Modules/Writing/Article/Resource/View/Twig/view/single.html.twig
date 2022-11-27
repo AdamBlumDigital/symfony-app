@@ -12,7 +12,11 @@
 			<dt>Published</dt>
 			<dd>12 November 2022</dd>
 			<dt>Category</dt>
-			<dd>{{ article.category.title }}</dd>
+			<dd>
+				<a href='{{ path('view_get_category', {'id': article.category.id }) }}'>
+					{{ article.category.title }}
+				</a>
+			</dd>
 		</dl>
 
 		<p style='font-size:larger'>{{ article.description }}</p>

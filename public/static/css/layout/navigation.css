@@ -1,0 +1,15 @@
+/**
+ * Navigation Layout
+ */
+
+nav menu {
+	justify-content: start;
+}
+
+
+nav li a {
+	min-inline-size: var(--size-control);
+	text-align: center;
+	border-radius: var(--size-radius);
+	padding: 0.5ch;
+}

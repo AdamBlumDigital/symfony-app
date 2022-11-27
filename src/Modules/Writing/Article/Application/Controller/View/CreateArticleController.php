@@ -48,7 +48,6 @@ final class CreateArticleController extends AbstractController
 			$articleData = $articleForm->getData();
 
 			$this->addFlash('notice', 'Your Article Request is being sent.');
-			$this->addFlash('notice', json_encode($articleData));
 
 			$this->eventDispatcher->dispatch(new OnArticleCreationRequestedEvent(
 				$articleData->getTitle(),

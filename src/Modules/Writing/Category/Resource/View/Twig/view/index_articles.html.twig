@@ -1,17 +1,18 @@
 {% extends template.default %}
 {%- block body -%}
 {%- embed layout.index with {
-	'items' : articles, 
-	'page': page ?? null,
-	'size': size ?? null,
-	'pages': pages ?? null,
-	'label_count' : 'count.articles', 
-	'label_count_word' : 'count.articles.word', 
-	'label_empty' : 'label.no_articles' 
+	'items'				:	articles, 
+	'page'				:	page ?? null,
+	'size'				:	size ?? null,
+	'pages'				:	pages ?? null,
+	'label_count'		:	'count.articles', 
+	'label_count_word'	:	'count.articles.word', 
+	'label_empty'		:	'label.no_articles' 
 } -%}
 
 	{%- block header -%}
-		<h1>{{ 'generic.writing' | trans }}</h1>
+		<h1>{{ 'generic.writing' | trans }} in {{ category.title }}</h1>
+		<p>{{ category.description }}</p>
 	{%- endblock header -%}
 
 	{%- block item -%}	

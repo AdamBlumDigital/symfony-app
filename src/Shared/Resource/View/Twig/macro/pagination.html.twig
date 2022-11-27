@@ -1,4 +1,4 @@
-{%- macro menu(page, pages, size, items, label, route) -%}
+{%- macro menu(page, pages, size, items, label, route, route_params) -%}
 {#
 	Parameters:
 
@@ -41,7 +41,7 @@
 			{{ Menu.item( 
 				'pagination.prev',  
 				has_prev ? route : null,
-				{ 'page': (page - 1) },
+				route_params | merge({ 'page': (page - 1) }),
 				{'rel': 'prev'}
 			) }}
 
@@ -49,14 +49,14 @@
 			{{ Menu.item(
 				i | format_number ({min_integer_digit: '2'}), 
 				route, 
-				{'page': i} 
+				route_params | merge({'page': i})
 			) }}
 			{%- endfor -%}
 
 			{{ Menu.item( 
 				'pagination.next',  
 				has_next ? route : null,
-				{ 'page': (page + 1) },
+				route_params | merge({ 'page': (page + 1) }),
 				{'rel': 'next'}
 			) }}
 

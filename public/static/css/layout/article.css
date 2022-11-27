@@ -1,0 +1,12 @@
+/**
+ * Article Layout
+ */
+
+article, article > header {
+	display: grid;
+	gap: var(--size-gap);
+}
+
+article > header {
+	margin-block-end: var(--size-variable);
+}

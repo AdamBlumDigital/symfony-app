@@ -39,6 +39,25 @@ class ArticleRepository extends ServiceEntityRepository implements ArticleReposi
 
 	}	
 
+	public function findSomeByCategoryId(string $categoryId, int $page = 1, int $length = 2): Paginator
+	{
+		$query = $this->createQueryBuilder('a')
+			->where('a.category = :categoryId')
+			->setParameter('categoryId', $categoryId)
+			->getQuery()
+		;
+
+		$paginator = new Paginator($query);
+
+		$paginator->getQuery()
+			->setFirstResult($length * ($page - 1) )
+			->setMaxResults($length)
+		;
+
+		return $paginator;
+
+	}	
+
 	public function save(Article $article): void
 	{
 		$this->_em->persist($article);

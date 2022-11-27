@@ -32,3 +32,12 @@ view_post_article:
     path: /writing/post
     controller: App\Modules\Writing\Article\Application\Controller\View\PostArticleController
     methods: POST 
+
+view_get_category:
+    path: /writing/topic/{id}/{page}
+    controller: App\Modules\Writing\Article\Application\Controller\View\GetSomeArticlesByCategoryIdController
+    methods: GET 
+    requirements:
+        page: '\d+'
+    defaults:
+        page: 1

@@ -5,11 +5,7 @@
 
 	/**
 	 *	Sizes
-	 *
-	 *	Commonly-used sizes
 	 */
-
-
 	--size-text-max: 50ch;
 	--size-text-min: 25ch;
 
@@ -27,15 +23,4 @@
 		( var(--size-border) + var(--size-padding) ) * 2 + ( 1em * var(--type-leading-text) )
 	);
 
-	/**
-	 *	Typography
-	 */
-
-	/* Line-Height */
-	--type-leading-text: 1.6;
-	--type-leading-title: 1.35;
-
-	/* Font-Family */
-	--type-family-text: system-ui, ui-sans-serif, sans-serif;
-	--type-family-code: ui-monospace, monospace;
 }

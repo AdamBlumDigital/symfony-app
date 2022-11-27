@@ -1,7 +1,8 @@
 dialog {
-	background-color: var(--c-bg-1);
+	background-color: var(--c-bg-0);
 	color: inherit;
-	border: var(--size-border) solid var(--c-fg-0);
+	border: var(--size-border) solid var(--c-bg-2);
+	border-radius: var(--size-radius);
 	position: fixed;
 	bottom: 0;
 	right: 0;
@@ -9,7 +10,6 @@ dialog {
 	margin: 1em;
 	max-inline-size: 100%;
 	padding-block-end: var(--size-gap);
-	border-radius: var(--size-radius);
 	gap: var(--size-gap);
 }
 
@@ -19,6 +19,7 @@ dialog {
 	justify-content: space-between;
 	align-items: center;
 	z-index: 2;
+	font-size: smaller;
 }
 
 ::backdrop {
@@ -28,8 +29,9 @@ dialog {
 dialog > header {
 	flex-basis: 100%;
 	padding: var(--form-element-padding);
-	background-color: var(--c-bg-0);
-	border-block-end: var(--size-border) solid var(--c-fg-0);
+	background-color: var(--c-bg-1);
+	border-block-end: var(--size-border) solid var(--c-bg-2);
+	font-weight: bold;
 }
 
 dialog form[method='dialog'] {

@@ -26,12 +26,12 @@
 			aria-current='page'
 			{% endif %}
 			{{ item_attrs }}
-		>{{ item_text }}</a>
+		>{% if is_current %}<i>{% endif %}{{ item_text }}{% if is_current %}</i>{% endif %}</a>
 		{% else %}
-		<a
+		<span
 			aria-disabled='true'
 			{{ item_attrs }}
-		>{{ item_text }}</a>
+		>{{ item_text }}</span>
 		{% endif %}
 	</li>
 {%- endmacro -%}

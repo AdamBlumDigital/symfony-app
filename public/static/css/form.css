@@ -48,14 +48,15 @@
 :root {
 	--form-element-padding: 0.5ch 1ch;
 	--form-element-leading: var(--type-leading-text);
-	--form-element-border: var(--size-border) solid var(--c-fg-0); 
+	--form-element-border: var(--size-border) solid var(--c-bg-2); 
 	--form-element-radius: var(--size-radius);
 
-	--form-field-background: var(--c-bg-1);
-	--form-field-foreground: var(--c-fg-1);
+	--form-field-background: var(--c-bg-0);
+	--form-field-foreground: var(--c-fg-0);
 	
-	--form-control-background: var(--c-bg-0);
-	--form-control-foreground: var(--c-fg-1);
+	--form-control-background: var(--c-bg-1);
+	--form-control-background-active: var(--c-bg-2);
+	--form-control-foreground: var(--c-fg-0);
 
 	--form-icon-check: var(--uri-check);
 	--form-icon-dropdown: var(--uri-down);
@@ -63,14 +64,7 @@
 
 /** end Form Custom Properties */
 
-input:where(
-	[type='checkbox'],
-	[type='radio']
-),
-select:where(:not([multiple])) {
-	background-repeat: no-repeat;
-	background-position-y: center;
-}
+
 
 
 /**
@@ -105,35 +99,28 @@ button):focus-visible,
 	border-color: var(--c-accent-1);
 }
 
+/** Elements with Icons */
+input:where([type='checkbox'],[type='radio']),
+select:where(:not([multiple])) {
+	background-repeat: no-repeat;
+	background-position-y: center;
+}
+
 /** end Form Elements */
 
 
 /**
  *	Form Fields
  */
-/** Colors */
+/* Form Field Colors */
 input:where(:not([type])),
-input:where(
-	[type='text'],
-	[type='email'],
-	[type='url'],
-	[type='search'],
-	[type='password'],
-	[type='number'],
-	[type='tel'],
-	[type='time'],
-	[type='date'],
-	[type='datetime-local'],
-	[type='week'],
-	[type='month'],
-	[type='checkbox'],
-	[type='radio']
-),
+input:where([type='text'],[type='email'],[type='url'],[type='search'],[type='password'],[type='number'],[type='tel'],[type='time'],[type='date'],[type='datetime-local'],[type='week'],[type='month'],[type='checkbox'],[type='radio']), 
 textarea,
 select:where([multiple]) {
 	background-color: var(--form-field-background);
 	color: var(--form-field-foreground);
 }
+
 /** Multi-select Sizing */
 select:where([multiple]) {
 	padding: 0;
@@ -147,11 +134,9 @@ select:where([multiple]) > option:where(:not(:last-child)) {
 select:where([multiple]) option:checked {
 	background-color: var(--form-control-background);
 }
+
 /** Checkbox / Radio Button Sizing */
-input:where(
-	[type='checkbox'],
-	[type='radio']
-) {
+input:where([type='checkbox'],[type='radio']) {
 	block-size:		var(--size-control);
 	inline-size:	var(--size-control);
 }
@@ -160,10 +145,7 @@ input[type='radio'] {
 	border-radius: 50%;
 }
 /** Checkbox / Radio Button Checked Styling */
-input:where(
-	[type='checkbox'],
-	[type='radio']
-):checked {
+input:where([type='checkbox'],[type='radio']):checked {
 	background-image: var(--form-icon-check);
 	background-position-x: center;
 	background-size: contain;
@@ -178,17 +160,23 @@ textarea {
 /**
  *	Form Controls
  */
+/** Form Control Colors */
 button,
-input:where(
-	[type='button'],
-	[type='reset'],
-	[type='submit']
-	[type='color'],
-),
+input:where([type='button'],[type='reset'],[type='submit'],[type='color']),
 ::file-selector-button,
 select:where(:not([multiple])) {
 	background-color: var(--form-control-background);
 	color: var(--form-control-foreground);
+}
+
+/** Form Control Hover Styling */
+:where(
+	button,
+	input:where([type='button'],[type='reset'],[type='submit'],[type='color']), 
+	select:where(:not([multiple]))
+):hover,
+input[type='file']:hover::file-selector-button {
+	background-color: var(--form-control-background-active);
 }
 /** Select Dropdown Icon Styling */
 select:where(:not([multiple])) {
@@ -218,6 +206,7 @@ label {
 }
 
 label.required::after {
+	/** U+202F is Narrow No-Break Space */
 	content: '\202F*';
 	font-weight: bold;
 	color: var(--c-error-1);

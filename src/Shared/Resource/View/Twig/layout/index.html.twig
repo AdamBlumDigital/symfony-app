@@ -1,9 +1,9 @@
-{% import '@Shared/macro/pagination.html.twig' as Pagination %}
-
-{#<header>#}
-	{#<p>{{ label_count | trans( {'count' : items | length } ) | title }}</p>#}
-	{# Pagination.menu(page, pages, size, items, label_count_word, app.request.get('_route')) #}
-{#</header>#}
+{% if block('header') is not empty %}
+<header>
+	{% block header %}
+	{% endblock header %}
+</header>
+{% endif %}
 
 
 {%- if items is not empty -%}
@@ -19,8 +19,16 @@
 {%- endif -%}
 
 
-
 <footer>
-	{{ Pagination.menu(page, pages, size, items, label_count_word, app.request.get('_route')) }}
+	{% import '@Shared/macro/pagination.html.twig' as Pagination %}
+	{{ Pagination.menu(
+		page, 
+		pages, 
+		size, 
+		items, 
+		label_count_word, 
+		app.request.get('_route'), 
+		app.request.get('_route_params') 
+	) }}
 </footer>
 

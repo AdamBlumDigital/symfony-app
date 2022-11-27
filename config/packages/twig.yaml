@@ -8,13 +8,14 @@ twig:
             default:  '@Shared/layout/default.html.twig'
             sidebar:  '@Shared/layout/sidebar.html.twig'
             listing:  '@Shared/layout/listing.html.twig'
-            index:  '@Shared/layout/index.html.twig'
-            editor:  '@Shared/layout/editor.html.twig'
+            index:    '@Shared/layout/index.html.twig'
+            editor:   '@Shared/layout/editor.html.twig'
     form_themes: ['@Shared/form_theme/default.html.twig']
     paths:
       'src/Shared/Resource/View/Twig': 'Shared'
       'src/Modules/Module/Resource/View/Twig': 'Module'
       'src/Modules/Writing/Article/Resource/View/Twig': 'Article'
+      'src/Modules/Writing/Category/Resource/View/Twig': 'Category'
 
 when@test:
     twig:

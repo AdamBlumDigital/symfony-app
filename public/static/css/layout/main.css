@@ -1,0 +1,12 @@
+/**
+ * Main Layout
+ */
+main {
+	display: grid;
+	align-content: space-between;
+	gap: var(--size-tab);
+}
+
+main > :where(header, footer) {
+
+}
