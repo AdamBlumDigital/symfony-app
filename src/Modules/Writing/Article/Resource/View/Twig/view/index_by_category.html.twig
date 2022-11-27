@@ -12,7 +12,9 @@
 
 	{%- block header -%}
 		<h1>{{ 'generic.writing' | trans }} in {{ category.title }}</h1>
-		<p>{{ category.description }}</p>
+		{% if category.description is not empty %}
+			<p>{{ category.description }}</p>
+		{% endif %}
 	{%- endblock header -%}
 
 	{%- block item -%}	

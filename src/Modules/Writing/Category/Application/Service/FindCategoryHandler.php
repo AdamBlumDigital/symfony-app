@@ -6,25 +6,21 @@ namespace App\Modules\Writing\Category\Application\Service;
 
 use App\Modules\Writing\Category\Application\Model\FindCategoryQuery;
 use App\Modules\Writing\Category\Domain\Repository\CategoryRepositoryInterface;
-use App\Modules\Writing\Article\Domain\Repository\ArticleRepositoryInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Psr\Log\LoggerInterface;
 
 final class FindCategoryHandler implements MessageHandlerInterface
 {
 	private CategoryRepositoryInterface $categoryRepository;
-	private ArticleRepositoryInterface $articleRepository;
 
 	private LoggerInterface $logger;
 
 	public function __construct(
 		CategoryRepositoryInterface $categoryRepository, 
-		ArticleRepositoryInterface $articleRepository, 
 		LoggerInterface $logger
 	)
 	{
 		$this->categoryRepository = $categoryRepository;
-		$this->articleRepository = $articleRepository;
 		$this->logger = $logger;
 	}
 
