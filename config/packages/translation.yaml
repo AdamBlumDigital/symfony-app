@@ -5,7 +5,6 @@ framework:
         # Unfortunately, translation paths do not allow wildcards
         paths:
             - '%kernel.project_dir%/src/Shared/Resource/Translation/'
-            - '%kernel.project_dir%/src/Modules/Module/Resource/Translation/'
             - '%kernel.project_dir%/src/Modules/Writing/Article/Resource/Translation/'
         fallbacks:
             - en

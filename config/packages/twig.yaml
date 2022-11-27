@@ -13,7 +13,6 @@ twig:
     form_themes: ['@Shared/form_theme/default.html.twig']
     paths:
       'src/Shared/Resource/View/Twig': 'Shared'
-      'src/Modules/Module/Resource/View/Twig': 'Module'
       'src/Modules/Writing/Article/Resource/View/Twig': 'Article'
       'src/Modules/Writing/Category/Resource/View/Twig': 'Category'
 

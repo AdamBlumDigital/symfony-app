@@ -10,12 +10,6 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            Module:
-                type: xml
-                is_bundle: false
-                dir: '%kernel.project_dir%/src/Modules/Module/Infrastructure/DoctrineMapping'
-                prefix: 'App\Modules\Module\Domain\Entity'
-                alias: Module
             Article:
                 type: xml
                 is_bundle: false

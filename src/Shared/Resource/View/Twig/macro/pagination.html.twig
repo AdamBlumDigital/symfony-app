@@ -1,4 +1,4 @@
-{%- macro menu(page, pages, size, items, label, route, route_params) -%}
+{%- macro menu(page, pages, size, items, label, route, params) -%}
 {#
 	Parameters:
 
@@ -8,6 +8,7 @@
 	items:	the set of items being listed on the page
 	label:	the translation key used for pluralization of items
 	route:	the route used for pagination links
+	params:	the route parameters used for pagination links
 #}
 
 {%- if page is not null and pages is not null and size is not null -%}
@@ -41,7 +42,7 @@
 			{{ Menu.item( 
 				'pagination.prev',  
 				has_prev ? route : null,
-				route_params | merge({ 'page': (page - 1) }),
+				params | merge({ 'page': (page - 1) }),
 				{'rel': 'prev'}
 			) }}
 
@@ -49,14 +50,14 @@
 			{{ Menu.item(
 				i | format_number ({min_integer_digit: '2'}), 
 				route, 
-				route_params | merge({'page': i})
+				params | merge({'page': i})
 			) }}
 			{%- endfor -%}
 
 			{{ Menu.item( 
 				'pagination.next',  
 				has_next ? route : null,
-				route_params | merge({ 'page': (page + 1) }),
+				params | merge({ 'page': (page + 1) }),
 				{'rel': 'next'}
 			) }}
 

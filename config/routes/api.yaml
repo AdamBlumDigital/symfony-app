@@ -1,18 +1,3 @@
-api_get_all_modules:
-    path: /view/all
-    controller: App\Modules\Module\Application\Controller\Api\GetAllModulesController
-    methods: GET 
-api_get_module:
-    path: /view/{id}
-    controller: App\Modules\Module\Application\Controller\Api\GetModuleController
-    methods: GET 
-api_post_module:
-    path: /create
-    controller: App\Modules\Module\Application\Controller\Api\PostModuleController
-    methods: POST
-    # if the action is implemented as the __invoke() method of the
-    # controller class, you can skip the '::method_name' part:
-
 api_get_all_articles:
     path: /writing/view/all
     controller: App\Modules\Writing\Article\Application\Controller\Api\GetAllArticlesController
