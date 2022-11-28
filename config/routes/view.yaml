@@ -1,7 +1,9 @@
+# Static Pages
 view_homepage:
     path: /
     controller: App\Modules\StaticPage\Application\Controller\View\HomepageController
 
+# Article Pages
 view_get_some_articles:
     path: /writing/{page}
     controller: App\Modules\Writing\Article\Application\Controller\View\GetSomeArticlesController
