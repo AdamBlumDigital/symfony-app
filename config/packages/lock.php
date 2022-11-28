@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
 	$containerConfigurator->extension('framework', [
-		'lock' => '%env(LOCK_DSN)%'
+		'lock' => env('LOCK_DSN')
 	]);
 };

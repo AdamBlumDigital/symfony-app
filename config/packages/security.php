@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
 	$containerConfigurator->extension('security', [
 		'password_hashers' => [
-			'Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface' => 'auto'
+			\Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface::class => 'auto'
 		], 
 		'providers' => [
 			'users_in_memory' => [
@@ -29,7 +29,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     if ($containerConfigurator->env() === 'test') {
 		$containerConfigurator->extension('security', [
 			'password_hashers' => [
-				'Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface' => [
+				\Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface::class => [
 					'algorithm' => 'auto', 
 					'cost' => 4, 
 					'time_cost' => 3, 

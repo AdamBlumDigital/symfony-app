@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
 	$containerConfigurator->extension('doctrine', [
 		'dbal' => [
-			'url' => '%env(resolve:DATABASE_URL)%'
+			'url' => env('DATABASE_URL')->resolve()
 		], 
 		'orm' => [
 			'auto_generate_proxy_classes' => true, 

@@ -3,6 +3,7 @@ parameters:
 	checkGenericClassInNonGenericObjectType: false
 	paths:
 		- src
+		- config
 		- tests
 includes:
 	- phpstan-baseline.neon
