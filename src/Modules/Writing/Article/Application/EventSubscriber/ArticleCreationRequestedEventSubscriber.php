@@ -5,24 +5,19 @@ declare(strict_types=1);
 namespace App\Modules\Writing\Article\Application\EventSubscriber;
 use App\Modules\Writing\Article\Application\Model\CreateArticleCommand;
 use App\Modules\Writing\Article\Application\Event\OnArticleCreationRequestedEvent;
-
+use App\Modules\Writing\Article\Domain\Event\ArticleCreatedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Psr\Log\LoggerInterface;
-use App\Modules\Writing\Article\Domain\Event\ArticleCreatedEvent;
 
 final class ArticleCreationRequestedEventSubscriber implements EventSubscriberInterface
 {
-	private MessageBusInterface $messageBus;	
-	private LoggerInterface $logger;
+	private MessageBusInterface $messageBus;
 
 	public function __construct(
-		MessageBusInterface $messageBus,
-		LoggerInterface $logger
+		MessageBusInterface $messageBus
 	)
 	{
 		$this->messageBus = $messageBus;
-		$this->logger = $logger;
 	}
 
 	/**
@@ -49,18 +44,12 @@ final class ArticleCreationRequestedEventSubscriber implements EventSubscriberIn
 	 */
 	public function createArticle(OnArticleCreationRequestedEvent $event): void
 	{
-		$this->logger->info('<OnCreationRequestedEvent> heard by <CreationRequestedEventSubscriber>');
-
-		$this->logger->info('<CreateArticleCommand> will be instantiated');
-
 		$createArticleCommand = new CreateArticleCommand();
 
-		$createArticleCommand->setTitle($event->getTitle());	
-		$createArticleCommand->setDescription($event->getDescription());	
-		$createArticleCommand->setContent($event->getContent());	
-		$createArticleCommand->setCategoryId($event->getCategoryId());	
-
-		$this->logger->info('<CreateArticleCommand> will be dispatched');
+		$createArticleCommand->setTitle($event->getTitle());
+		$createArticleCommand->setDescription($event->getDescription());
+		$createArticleCommand->setContent($event->getContent());
+		$createArticleCommand->setCategoryId($event->getCategoryId());
 
 		$this->messageBus->dispatch($createArticleCommand);
 	}
@@ -74,6 +63,5 @@ final class ArticleCreationRequestedEventSubscriber implements EventSubscriberIn
 	public function testing(ArticleCreatedEvent $event): void
 	{
 		$serialized = \json_encode($event->getOccur());
-		$this->logger->info('<Article> created: ' . $serialized);
 	}
 }

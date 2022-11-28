@@ -8,7 +8,7 @@ namespace App\Shared\Message;
  *	in `/config/packages/messenger.yaml`
  *
  *	Implement this interface in a message class if it 
- *	should be send async
+ *	should be sent async
  */
 interface AsyncMessageInterface
 {
