@@ -93,9 +93,13 @@
     	"phpstan": "vendor/bin/phpstan analyse --xdebug",
 		"phpstan-baseline": "vendor/bin/phpstan analyse --generate-baseline",
     	"tests": "vendor/bin/phpunit",
+		"lint-twig" : "php bin/console lint:twig src templates",
+		"lint-container" : "php bin/console lint:container",
     	"ci": [
 			"@phpstan",
-        	"@tests"
+        	"@tests",
+        	"@lint-twig",
+        	"@lint-container"
 		]
     },
     "conflict": {
