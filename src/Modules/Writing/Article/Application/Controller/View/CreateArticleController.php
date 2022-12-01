@@ -13,6 +13,7 @@ use Symfony\Component\Uid\Uuid;
 use App\Modules\Writing\Article\Application\Form\ArticleType;
 use App\Modules\Writing\Article\Application\Model\CreateArticleCommand;
 use App\Modules\Writing\Article\Domain\Entity\Article;
+use App\Modules\Writing\Article\Application\Model\CreateArticleRequest;
 use App\Modules\Writing\Article\Domain\Entity\ArticleId;
 use App\Modules\Writing\Article\Application\Event\OnArticleCreationRequestedEvent;
 
@@ -32,43 +33,38 @@ final class CreateArticleController extends AbstractController
 
 	public function __invoke(Request $request): Response
 	{
-		$article = new Article(
-			new ArticleId(
-				Uuid::v4()->jsonSerialize()
-			)
-		);
-
 		/*
-		 *	Just trying some things out
+		 *	Going to try and speed things up by not associating
+		 *	an entity with a form. Since API requests won't be validated
+		 *	through forms regardless, we should start with a regular
+		 *	array and work with both form and JSON data identically
 		 */
-		$articleForm = $this->createForm(ArticleType::class, $article, [
-		//	'action' => $this->generateUrl('view_post_article')
-		]);
+		$articleForm = $this->createForm(ArticleType::class);
 
+		/**
+		 *	90% of this controller's processing time
+		 *	occurs right here
+		 */
 		$articleForm->handleRequest($request);
-
 
 		if ($articleForm->isSubmitted() && $articleForm->isValid()) {
 			$articleData = $articleForm->getData();
-
+			
 			$this->addFlash('notice', 'Your Article Request is being sent.');
 
 			$this->eventDispatcher->dispatch(new OnArticleCreationRequestedEvent(
-				$articleData->getTitle(),
-				$articleData->getDescription(),
-				$articleData->getContent(),
-				$articleData->getCategory()->getId()->getValue()
+				$articleData['title'],
+				$articleData['description'],
+				$articleData['content'],
+				$articleData['category']->getId()->getValue()
 			));
 			return $this->redirectToRoute('view_get_some_articles');	
 		}
 		
-		if ($articleForm->isSubmitted() && !$articleForm->isValid()) {
-			$this->addFlash('notice', 'There were problems with your submission.');
-		}
-		
-		$session = $this->requestStack->getSession();
-		$sessionId = $session->getId();
-		$this->addFlash('notice', sprintf('Your Session ID is <%s>', $sessionId));
+		$this->addFlash('notice', 'This is an example modal dialog message.');
+		//$session = $this->requestStack->getSession();
+		//$sessionId = $session->getId();
+		//$this->addFlash('notice', sprintf('Your Session ID is <%s>', $sessionId));
 
 		return $this->render('@Article/view/create.html.twig', [
 			'articleForm'	=> $articleForm->createView()

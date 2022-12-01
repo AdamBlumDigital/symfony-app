@@ -1,6 +1,27 @@
 {% extends 'form_div_layout.html.twig' %}
 {# /vendor/symfony/twig-bridge/Resources/views/Form/ #}
 
+
+{%- block form_start -%}
+    {%- do form.setMethodRendered() -%}
+    {% set method = method|upper %}
+    {%- if method in ["GET", "POST"] -%}
+        {% set form_method = method %}
+    {%- else -%}
+        {% set form_method = "POST" %}
+    {%- endif -%}
+    {%- if not form.vars.valid -%}
+		{% import '@Shared/macro/dialog.html.twig' as Dialog %}
+		{{ Dialog.dialog('warning', 'There were errors in your form submission', true) }}
+    {%- endif -%}
+    <form{% if name != '' %} name="{{ name }}"{% endif %} method="{{ form_method|lower }}"{% if action != '' %} action="{{ action }}"{% endif %}{{ block('attributes') }}{% if multipart %} enctype="multipart/form-data"{% endif %}>
+    {%- if form_method != method -%}
+        <input type="hidden" name="_method" value="{{ method }}" />
+    {%- endif -%}
+{%- endblock form_start -%}
+
+
+
 {%- block button_widget -%}
     {%- if label is empty -%}
         {%- if label_format is not empty -%}
@@ -55,28 +76,21 @@
         {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
     {%- endif -%}
     {%- if form_errors(form) -%}
-        {%- set widget_attr = widget_attr | merge({attr: {'data-invalid': 'invalid'}}) -%}
+        {%- set widget_attr = widget_attr | merge({attr: {'data-validation': 'invalid'}}) -%}
         {#- set label_attr = label_attr | merge({'class': 'invalid'}) -#}
     {%- endif -%}
-{#  <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>#}
+{#  <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}{% if form_errors(form) %} data-validation='invalid'{% endif %}>#}
         {{- form_label(form, label_attr) -}}
         {{- form_widget(form, widget_attr) -}}
         {{- form_errors(form) -}}
-
         {{- form_help(form) -}}
-		{#- 
-			I'll want to add a break for text-based browsers
-			somewhere between elements, which will be hidden
-			with CSS
-		-#}
-		<br/>
 {#  </div>#}
 {%- endblock form_row -%}
 
 {%- block button_row -%}
-{#  <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>#}
+  <{{element|default('menu')}}{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
         {{- form_widget(form) -}}
-{#  </div>#}
+  </{{element|default('menu')}}>
 {%- endblock button_row -%}
 
 {%- block hidden_row -%}
@@ -92,6 +106,9 @@
         {%- endif -%}
         {% if required -%}
             {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {%- endif -%}
+    	{%- if form_errors(form) -%}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' invalid')|trim}) %}
         {%- endif -%}
         {% if label is empty -%}
             {%- if label_format is not empty -%}
@@ -118,7 +135,6 @@
                 {%- endif -%}
             {%- endif -%}
         </{{ element|default('label') }}>
-		<br/>
     {%- endif -%}
 {%- endblock form_label -%}
 

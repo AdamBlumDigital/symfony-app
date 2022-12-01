@@ -14,7 +14,9 @@
 		<link rel='stylesheet' href='/static/css/layout/navigation.css?v={{"now"|date("Uv")}}'/>
 		<link rel='stylesheet' href='/static/css/layout/body.css?v={{"now"|date("Uv")}}'/>
 		<link rel='stylesheet' href='/static/css/layout/main.css?v={{"now"|date("Uv")}}'/>
+		<link rel='stylesheet' href='/static/css/layout/form.css?v={{"now"|date("Uv")}}'/>
 		<link rel='stylesheet' href='/static/css/layout/article.css?v={{"now"|date("Uv")}}'/>
+		<link rel='stylesheet' href='/static/css/design/form.css?v={{"now"|date("Uv")}}'/>
 		<link rel='stylesheet' href='/static/css/type.css?v={{"now"|date("Uv")}}'/>
 		<link rel='stylesheet' href='/static/css/form.css?v={{"now"|date("Uv")}}'/>
 		<link rel='stylesheet' href='/static/css/hyperlink.css?v={{"now"|date("Uv")}}'/>
@@ -48,18 +50,19 @@
 					<form method='dialog'><button type='submit'>{{ 'generic.dismiss' | trans }}</button></form>
 				</dialog>#}
 		</main>
+		{% import '@Shared/macro/dialog.html.twig' as Dialog %}
 		{% for label, messages in app.flashes %}
 			{% for message in messages %}
-				<dialog open>
-					<header><p>{{ label | humanize }}</p></header>
-					<p>{{ message }}</p>
-					<form method='dialog'><button type='submit'>{{ 'generic.dismiss' | trans }}</button></form>
-				</dialog>
+				{{ Dialog.dialog(label, message, true) }}
 			{% endfor %}
 		{% endfor %}
 		<footer>
 			<p rel='copyright'>Copyright</p>
+			<nav>
+			<a href>CodePen</a>
+			<a href>GitHub</a>
 			<a href='/_profiler/latest'>Profiler</a>
+			</nav>
 		</footer>
 	</body>
 </html>

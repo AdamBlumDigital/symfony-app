@@ -9,15 +9,15 @@ namespace App\Modules\Writing\Article\Application\Model;
  */
 final class FindArticleQuery
 {
-	private string $moduleId;
+	private string $articleId;
 
-	public function __construct(string $moduleId)
+	public function __construct(string $articleId)
 	{
-		$this->moduleId = $moduleId;
+		$this->articleId = $articleId;
 	}
 
 	public function getArticleId(): string
 	{
-		return $this->moduleId;
+		return $this->articleId;
 	}
 }

@@ -1,0 +1,9 @@
+{%- macro dialog(label, message, open = false) -%}
+
+<dialog{% if open %} open{% endif %}>
+	<header><p>{{ label | humanize }}</p></header>
+	<p>{{ message }}</p>
+	<form method='dialog'><button type='submit'>{{ 'generic.dismiss' | trans }}</button></form>
+</dialog>
+
+{%- endmacro -%}
