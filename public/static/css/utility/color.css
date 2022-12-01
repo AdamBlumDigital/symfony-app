@@ -3,7 +3,7 @@
 		/** Foreground */
 		--c-fg-0: black;
 		--c-fg-1: gray;
-		--c-fg-2: ;
+		--c-fg-2: black;
 		/** Background */
 		--c-bg-0: whitesmoke;
 		--c-bg-1: gainsboro;
@@ -32,7 +32,7 @@
 		/** Foreground */
 		--c-fg-0: silver;
 		--c-fg-1: gray;
-		--c-fg-2: ;
+		--c-fg-2: white;
 		/** Background */
 		--c-bg-0: black;
 		--c-bg-1: #1b1b1b;

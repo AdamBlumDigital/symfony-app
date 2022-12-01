@@ -66,7 +66,7 @@ input[type='file']:focus-visible {
 
 /* Textarea */
 textarea {
-	overflow-y:	auto;
-	resize:		vertical;
+	overflow-block:	auto;
+	resize:		block;
 }
 

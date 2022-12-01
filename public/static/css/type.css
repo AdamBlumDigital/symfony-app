@@ -38,4 +38,15 @@ dd {
 	grid-column: 2 / -1;
 }
 
+code {
+	font-family: var(--type-family-code);
+	word-break: break-all;
+}
 
+p code {
+	font-size: smaller;
+	outline:		var(--form-element-border);
+	border-radius:	var(--size-radius);
+	outline-offset:	0.25ch;
+	margin-inline:	0.5ch;
+}

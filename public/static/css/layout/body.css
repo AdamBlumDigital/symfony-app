@@ -1,7 +1,10 @@
 /**
  *	Body Layout
  */
-:where(body, main) > :where(header, footer), nav, menu {
+body > header, 
+footer, 
+nav, 
+menu {
 	display: flex;
 	flex-wrap: wrap;
 	gap: var(--size-gap);
@@ -16,6 +19,6 @@ html {
 body {
 	min-block-size: 100%;
 	display: grid;
-	gap: var(--size-variable);
+	gap: calc( var(--size-variable) + var(--size-gap) );
 	grid-template-rows: min-content 1fr min-content;
 }

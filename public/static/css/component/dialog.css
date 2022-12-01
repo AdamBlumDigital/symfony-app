@@ -1,25 +1,25 @@
+/**
+ *	General Dialog Styling
+ */
 dialog {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--size-padding) var(--size-gap);
+	padding: var(--size-gap);
+	justify-content: space-between;
+	align-items: center;
+	max-inline-size: 100%;
 	background-color: var(--c-bg-0);
 	color: inherit;
 	border: var(--size-border) solid var(--c-bg-2);
 	border-radius: var(--size-radius);
-	position: fixed;
-	bottom: 0;
-	right: 0;
-	left: auto;
-	margin: 1em;
-	max-inline-size: 100%;
-	padding-block-end: var(--size-gap);
-	gap: var(--size-gap);
-}
-
-dialog {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: center;
-	z-index: 2;
 	font-size: smaller;
+	/*
+	background-color: var(--c-bg-1);
+
+	--form-control-background: var(--c-bg-2);
+	--form-control-background-active: var(--c-bg-1);
+	*/
 }
 
 ::backdrop {
@@ -27,17 +27,41 @@ dialog {
 }
 
 dialog > header {
-	flex-basis: 100%;
-	padding: var(--form-element-padding);
-	background-color: var(--c-bg-1);
-	border-block-end: var(--size-border) solid var(--c-bg-2);
 	font-weight: bold;
+}
+
+dialog :not(header) p {
+	margin-block: var(--size-gap);
 }
 
 dialog form[method='dialog'] {
 	justify-self: end;
 }
 
-dialog > *:where(:not(header)) {
-	padding-inline: var(--size-gap);
+
+/**
+ *	Modal Dialog
+ */
+body > dialog {
+	z-index: 2;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	left: auto;
+	margin: 1em;
+}
+
+
+
+/**
+ *	Inline Dialog
+ */
+
+main dialog {
+	justify-self: center;
+	position: static;
+}
+
+main dialog > header {
+
 }

@@ -4,7 +4,27 @@
 
 article, article > header {
 	display: grid;
-	gap: var(--size-gap);
+
+}
+
+
+
+article {
+	grid-template-columns: 1fr fit-content(var(--size-text-max)) 1fr;	
+	gap: var(--size-tab) 0;
+}
+
+article:where(:not(:first-child)) {
+	gap: var(--size-gap) 0;
+}
+
+article > header {
+	grid-column: 1 / -1;
+	gap: var(--size-variable) 0;
+}
+
+article > *:where(:not(header, figure)) {
+	grid-column: 2 / -2;
 }
 
 article > header {

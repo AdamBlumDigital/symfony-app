@@ -46,10 +46,12 @@
  *		on the page using the form attribute.
  */
 :root {
-	--form-element-padding: 0.5ch 1ch;
+	--form-element-padding-inline: 1ch;
+	--form-element-padding-block: 0.5ch;
 	--form-element-leading: var(--type-leading-text);
 	--form-element-border: var(--size-border) solid var(--c-bg-2); 
 	--form-element-radius: var(--size-radius);
+	--form-element-accent: var(--c-accent-1);
 
 	--form-field-background: var(--c-bg-0);
 	--form-field-foreground: var(--c-fg-0);
@@ -57,6 +59,8 @@
 	--form-control-background: var(--c-bg-1);
 	--form-control-background-active: var(--c-bg-2);
 	--form-control-foreground: var(--c-fg-0);
+
+
 
 	--form-icon-check: var(--uri-check);
 	--form-icon-dropdown: var(--uri-down);
@@ -85,7 +89,8 @@ button,
 ::file-selector-button {
 	appearance: none;
 	line-height: var(--form-element-leading);
-	padding: var(--form-element-padding);
+	padding-inline: var(--form-element-padding-inline);
+	padding-block: var(--form-element-padding-block);
 	border: var(--form-element-border);
 	border-radius: var(--form-element-radius);
 }
@@ -96,7 +101,7 @@ button):focus-visible,
 :where(
 	input[type='file']:focus-visible)::file-selector-button {
 	outline: none;
-	border-color: var(--c-accent-1);
+	border-color: var(--form-element-accent);
 }
 
 /** Elements with Icons */
@@ -202,18 +207,17 @@ button[type='submit'] {
 
 label {
 	display: inline-block;
-	margin-block-start: var(--size-gap);
-}
-
-label.required::after {
-	/** U+202F is Narrow No-Break Space */
-	content: '\202F*';
-	font-weight: bold;
-	color: var(--c-error-1);
 }
 
 /** end Form Labels */
 
+/**
+ * Form Text Content
+ */
 
+form :where(p, ul) {
+	font-size: smaller;
+	padding: var(--form-element-padding-inline);
+}
 
 

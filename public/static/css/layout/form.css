@@ -1,0 +1,43 @@
+/**
+ * Form Layout
+ */
+
+:root {
+	--u-error-0: '\2326';
+	--u-error-1: '\26A0';
+}
+
+
+
+form:where(:not([method='dialog'])) {
+	display: grid;
+	inline-size: fit-content(var(--size-text-max));
+	justify-self: center;
+}
+
+form > :where(div, menu) {
+	display: flex;
+}
+
+form p {
+	justify-self: end;
+}
+
+form menu {
+	justify-content: end;
+}
+
+form :where(:not(input:where([type='submit'],[type='reset']), button)) {
+	inline-size: 100%;
+}
+
+form ul {
+	padding-inline-start: var(--size-gap);
+}
+
+
+form :where(label,fieldset) {
+	font-weight: bold;
+	margin-block-start: var(--size-gap);
+}
+

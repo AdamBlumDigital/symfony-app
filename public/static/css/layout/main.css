@@ -4,9 +4,27 @@
 main {
 	display: grid;
 	align-content: space-between;
-	gap: var(--size-tab);
+	gap: calc( var(--size-variable) * 2 );
 }
 
 main > :where(header, footer) {
 
+}
+
+main > header {
+	display: grid;
+	gap: var(--size-variable) 0;
+}
+
+:where(main,article) > header,
+body > footer {
+	--color: var(--c-bg-1);
+	background-color: var(--color);
+	box-shadow: 0 0 0 var(--size-variable) var(--color);
+}
+:where(main,article) > header {
+	margin-block-end: var(--size-variable);
+}
+body > footer {
+	margin-block-start: var(--size-variable);
 }
