@@ -39,7 +39,8 @@ final class CreateArticleController extends AbstractController
 
 		/**
 		 *	90% of this controller's processing time
-		 *	occurs right here
+		 *	occurs right here in the handleRequest()
+		 *	method. Unsure of how to optimize this.
 		 */
 		$articleForm->handleRequest($request);
 
