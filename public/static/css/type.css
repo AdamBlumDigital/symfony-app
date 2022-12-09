@@ -50,3 +50,53 @@ p code {
 	outline-offset:	0.25ch;
 	margin-inline:	0.5ch;
 }
+
+pre {
+	tab-size: 4;
+}
+
+pre ol {
+	padding-inline-start: calc( var(--size-tab) + var(--size-padding) );
+	padding-inline-end: var(--size-padding);
+}
+pre ol li {
+	max-inline-size: unset;
+}
+pre ol li:nth-of-type(15) {
+	outline: thin solid;
+}
+
+pre ol ::marker {
+	color: var(--c-fg-1);
+}
+
+figure {
+	grid-column: 1 / -1;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap-reverse;
+	gap: var(--size-gap);
+	font-size: smaller;
+	max-inline-size:	100%;
+}
+
+figure pre {
+	padding: var(--size-gap);
+	border: var(--form-element-border);
+	flex-basis: auto;
+	max-inline-size: min(100%, 86ch);
+	flex-grow: 1;
+	flex-shrink: 0;
+	overflow-x: scroll;
+	overflow-inline: scroll;
+	background: var(--c-bg-1);
+	display: flex;
+}
+
+
+
+figcaption {
+	flex-grow: 1;
+	flex-basis: var(--size-text-min);
+	max-inline-size: var(--size-text-max);
+}
