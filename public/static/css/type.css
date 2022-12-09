@@ -43,7 +43,7 @@ code {
 	word-break: break-all;
 }
 
-p code {
+:where(p, li) code {
 	font-size: smaller;
 	outline:		var(--form-element-border);
 	border-radius:	var(--size-radius);
@@ -62,12 +62,16 @@ pre ol {
 pre ol li {
 	max-inline-size: unset;
 }
-pre ol li:nth-of-type(15) {
-	outline: thin solid;
-}
 
 pre ol ::marker {
 	color: var(--c-fg-1);
+}
+
+pre ol li:target {
+	outline: var(--size-border) solid var(--c-accent-1);
+}
+pre ol li:target::marker {
+	color: var(--c-accent-1);
 }
 
 figure {
@@ -99,4 +103,7 @@ figcaption {
 	flex-grow: 1;
 	flex-basis: var(--size-text-min);
 	max-inline-size: var(--size-text-max);
+	display: flex;
+	flex-direction: column;
+	gap: var(--size-gap);
 }
