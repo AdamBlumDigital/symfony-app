@@ -8,7 +8,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use App\Modules\Writing\Article\Application\Event\OnCreationRequestedEvent;
+use App\Modules\Writing\Article\Application\Event\OnArticleUpdateRequestedEvent;
 use App\Modules\Writing\Article\Domain\Repository\ArticleRepositoryInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -18,6 +18,7 @@ use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Symfony\Component\Process\Exception\ProcessFailedException;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
  *	@todo	Figure out how to use translations in Console Commands.
@@ -32,11 +33,14 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 final class UpdateArticleConsoleCommand extends Command
 {
 	private ArticleRepositoryInterface $articleRepository;
+	private EventDispatcherInterface $eventDispatcher;
 
 	public function __construct(
+		EventDispatcherInterface $eventDispatcher,
 		ArticleRepositoryInterface $articleRepository
 	)
 	{
+		$this->eventDispatcher = $eventDispatcher;
 		$this->articleRepository = $articleRepository;
 		parent::__construct();
 	}
@@ -64,7 +68,7 @@ final class UpdateArticleConsoleCommand extends Command
 			}
 			$articleId = $io->choice('Choose an Article:', $articleArray);
 
-			$selectedArticle = $this->articleRepository->find($articleId);
+			$selectedArticle = $this->articleRepository->findOneBy(['id' => $articleId]);
 
 			$articleContent = $selectedArticle->getContent();
 	
@@ -103,8 +107,45 @@ final class UpdateArticleConsoleCommand extends Command
 			
 			$filesystem->remove([$tempFile]);
 
+			$title = $selectedArticle->getTitle();
+			$description = $selectedArticle->getDescription();
 
-			return Command::SUCCESS;
+			$categoryId = (string) $selectedArticle->getCategory()->getId();
+
+			/**
+			 *	Specifies mixed return type, though it always (in this 
+			 *	use case) returns string.
+			 *	@see Symfony\Component\Console\Style\SymfonyStyle:245	
+			 */
+			/* Need to use "phpstan-ignore-next-line" if on level 9 */
+    	    if ($io->confirm(sprintf('Update Article with title %s?', $selectedArticle->getTitle()), false)) {
+
+				$io->success('Dispatching Creation Request');
+
+				/*
+				$io->text($articleId);
+				$io->text($categoryId);
+				$io->text($title);
+				$io->text($description);
+				 */
+				/* Need to use "phpstan-ignore-next-line" if on level 9 */
+
+				$this->eventDispatcher->dispatch(new OnArticleUpdateRequestedEvent(
+					$articleId,
+					$title, 
+					$description, 
+					(string) $content, 
+					$categoryId
+				));
+
+				return Command::SUCCESS;
+			} else {
+    	        $io->error('Article Update aborted.');
+    			return Command::FAILURE;
+			}
+
+
+
 
 		} else {	
             $io->error('Article Listing aborted.');

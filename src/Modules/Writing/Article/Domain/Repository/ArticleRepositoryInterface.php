@@ -19,6 +19,14 @@ interface ArticleRepositoryInterface
 	 *			once they are determined.
 	 */
 	public function find($id, $lockMode = null, $lockVersion = null);
+	
+	/**
+	 * @return ?Article
+	 *
+	 *	@param	array<mixed> $criteria
+	 *	@param	array<mixed> $orderBy = null
+	 */
+	public function findOneBy(array $criteria, array $orderBy = null);
 
 	/**
 	 *	@return Article[]
