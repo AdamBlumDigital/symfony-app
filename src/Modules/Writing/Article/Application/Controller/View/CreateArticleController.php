@@ -6,7 +6,6 @@ namespace App\Modules\Writing\Article\Application\Controller\View;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Uid\Uuid;
@@ -20,15 +19,12 @@ use App\Modules\Writing\Article\Application\Event\OnArticleCreationRequestedEven
 final class CreateArticleController extends AbstractController
 {
 	private EventDispatcherInterface $eventDispatcher;
-	private RequestStack $requestStack;
 
 	public function __construct(
 		EventDispatcherInterface $eventDispatcher,
-		RequestStack $requestStack
 	)
 	{
 		$this->eventDispatcher = $eventDispatcher;
-		$this->requestStack = $requestStack;
 	}
 
 	public function __invoke(Request $request): Response
@@ -56,15 +52,10 @@ final class CreateArticleController extends AbstractController
 				$articleData['title'],
 				$articleData['description'],
 				$articleData['content'],
-				$articleData['category']->getId()->getValue()
+				$articleData['category']->getId()->getValue(),
 			));
 			return $this->redirectToRoute('view_get_some_articles');	
 		}
-		
-		$this->addFlash('notice', 'This is an example modal dialog message.');
-		//$session = $this->requestStack->getSession();
-		//$sessionId = $session->getId();
-		//$this->addFlash('notice', sprintf('Your Session ID is <%s>', $sessionId));
 
 		return $this->render('@Article/view/create.html.twig', [
 			'articleForm'	=> $articleForm->createView()

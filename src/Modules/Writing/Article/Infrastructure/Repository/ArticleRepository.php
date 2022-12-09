@@ -57,6 +57,30 @@ class ArticleRepository extends ServiceEntityRepository implements ArticleReposi
 		return $paginator;
 
 	}	
+	
+	/**
+	 *	@todo	finish implementing join
+	 */
+	public function findSomeByCategoryIdAlt(string $categoryId, int $page = 1, int $length = 2): Paginator
+	{
+		$query = $this->createQueryBuilder('a')
+			->leftJoin('a.category', 'c')
+			->addSelect('c')
+			->where('c.id = :categoryId')
+			->setParameter('categoryId', $categoryId)
+			->getQuery()
+		;
+
+		$paginator = new Paginator($query);
+
+		$paginator->getQuery()
+			->setFirstResult($length * ($page - 1) )
+			->setMaxResults($length)
+		;
+
+		return $paginator;
+
+	}	
 
 	public function save(Article $article): void
 	{

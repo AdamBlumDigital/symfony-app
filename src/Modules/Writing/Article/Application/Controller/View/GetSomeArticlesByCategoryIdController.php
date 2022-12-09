@@ -29,7 +29,7 @@ final class GetSomeArticlesByCategoryIdController extends AbstractController
 
 		$category = $this->categoryRepository->find($id->__toString());
 		
-		$articles = $this->articleRepository->findSomeByCategoryId($id->__toString(), $page, $size);	
+		$articles = $this->articleRepository->findSomeByCategoryId($id->__toString(), $page, $size);
 
 		return $this->render('@Article/view/index_by_category.html.twig', [
 			'category' => $category,

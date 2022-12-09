@@ -17,7 +17,7 @@ final class OnArticleCreationRequestedEvent extends Event
 		string $title, 
 		string $description, 
 		string $content,
-		string $categoryId
+		string $categoryId,
 	)
 	{
 		$this->title = $title;
