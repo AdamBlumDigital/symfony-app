@@ -58,11 +58,9 @@ final class UpdateArticleConsoleCommand extends Command
 		/**
 		 *	Confirm:	List all Articles
 		 */	
-		if ($io->confirm('List all Articles? This could take a lot of memory.', false)) {
+		if ($io->confirm('List all Articles?', false)) {
 			$output->write(sprintf(self::ANSI_CLEAR));
-			/** Heading */
-    	    $io->title('All Articles');
-			
+
 			/**
 			 *	Set $articleArray values from the ArticleRepository
 			 */
@@ -71,13 +69,14 @@ final class UpdateArticleConsoleCommand extends Command
 			foreach ($articles as $article) {
 				$artId = (string) $article->getId();
 				$artTitle = $article->getTitle();
+
 				$articleArray[$artId] = $artTitle;
 			}
 
 			/**
 			 *	Choose an Article (by UUID or Title)
 			 */
-			$articleId = $io->choice('Choose an Article:', $articleArray);
+			$articleId = $io->choice('Choose an Article', $articleArray);
 			$output->write(sprintf(self::ANSI_CLEAR));
 
 			/**
@@ -92,25 +91,13 @@ final class UpdateArticleConsoleCommand extends Command
 			/**
 			 *	Ask: Article Title (defaults to original)
 			 */
-			$updatedArticleTitle = $io->ask('Update the Article Title:', $originalArticleTitle, function($value) {
-				if (!is_string($value)) {
-					throw new \RuntimeException('The Article Title must be a string');
-				}
-		
-				return $value;
-			});
+			$updatedArticleTitle = $io->ask('Update the Article Title', $originalArticleTitle);
 			$output->write(sprintf(self::ANSI_CLEAR));
 
 			/**
 			 *	Ask: Article Description (defaults to original)
 			 */
-			$updatedArticleDescription = $io->ask('Update the Article Description:', $originalArticleDescription, function($value) {
-				if (!is_string($value)) {
-					throw new \RuntimeException('The Article Description must be a string');
-				}
-		
-				return $value;
-			});
+			$updatedArticleDescription = $io->ask('Update the Article Description', $originalArticleDescription);
 			$output->write(sprintf(self::ANSI_CLEAR));
 	
 			/**
