@@ -94,7 +94,6 @@ figure pre {
 	overflow-x: scroll;
 	overflow-inline: scroll;
 	background: var(--c-bg-1);
-	display: flex;
 }
 
 
