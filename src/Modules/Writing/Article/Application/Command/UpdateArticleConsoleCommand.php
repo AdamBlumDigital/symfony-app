@@ -32,6 +32,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 )]
 final class UpdateArticleConsoleCommand extends Command
 {
+	private const ANSI_CLEAR = "\033\143";
 	private ArticleRepositoryInterface $articleRepository;
 	private EventDispatcherInterface $eventDispatcher;
 
@@ -53,24 +54,64 @@ final class UpdateArticleConsoleCommand extends Command
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
         $io = new SymfonyStyle($input, $output);
-		
-		if ($io->confirm('List all Articles? This could take a lot of memory.', false)) {
 
+		/**
+		 *	Confirm:	List all Articles
+		 */	
+		if ($io->confirm('List all Articles? This could take a lot of memory.', false)) {
+			$output->write(sprintf(self::ANSI_CLEAR));
+			/** Heading */
     	    $io->title('All Articles');
 			
-			$articles = $this->articleRepository->findAll();	
-
+			/**
+			 *	Set $articleArray values from the ArticleRepository
+			 */
+			$articles = $this->articleRepository->findAll();
 			$articleArray = array();
 			foreach ($articles as $article) {
 				$artId = (string) $article->getId();
 				$artTitle = $article->getTitle();
 				$articleArray[$artId] = $artTitle;
 			}
-			$articleId = $io->choice('Choose an Article:', $articleArray);
 
+			/**
+			 *	Choose an Article (by UUID or Title)
+			 */
+			$articleId = $io->choice('Choose an Article:', $articleArray);
+			$output->write(sprintf(self::ANSI_CLEAR));
+
+			/**
+			 *	Set the Selected Article
+			 */
 			$selectedArticle = $this->articleRepository->findOneBy(['id' => $articleId]);
 
-			$articleContent = $selectedArticle->getContent();
+			$originalArticleTitle = $selectedArticle->getTitle();
+			$originalArticleDescription = $selectedArticle->getDescription();
+			$originalArticleContent = $selectedArticle->getContent();
+
+			/**
+			 *	Ask: Article Title (defaults to original)
+			 */
+			$updatedArticleTitle = $io->ask('Update the Article Title:', $originalArticleTitle, function($value) {
+				if (!is_string($value)) {
+					throw new \RuntimeException('The Article Title must be a string');
+				}
+		
+				return $value;
+			});
+			$output->write(sprintf(self::ANSI_CLEAR));
+
+			/**
+			 *	Ask: Article Description (defaults to original)
+			 */
+			$updatedArticleDescription = $io->ask('Update the Article Description:', $originalArticleDescription, function($value) {
+				if (!is_string($value)) {
+					throw new \RuntimeException('The Article Description must be a string');
+				}
+		
+				return $value;
+			});
+			$output->write(sprintf(self::ANSI_CLEAR));
 	
 			/**
 			 * Create temporary file in which to
@@ -79,38 +120,42 @@ final class UpdateArticleConsoleCommand extends Command
 			$filesystem = new Filesystem();
 			$tempFile = $filesystem->tempnam('/tmp', 'editor_');
 
-			$filesystem->dumpFile($tempFile, $articleContent);
+			$filesystem->dumpFile($tempFile, $originalArticleContent);
 	
 			/**
 			 *	Open a text editor to edit content
 			 */
 			$editorProcess = new Process(['vim', $tempFile]);
 			$editorProcess->setTty(true);
-			$editorProcess->setTimeout(3600); // one hour
-	
+			$editorProcess->setTimeout(3600); // one hour	
 			try {
 				$editorProcess->mustRun();
 			} catch (ProcessFailedException $exception) {
 				$io->error($exception->getMessage());
 			}
 	
-			$content = ''; 
+			$updatedArticleContent = $originalArticleContent; 
 	
+			/**
+			 *	Attempt to read the temp file that
+			 *	contains the updated Article Content
+			 */
 			try {
-				$content = file_get_contents($tempFile);
+				$updatedArticleContent = file_get_contents($tempFile);
 			} catch (FileNotFoundException $exception) {
 				$io->error($exception->getMessage());
 			}
-
-			$io->section("Updated Contents:");
-			$io->text($content);
 			
+			/**
+			 *	Delete the temp file
+			 */
 			$filesystem->remove([$tempFile]);
+			$output->write(sprintf(self::ANSI_CLEAR));
 
-			$title = $selectedArticle->getTitle();
-			$description = $selectedArticle->getDescription();
-
-			$categoryId = (string) $selectedArticle->getCategory()->getId();
+			/**
+			 *	@todo	Add Category update feature
+			 */
+			$updatedCategoryId = (string) $selectedArticle->getCategory()->getId();
 
 			/**
 			 *	Specifies mixed return type, though it always (in this 
@@ -118,41 +163,33 @@ final class UpdateArticleConsoleCommand extends Command
 			 *	@see Symfony\Component\Console\Style\SymfonyStyle:245	
 			 */
 			/* Need to use "phpstan-ignore-next-line" if on level 9 */
-    	    if ($io->confirm(sprintf('Update Article with title %s?', $selectedArticle->getTitle()), false)) {
+    	    if ($io->confirm(sprintf('Update Article with title %s?', $updatedArticleTitle), false)) {
 
 				$io->success('Dispatching Creation Request');
 
-				/*
-				$io->text($articleId);
-				$io->text($categoryId);
-				$io->text($title);
-				$io->text($description);
-				 */
 				/* Need to use "phpstan-ignore-next-line" if on level 9 */
-
 				$this->eventDispatcher->dispatch(new OnArticleUpdateRequestedEvent(
 					$articleId,
-					$title, 
-					$description, 
-					(string) $content, 
-					$categoryId
+					$updatedArticleTitle, 
+					$updatedArticleDescription, 
+					(string) $updatedArticleContent, 
+					$updatedCategoryId
 				));
 
 				return Command::SUCCESS;
 			} else {
+
     	        $io->error('Article Update aborted.');
+
     			return Command::FAILURE;
 			}
 
-
-
-
 		} else {	
+			/**
+			 *	Do not return a list of Articles
+			 */
             $io->error('Article Listing aborted.');
     		return Command::FAILURE;
 		}
-
-
-
 	}
 }
