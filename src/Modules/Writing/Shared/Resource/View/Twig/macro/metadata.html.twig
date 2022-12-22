@@ -1,0 +1,5 @@
+
+{%- macro date_and_category(_uuid, _category_route, _category_id, _category_title) -%}
+	{%- import '@Shared/macro/time.html.twig' as Time -%}
+	<p>{{ Time.short( _uuid | uuid_date) }} &bull; <a href='{{ path(_category_route, {'id': _category_id }) }}'>{{ _category_title }}</a></p>
+{%- endmacro -%}

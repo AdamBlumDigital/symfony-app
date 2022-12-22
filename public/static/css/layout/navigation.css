@@ -1,15 +1,25 @@
 /**
- * Navigation Layout
+ * Layout/Navigation
  */
+nav, menu {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--gap);
+	align-items: center;
+	justify-content: space-between;
+}
 
 nav menu {
 	justify-content: start;
 }
 
+nav :where(ul, ol, menu) li {
+	list-style: none;
+}
 
 nav li a {
-	min-inline-size: var(--size-control);
+	min-inline-size: var(--tab);
 	text-align: center;
-	border-radius: var(--size-radius);
+	border-radius: var(--radius);
 	padding: 0.5ch;
 }

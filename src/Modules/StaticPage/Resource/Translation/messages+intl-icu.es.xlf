@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="es" datatype="plaintext" original="file.ext">
+		<body>
+			<trans-unit id="homepage.title">
+				<source>homepage.title</source>
+				<target>Inicio</target>
+			</trans-unit>
+			<trans-unit id="homepage.headline">
+				<source>homepage.headline</source>
+				<target>Hola, soy Adam.</target>
+			</trans-unit>
+			<trans-unit id="homepage.subtitle">
+				<source>homepage.subtitle</source>
+				<target>Hago software para pequeñas empresas.</target>
+			</trans-unit>
+			<trans-unit id="services.title">
+				<source>services.title</source>
+				<target>Servicios</target>
+			</trans-unit>
+			<trans-unit id="services.headline">
+				<source>services.headline</source>
+				<target>Lo que Ofrezco</target>
+			</trans-unit>
+			<trans-unit id="services.subtitle">
+				<source>services.subtitle</source>
+				<target>Desde páginas de cartera de peso pluma hasta software local sólido.</target>
+			</trans-unit>
+			<trans-unit id="services.unavailable.statement">
+				<source>services.unavailable.statement</source>
+				<target>No estoy aceptando nuevos clientes en este momento.</target>
+			</trans-unit>
+			<trans-unit id="services.available.statement">
+				<source>services.available.statement</source>
+				<target>¡Actualmente estoy aceptando nuevos clientes!</target>
+			</trans-unit>
+			<trans-unit id="services.available.contact">
+				<source>services.available.contact</source>
+				<target>Puede ponerse en contacto conmigo en <![CDATA[{ contact }]]>.</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

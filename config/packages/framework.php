@@ -8,6 +8,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 	$containerConfigurator->extension('framework', [
 		'secret' => env('APP_SECRET')->string(), 
 		'http_method_override' => false, 
+		'error_controller' => 'App\Shared\Application\Controller\View\ErrorController',
 		'http_client' => [
 			'default_options' => [
 				'headers' => [

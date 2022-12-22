@@ -1,0 +1,29 @@
+figure, figcaption {
+	display: flex;
+	gap: var(--root-size-layout-gap);
+}
+
+figure {
+	justify-content: center;
+	flex-wrap: wrap-reverse;
+	max-inline-size: 100%;
+}
+
+figure :where(pre, figcaption) {
+	flex-grow: 1;
+}
+
+figure pre {
+	flex-basis: auto;
+	flex-shrink: 0;
+	max-inline-size: min(100%, 86ch);
+	overflow-x: scroll;
+	overflow-inline: scroll;
+	padding: var(--root-size-layout-gap);
+}
+
+figcaption {
+	flex-direction: column;
+	flex-basis: calc( var(--root-size-type-measure) / 2 );
+	max-inline-size: var(--root-size-type-measure);
+}

@@ -1,74 +1,37 @@
 {% extends template.default %}
 {%- block meta -%}
 	{{ parent() }}
-	<meta name='description' content=''/>
+	<meta name='description' content='{{ 'homepage.subtitle'| trans }}'/>
+		<style>
+			[style^="--chars:"] {
+				--offset: 4ch;
+				--unit: 50ms;
+				--time: calc( var(--chars) * var(--unit));
+				animation: typing var(--time) steps(var(--chars)) forwards;
+				animation-delay: calc( var(--prev, 0) * var(--unit) + var(--unit));
+				overflow: hidden;
+				width: 0;
+			}
+			@keyframes typing {
+				from {width: var(--offset)}
+				to {width: calc(var(--chars) * 1ch + var(--offset))}
+			} 
+		</style>
 {%- endblock meta -%}
+{%- block title %}{{ 'homepage.title' | trans }}{%- endblock title -%}
 {%- block body -%}
 {%- embed layout.default -%}
     {%- block content -%}
 		<header>
-<style>
-svg {
-
-}
-path {
-	stroke-dasharray: 1;
-	stroke-dashoffset: 1;
-	animation: dash 4s 2s cubic-bezier(0.54, 0, 0.83, 1) forwards;
-}
-
-@keyframes dash {
-	0% {
-		stroke-dashoffset: 1;
-		stroke-width: 1;
-		stroke: currentColor;
-	}
-	25% {
-		stroke-dashoffset: 0;
-	}
-	100% {
-		stroke-dashoffset: 0;
-		stroke-width: 1.25;
-		stroke: currentColor;
-	}
-}
-</style>
-		<h1>Hello, I&rsquo;m Adam.</h1>
+			<h1>{{ 'homepage.headline' | trans }}</h1>
+			<p>{{ 'homepage.subtitle' | trans }}</p>
+		</header>
+		<figure>
+			<pre><code><ol><li role='none' style='--chars:23;--prev:0'>for client in clients {</li><li role='none' style='--chars:17;--prev:23'>    client.meet()</li><li role='none' style='--chars:19;--prev:40'>    setMilestones()</li><li role='none' style='--chars:12;--prev:59'>    design()</li><li role='none' style='--chars:13;--prev:71'>    develop()</li><li role='none' style='--chars:18;--prev:84'>    return product</li><li role='none' style='--chars:1;--prev:102'>}</li></ol></code></pre>
+		</figure>
 		<p>
-			I make web applications for small businesses.
+			<a href='{{ path('view_services') }}'>Learn More &rarr;</a>
 		</p>
-		<p>
-			From featherweight portfolio pages to robust on-prem office tools,
-			I combine time-tested technology with insightful strategy to meet
-			your business needs.
-		</p>
-
-  <svg viewBox="-10 -10 120 50" style='max-height: 8em; max-width: 100%; margin-inline-start: auto; border-block-end:0.25em solid;'>
-	<path stroke-linejoin="round" stroke-linecap="round" fill="none" stroke="black" stroke-width="2" pathLength="1" 
-		  d="M0 30C7 22 12 12 15 0 16-3 21 18 24 27 25 30 27 33 19 33 1 33 2 31 7 29 12 27 19 29 39 23 19 31 33 43 41 28 47 16 48 8 47-1 45-15 42.3333 22.3333 40 34 38 43 42 35 48 27 52 22 55 19 57 21 57 21 54 17 51 28 49 35 54 37 57 32 61 24 57 17 58 29 58 34 59 36 61 34 64 31 64 23 65 22 66 21 66 30 64 34 64 34 68 25 70 23 73 20 71 34 71 34 72 31 75 24 77 23 79 22 76 31 77 34 78 36 78 32 81 31"
-></path>
-</svg>
-</header>
-
-		<h2>Technologies</h2>
-		<div style='display:flex;flex-wrap:wrap;gap:var(--size-gap);align-items:start;justify-content:space-evenly;grid-column:1/-1'>
-			<div>
-				<picture style='height:4em'>
-					<source srcset='/static/svg/symfony-dark.svg' media='(prefers-color-scheme:dark)'/>
-					<img src='/static/svg/symfony-light.svg' height='100%'/>	
-				</picture>
-			</div>
-			<div>
-				<picture style='height:4em'>
-					<img src='/static/svg/postgresql.svg' height='100%'/>	
-				</picture>
-			</div>
-			<div>
-				<picture style='height:4em'>
-					<img src='/static/svg/redis.svg' height='100%'/>	
-				</picture>
-			</div>	
-		</div>
     {%- endblock content -%}
 {%- endembed -%}
 {%- endblock body -%}

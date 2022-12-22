@@ -1,0 +1,28 @@
+{#-
+	Use the `date` filter for very specific strings,
+	like the W3C-recommended format for the `datetime`
+	attribute on `time` elements.
+
+	Use the `format_datetime` filter for i18n
+
+	Find format documentation here:
+	https://unicode-org.github.io/icu/userguide/format_parse/datetime/#datetime-format-syntax
+-#}
+
+{%- macro _tag(_datetime, _format) -%}
+	<time datetime='{{ _datetime | date( 'Y-m-d\\TH:i:sP' ) }}'>{{ _datetime | format_datetime( pattern = _format ) }}</time>
+{%- endmacro -%}
+
+{#-	Lexicographically Sortable	-#}
+{%- macro sortdate(datetime = 'now') -%}
+	{{ _self._tag(datetime, 'y-m-d') }}
+{%- endmacro -%}
+
+
+{%- macro short(datetime = 'now') -%}
+	{{ _self._tag(datetime, 'd MMM YYYY') }}
+{%- endmacro -%}
+
+{%- macro nicedatetime(datetime = 'now') -%}
+	{{ _self._tag(datetime, 'd MMMM YYYY, HH:mm ') }}
+{%- endmacro -%}

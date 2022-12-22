@@ -1,17 +1,6 @@
 /**
- *	Body Layout
+ *	Layout/Body
  */
-body > header, 
-footer, 
-nav, 
-menu {
-	display: flex;
-	flex-wrap: wrap;
-	gap: var(--size-gap);
-	align-items: center;
-	justify-content: space-between;
-}
-
 html {
 	block-size: 100%;
 }
@@ -19,6 +8,20 @@ html {
 body {
 	min-block-size: 100%;
 	display: grid;
-	gap: calc( var(--size-variable) + var(--size-gap) );
+	gap: calc( var(--tab) + var(--gap) );
 	grid-template-rows: min-content 1fr min-content;
 }
+
+body > header, 
+footer {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--gap);
+	align-items: center;
+	justify-content: space-between;
+}
+
+/**
+ * Gap: --gap:
+ * body > header, footer, nav, menu, figure, figcaption  
+ */

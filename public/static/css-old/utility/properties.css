@@ -1,0 +1,32 @@
+/**
+ *	Custom Properties
+ */
+:root {
+
+	/**
+	 *	Sizes
+	 */
+	--size-text-max: 50ch;
+	--size-text-min: 25ch;
+
+	--size-tab: 4ch;
+	--size-gap: 1em;
+	--size-padding: 0.5ex;
+
+	--size-border: max(0.2ex, 2px);
+	--size-radius: calc( var(--size-border) * 2 );
+
+	--size-fluid: 4vw;
+	--size-variable: clamp(var(--size-gap), var(--size-fluid), var(--size-tab));
+
+	--size-control: calc(
+		( var(--size-border) + var(--size-padding) ) * 2 + ( 1em * var(--type-leading-text) )
+	);
+
+	--root-size-layout-tab: 4ch;
+	--root-size-layout-gap: 1em;
+	--root-size-layout-padding: 0.5ex;
+	--root-size-border: max(0.2ex, 2px);
+	--root-size-radius: calc( var(--root-size-border) * 2 );
+	--root-size-type-measure: 50ch;
+}

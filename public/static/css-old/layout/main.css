@@ -1,0 +1,20 @@
+/**
+ * Main Layout
+ */
+main {
+	display: grid;
+	align-content: space-between;
+	gap: calc( var(--root-size-layout-tab) * 2 );
+}
+
+main > header {
+	display: grid;
+	gap: var(--root-size-layout-tab) 0;
+}
+
+:where(main,article) > header {
+	margin-block-end: var(--root-size-layout-tab);
+}
+body > footer {
+	margin-block-start: var(--root-size-layout-tab);
+}

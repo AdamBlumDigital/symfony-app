@@ -5,27 +5,20 @@
 {%- endblock meta -%}
 {%- block body -%}
 {%- embed layout.default -%}
+	{%- import '@Article/macro/components.html.twig' as ArticleComponent -%}
     {%- block content -%}
-	<header>
-		<h1>{{ article.title }}</h1>
-		<dl style='font-size:smaller'>
-			<dt>Published</dt>
-			<dd>12 November 2022</dd>
-			<dt>Category</dt>
-			<dd>
-				<a href='{{ path('view_get_category', {'id': article.category.id }) }}'>
-					{{ article.category.title }}
-				</a>
-			</dd>
-		</dl>
-
-		<p style='font-size:larger'>{{ article.description }}</p>
-		{#<p><code>{{ article.id }}</code></p>#}
-	</header>
-	{% if article.content is not empty %}
-		{{ article.content | striptags('<p><a><code><h2><h3><h4><h5><h6><pre><ol><ul><li><figure><figcaption>') | raw }}
-	{% endif %}
-
+		<header>
+			{%- if app.request.locale is not same as('en') -%}
+				<p role='note'>{{ 'note.no_translation'|trans }}</p>
+			{%- endif -%}
+			{{- ArticleComponent.header(article.id, article.title, article.description, 'view_get_category', article.category.id, article.category.title ) -}}
+		</header>
+		{% if article.content is not empty %}
+			{{ article.content 
+				| striptags('<p><a><code><h2><h3><h4><h5><h6><pre><ol><ul><li><figure><figcaption>') 
+				| raw 
+			}}
+		{% endif %}
     {%- endblock content -%}
 {%- endembed -%}
 {%- endblock body -%}

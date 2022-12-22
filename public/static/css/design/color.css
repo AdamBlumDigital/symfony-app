@@ -1,0 +1,38 @@
+/**
+ * Design/Color
+ */
+@media (prefers-color-scheme: light) {
+	:root {
+		/** Foreground */
+		--color-bg-dim: hsl(0,0%,0%);
+		--color-bg: hsl(0,0%,0%);
+		--color-bg-bright: hsl(0,0%,0%);
+		/** Background */
+		--color-fg-dim: hsl(0,0%,100%);
+		--color-fg: hsl(0,0%,100%);
+		--color-fg-bright: hsl(0,0%,100%);
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		/** Foreground */
+		--color-bg-dim: hsl(0,0%,100%);
+		--color-bg: hsl(0,0%,100%);
+		--color-bg-bright: hsl(0,0%,100%);
+		/** Background */
+		--color-fg-dim: hsl(0,0%,0%);
+		--color-fg: hsl(0,0%,0%);
+		--color-fg-bright: hsl(0,0%,0%);
+	}
+}
+
+
+:any-link {
+	color: inherit;
+	text-decoration-color: LinkText;
+}
+
+:any-link:where(:focus-visible, :hover) {
+	color: LinkText;
+}

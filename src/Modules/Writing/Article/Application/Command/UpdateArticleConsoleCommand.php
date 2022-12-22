@@ -83,10 +83,17 @@ final class UpdateArticleConsoleCommand extends Command
 			 *	Set the Selected Article
 			 */
 			$selectedArticle = $this->articleRepository->findOneBy(['id' => $articleId]);
+			
+			if ($selectedArticle == null ) {
+    	        $io->error('Invalid Article ID');
+
+    			return Command::FAILURE;
+			}
 
 			$originalArticleTitle = $selectedArticle->getTitle();
 			$originalArticleDescription = $selectedArticle->getDescription();
-			$originalArticleContent = $selectedArticle->getContent();
+			$originalArticleContent = $selectedArticle->getContent() ?? ''; // nullable in Doctrine
+
 
 			/**
 			 *	Ask: Article Title (defaults to original)
@@ -99,50 +106,65 @@ final class UpdateArticleConsoleCommand extends Command
 			 */
 			$updatedArticleDescription = $io->ask('Update the Article Description', $originalArticleDescription);
 			$output->write(sprintf(self::ANSI_CLEAR));
-	
-			/**
-			 * Create temporary file in which to
-			 * write content
-			 */
-			$filesystem = new Filesystem();
-			$tempFile = $filesystem->tempnam('/tmp', 'editor_');
-
-			$filesystem->dumpFile($tempFile, $originalArticleContent);
-	
-			/**
-			 *	Open a text editor to edit content
-			 */
-			$editorProcess = new Process(['vim', $tempFile]);
-			$editorProcess->setTty(true);
-			$editorProcess->setTimeout(3600); // one hour	
-			try {
-				$editorProcess->mustRun();
-			} catch (ProcessFailedException $exception) {
-				$io->error($exception->getMessage());
-			}
-	
+			
 			$updatedArticleContent = $originalArticleContent; 
 	
 			/**
-			 *	Attempt to read the temp file that
-			 *	contains the updated Article Content
+			 *	Confirm:	Update Article Content
 			 */
-			try {
-				$updatedArticleContent = file_get_contents($tempFile);
-			} catch (FileNotFoundException $exception) {
-				$io->error($exception->getMessage());
+			if ($io->confirm('Update Article Content?', false)) {
+				/**
+				 * Create temporary file in which to
+				 * write content
+				 */
+				$filesystem = new Filesystem();
+				$tempFile = $filesystem->tempnam('/tmp', 'editor_');
+				/**
+				 *	Write current Article Content to
+				 *	temp file
+				 */
+				$filesystem->dumpFile($tempFile, $originalArticleContent);
+	
+				/**
+				 *	Open a text editor to edit content
+				 */
+				$editorProcess = new Process(['vim', $tempFile]);
+				$editorProcess->setTty(true);
+				$editorProcess->setTimeout(3600); // one hour	
+				try {
+					$editorProcess->mustRun();
+				} catch (ProcessFailedException $exception) {
+					$io->error($exception->getMessage());
+				}
+
+				/**
+				 *	Attempt to read the temp file that
+				 *	contains the updated Article Content
+				 */
+				try {
+					$updatedArticleContent = file_get_contents($tempFile);
+				} catch (FileNotFoundException $exception) {
+					$io->error($exception->getMessage());
+				}
+
+				/**
+				 *	Delete the temp file
+				 */
+				$filesystem->remove([$tempFile]);
+				$output->write(sprintf(self::ANSI_CLEAR));
 			}
-			
-			/**
-			 *	Delete the temp file
-			 */
-			$filesystem->remove([$tempFile]);
-			$output->write(sprintf(self::ANSI_CLEAR));
 
 			/**
 			 *	@todo	Add Category update feature
 			 */
-			$updatedCategoryId = (string) $selectedArticle->getCategory()->getId();
+
+			$selectedCategory = $selectedArticle->getCategory();
+			if ($selectedCategory == null ) {
+    	        $io->error('Invalid Category ID');
+
+    			return Command::FAILURE;
+			}
+			$updatedCategoryId = (string) $selectedCategory->getId();
 
 			/**
 			 *	Specifies mixed return type, though it always (in this 

@@ -1,30 +1,20 @@
 /**
- * Main Layout
+ * Layout/Main
  */
 main {
 	display: grid;
 	align-content: space-between;
-	gap: calc( var(--size-variable) * 2 );
-}
-
-main > :where(header, footer) {
-
+	gap: calc( var(--tab) * 2 );
 }
 
 main > header {
 	display: grid;
-	gap: var(--size-variable) 0;
+	gap: var(--tab) 0;
 }
 
-:where(main,article) > header,
-body > footer {
-	--color: var(--c-bg-1);
-	background-color: var(--color);
-	box-shadow: 0 0 0 var(--size-variable) var(--color);
-}
 :where(main,article) > header {
-	margin-block-end: var(--size-variable);
+	margin-block-end: var(--tab);
 }
 body > footer {
-	margin-block-start: var(--size-variable);
+	margin-block-start: var(--tab);
 }

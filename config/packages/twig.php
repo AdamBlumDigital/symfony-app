@@ -15,9 +15,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 			'layout' => [
 				'default' => '@Shared/layout/default.html.twig', 
 				'sidebar' => '@Shared/layout/sidebar.html.twig', 
-				'listing' => '@Shared/layout/listing.html.twig', 
-				'index' => '@Shared/layout/index.html.twig', 
-				'editor' => '@Shared/layout/editor.html.twig'
 			]
 		], 
 		'form_themes' => [
@@ -27,7 +24,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 			'src/Shared/Resource/View/Twig' => 'Shared', 
 			'src/Modules/StaticPage/Resource/View/Twig' => 'StaticPage', 
 			'src/Modules/Writing/Article/Resource/View/Twig' => 'Article', 
-			'src/Modules/Writing/Category/Resource/View/Twig' => 'Category'
+			'src/Modules/Writing/Category/Resource/View/Twig' => 'Category',
+			'src/Modules/Writing/Shared/Resource/View/Twig' => 'Writing', 
 		]
 	]);
     if ($containerConfigurator->env() === 'test') {

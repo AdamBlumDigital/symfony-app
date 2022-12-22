@@ -1,26 +1,21 @@
 /**
- * Article Layout
+ * Layout/Article
  */
-
 article, article > header {
 	display: grid;
-
 }
-
-
 
 article {
-	grid-template-columns: 1fr fit-content(var(--size-text-max)) 1fr;	
-	gap: var(--size-tab) 0;
+	grid-template-columns: 1fr fit-content(var(--measure)) 1fr;	
+	gap: var(--gap) 0;
 }
 
-article:where(:not(:first-child)) {
-	gap: var(--size-gap) 0;
+article:only-of-type {
+	gap: var(--tab) 0;
 }
 
-article > header {
+article > :where(header, figure) {
 	grid-column: 1 / -1;
-	gap: var(--size-variable) 0;
 }
 
 article > *:where(:not(header, figure)) {
@@ -28,5 +23,6 @@ article > *:where(:not(header, figure)) {
 }
 
 article > header {
-	margin-block-end: var(--size-variable);
+	margin-block-end: var(--tab);
+	gap: var(--tab) 0;
 }

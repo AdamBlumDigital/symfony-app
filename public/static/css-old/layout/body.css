@@ -1,0 +1,22 @@
+/**
+ *	Body Layout
+ */
+html {
+	block-size: 100%;
+}
+
+body {
+	min-block-size: 100%;
+	display: grid;
+	gap: calc( var(--root-size-layout-tab) + var(--root-size-layout-gap) );
+	grid-template-rows: min-content 1fr min-content;
+}
+
+body > header, 
+footer {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--root-size-layout-gap);
+	align-items: center;
+	justify-content: space-between;
+}

@@ -1,7 +1,0 @@
-
-
-label.required::after {
-	/** U+202F is Narrow No-Break Space */
-	content: '\202F*';
-	color: var(--c-error-1);
-}

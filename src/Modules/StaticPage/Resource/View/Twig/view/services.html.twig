@@ -1,0 +1,24 @@
+{% extends template.default %}
+{%- block meta -%}
+	{{ parent() }}
+	<meta name='description' content='{{ 'homepage.subtitle'| trans }}'/>
+{%- endblock meta -%}
+{%- block title %}{{ 'services.title' | trans }}{%- endblock title -%}
+{%- block body -%}
+{%- embed layout.default -%}
+    {%- block content -%}
+		<header>
+			<h1>{{ 'services.headline' | trans }}</h1>
+			<p>{{ 'services.subtitle' | trans }}</p>
+		</header>
+		
+		{% if available %}
+			{%- import '@Shared/macro/email.html.twig' as Email -%}
+			<p>{{ 'services.available.statement' | trans }}</p>
+			<p>{{ 'services.available.contact' | trans({'contact': Email.obfuscate(email)}) | raw }}</p>
+		{% else %}
+			<p>{{ 'services.unavailable.statement' | trans }}</p>
+		{% endif %}
+    {%- endblock content -%}
+{%- endembed -%}
+{%- endblock body -%}

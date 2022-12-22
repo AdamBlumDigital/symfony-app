@@ -1,37 +1,74 @@
-{%- macro item(name, route = null, params = {}, attrs = {}, loose = false ) -%}
+{%- macro _items(name, items = []) -%}
+	{%- for item in items -%}
+		{{- item -}}
+	{%- endfor -%}
+{%- endmacro -%}
 
-	{% if route is not null %}
-	{% if loose %}
-		{% set is_current = path(route, params) in (app.request.pathinfo) %}
-	{% else %}
-		{% set is_current = path(route, params) is same as(app.request.pathinfo) %}
-	{% endif %}
-	{% endif %}
 
-	{% set item_attrs %}
-		{% if attrs is not empty %}
-			{{ attrs | map( (value,key) => "#{key}=#{value} ")|join(' ') }}
-		{% endif %}
-	{% endset %}
+{%- macro _item(text, route = null, params = {}, attrs = {}) -%}
+	{%- if route is null -%}
+		{%- set attrs = attrs | merge({'aria-disabled': 'true'}) -%}
+	{%- else -%}
+		{%- set is_current = path(route, params) is  same as(app.request.pathinfo) -%}
+		{%- if is_current -%}
+			{%- set attrs = attrs | merge({'aria-current': 'page'}) -%}
+		{%- endif -%}
+		{%- set attrs = attrs | merge({'href': path(route, params)}) -%}
+	{%- endif -%}
+	<li><a {{ attrs|attributes }}>{{ text|trans }}</a></li>
+{%- endmacro -%}
 
-	{% set item_text %}
-		{{ name | trans }}
-	{% endset %}
 
-	<li role='none'>
-		{% if route is not null %}
-		<a 
-			href='{{ path(route, params) }}'
-			{% if is_current %}
-			aria-current='page'
-			{% endif %}
-			{{ item_attrs }}
-		>{% if is_current %}<i>{% endif %}{{ item_text }}{% if is_current %}</i>{% endif %}</a>
-		{% else %}
-		<span
-			aria-disabled='true'
-			{{ item_attrs }}
-		>{{ item_text }}</span>
-		{% endif %}
-	</li>
+{%- macro _generic(name, items = [], element = 'menu', element_attrs = {}) -%}
+<{{element}} {{element_attrs|attributes}}>
+	{{- _self._items(name, items) -}}
+</{{element}}>
+{%- endmacro -%}
+
+
+{%- macro navigation(name, items = [], attrs = {}) -%}
+	{{- _self._generic(name, items, 'menu', attrs) -}}
+{%- endmacro -%}
+
+
+{%- macro pagination(name, route, params, attrs, page, pages, size) -%}
+
+	{%- set item_prev -%}
+		{%- set has_prev = (page > 1) -%}
+		{{-	_self.add( 
+			'pagination.prev',  
+			has_prev ? route : null,
+			params | merge({ 'page': (page - 1) }),
+			{'rel': 'prev'}
+		) -}}
+	{%- endset -%}
+
+	{%- set item_next -%}
+		{%- set has_next = (page < pages) -%}
+		{{-	_self.add( 
+			'pagination.next',
+			has_next ? route : null,
+			params | merge({ 'page': (page + 1) }),
+			{'rel': 'next'}
+		) -}}
+	{%- endset -%}
+	
+	{%- set page_items -%}
+		{%- for i in 1..pages -%}
+			{{-	_self.add( i, route, params | merge({ 'page': i }) ) -}}
+		{%- endfor -%}
+	{%- endset -%}
+
+	{{- _self._generic(
+		name, 
+		[item_prev, page_items, item_next], 
+		'menu', 
+		{'page': page, 'pages': pages, 'size': size}
+	) -}}
+
+{%- endmacro -%}
+
+
+{%- macro add(text, route = null, params = {}, attrs = {}) -%}
+	{{- _self._item(text, route, params, attrs) -}}
 {%- endmacro -%}

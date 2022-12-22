@@ -1,0 +1,37 @@
+{%- macro obfuscate(email, html = true) -%}
+
+	{% set at_sign = 'punctuation.parenthesis'|trans({'text': 'generic.at'|trans }) -%}
+	{% set dot_sign = 'punctuation.parenthesis'|trans({'text': 'generic.dot'|trans }) -%}
+
+	{%- set replace_at -%}
+		{{' '}}
+		{%- if html -%}<i>{%- endif -%}	
+		{{ at_sign }}
+		{%- if html -%}</i><wbr/>{%- endif -%}	
+		{{' '}}
+	{%- endset -%}
+
+	{%- set replace_dot -%}
+		{{' '}}
+		{%- if html -%}<i>{%- endif -%}	
+		{{ dot_sign }}
+		{%- if html -%}</i><wbr/>{%- endif -%}	
+		{{' '}}
+	{%- endset -%}
+	
+
+	{%- if html -%}<q style='hyphens:none'>{%- endif -%}	
+	{{ email | replace({
+		'@': replace_at,
+		'.': replace_dot
+	}) | raw }}
+	{%- if html -%}</q>{%- endif -%}	
+
+{%- endmacro obfuscate -%}
+
+{%- macro link(email, text = null, params = {} ) -%}
+	{%- set new_params = params|filter((v, k) => v|e('url') and k in ['cc', 'bcc', 'subject', 'body']) -%}
+	{%- set query_path = new_params | url_encode -%}	
+	{#- @todo: can one construct the entire url without manually adding the '?' and 'mailto:'? -#}
+	<a href='mailto:{{ email }}{%- if query_path is not empty -%}?{{query_path|raw}}{%- endif -%}'>{{ text ?? email }}</a>
+{%- endmacro link -%}

@@ -1,5 +1,5 @@
 {%- macro menu(page, pages, size, items, label, route, params) -%}
-{#
+{#-
 	Parameters:
 
 	page:	the current page number
@@ -9,63 +9,62 @@
 	label:	the translation key used for pluralization of items
 	route:	the route used for pagination links
 	params:	the route parameters used for pagination links
-#}
+-#}
 
-{%- if page is not null and pages is not null and size is not null -%}
+{%- if page is not null and pages is not null and size is not null and items.count > 0  -%}
 
-	{% set page_count_start = (size * page) - size + 1 %}
+	{%- set page_count_start = (size * page) - size + 1 -%}
+	{%- set page_count_end = min( ( size * page), items.count ) -%}
+	{%- set item_count = ( page_count_end - page_count_start) + 1 -%}
+	{%- set num_pages = max(1, pages) -%}
+	{%- set has_prev = (page > 1) -%}
+	{%- set has_next = (page < pages) -%}
+	{%- set labelledby_id = 'label-' ~ random(0, 100) -%}
+	{%- set describedby_id = 'label-' ~ random(0, 100) -%}
 
-	{% set page_count_end = min( ( size * page), items.count ) %}
-
-	{% set item_count = ( page_count_end - page_count_start) + 1 %}
-
-	{% set num_pages = max(1, pages) %}
-
-	{% set has_prev = (page > 1) %}
-
-	{% set has_next = (page < pages) %}
-
-
-	{% set labelledby_id = 'label-' ~ random(0, 100) %}
-
-	{% set describedby_id = 'label-' ~ random(0, 100) %}
-
-	<p id='{{ labelledby_id }}' style='font-variant-numeric:tabular-nums;font-size:smaller'>
-		{{ 'pagination.page.position' | trans({'page': page, 'pages': num_pages }) }}
+	<p id='{{ labelledby_id }}' style='font-variant-numeric:tabular-nums'>
+		{{- 'pagination.page.position' | trans({'page': page, 'pages': num_pages }) -}}
 	</p>
-
 	<nav>
-
-		<menu aria-labelledby='{{ labelledby_id }}' aria-describedby='{{ describedby_id }}'>
-			{% import '@Shared/macro/menu.html.twig' as Menu %}
-
-			{{ Menu.item( 
+		{%- import '@Shared/macro/menu.html.twig' as Menu -%}
+		{%- set pagination_item_prev -%}
+		{{-	Menu.add( 
 				'pagination.prev',  
 				has_prev ? route : null,
 				params | merge({ 'page': (page - 1) }),
 				{'rel': 'prev'}
-			) }}
-
+			) -}}
+		{%- endset -%}
+		{%- set pagination_item_next -%}
+		{{-	Menu.add( 
+			'pagination.next',  
+			has_next ? route : null,
+			params | merge({ 'page': (page + 1) }),
+			{'rel': 'next'}
+			) -}}
+		{%- endset -%}
+		{%- set page_items -%}
 			{%- for i in 1..num_pages -%}
-			{{ Menu.item(
-				i | format_number ({min_integer_digit: '2'}), 
+			{{- Menu.add(
+				i | format_number ({min_integer_digit: '1'}), 
 				route, 
 				params | merge({'page': i})
-			) }}
+			) -}}
 			{%- endfor -%}
+		{%- endset -%}
 
-			{{ Menu.item( 
-				'pagination.next',  
-				has_next ? route : null,
-				params | merge({ 'page': (page + 1) }),
-				{'rel': 'next'}
-			) }}
-
-		</menu>
-
+		{{-
+			Menu.navigation('pagination', [
+				pagination_item_prev,
+				page_items,
+				pagination_item_next
+			], {
+				'aria-labelledBy': labelledby_id,
+				'aria-describedBy': describedby_id
+			} )
+		-}} 
 	</nav>
-
-	<p id='{{ describedby_id }}' style='font-variant-numeric:tabular-nums;font-size:smaller'>
+	<p id='{{ describedby_id }}' style='font-variant-numeric:tabular-nums'>
 		{{ label | trans( {'count' : item_count } ) | title }}
 		{% if page_count_end == 0 %}
 			{% set page_count_start = 0 %}
@@ -73,10 +72,9 @@
 		{% if page_count_start is same as(page_count_end) %}
 			{{ page_count_start }}
 		{% else %}
-			{{  page_count_start }}&thinsp;&ndash;&thinsp;{{  page_count_end }}
+			{{  page_count_start }}&thinsp;&ndash;&thinsp;{{ page_count_end }}
 		{% endif %}
 		of {{ items.count }}
 	</p>
-
 {%- endif -%}
 {%- endmacro -%}

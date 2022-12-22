@@ -1,0 +1,16 @@
+/**
+ * Design/Hyperlink
+ */
+:any-link {
+	text-underline-offset: var(--line);
+	text-decoration-thickness: var(--line);
+	touch-action: manipulation;
+}
+
+:where(h1, h2, h3, h4, h5, h6) :any-link {
+	outline-offset: var(--line);
+}
+
+:any-link:where(:focus-visible, :hover) {
+	text-decoration: none;
+}

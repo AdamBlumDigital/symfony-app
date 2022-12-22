@@ -12,6 +12,9 @@ use App\Modules\Writing\Article\Application\Form\ArticleType;
 use App\Modules\Writing\Article\Application\Model\CreateArticleCommand;
 use App\Modules\Writing\Article\Application\Event\OnArticleCreationRequestedEvent;
 
+/**
+ *	Not currently in use
+ */
 final class PostArticleController extends AbstractController
 {
 	private EventDispatcherInterface $eventDispatcher;

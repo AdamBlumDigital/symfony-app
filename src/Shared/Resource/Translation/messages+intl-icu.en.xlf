@@ -2,9 +2,23 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
 	<file source-language="en" datatype="plaintext" original="file.ext">
 		<body>
+			<trans-unit id="app.title">
+				<source>app.title</source>
+				<target>Adam Blum Digital</target>
+			</trans-unit>
 			<trans-unit id="generic.skiplink">
 				<source>generic.skiplink</source>
 				<target>Skip to Content</target>
+			</trans-unit>
+			<trans-unit id="generic.at">
+				<source>generic.at</source>
+				<target>at</target>
+				<note>Used in email obfuscation, e.g. (email [at] example [dot] com)</note>
+			</trans-unit>
+			<trans-unit id="generic.dot">
+				<source>generic.dot</source>
+				<target>dot</target>
+				<note>Used in email obfuscation, e.g. (email [at] example [dot] com)</note>
 			</trans-unit>
 			<trans-unit id="generic.page">
 				<source>generic.page</source>
@@ -42,10 +56,23 @@
 				<source>pagination.next</source>
 				<target>Next</target>
 			</trans-unit>
+			<trans-unit id="pagination.first">
+				<source>pagination.first</source>
+				<target>First</target>
+			</trans-unit>
+			<trans-unit id="pagination.last">
+				<source>pagination.last</source>
+				<target>Last</target>
+			</trans-unit>
 			<trans-unit id="generic.dismiss">
 				<source>generic.dismiss</source>
 				<target>Dismiss</target>
 			</trans-unit>
+            <trans-unit id='punctuation.parenthesis'>
+                <source>punctuation.parenthesis</source>
+                <target>({text})</target>
+                <note>Defines the characters used as 'parenthesis' in other locales</note>
+            </trans-unit>
 		</body>
 	</file>
 </xliff>

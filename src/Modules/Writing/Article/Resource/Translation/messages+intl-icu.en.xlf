@@ -24,7 +24,7 @@
             </trans-unit>
             <trans-unit id='label.no_articles'>
                 <source>label.no_articles</source>
-                <target>There are no Articles.</target>
+                <target>There are no Articles matching this criteria.</target>
             </trans-unit>
 			<trans-unit id="action.article.create">
 				<source>action.article.create</source>

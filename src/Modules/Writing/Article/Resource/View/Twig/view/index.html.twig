@@ -1,46 +1,44 @@
 {% extends template.default %}
 {%- block body -%}
-{%- embed layout.index with {
-	'items' : articles, 
-	'page': page ?? null,
-	'size': size ?? null,
-	'pages': pages ?? null,
-	'label_count' : 'count.articles', 
-	'label_count_word' : 'count.articles.word', 
-	'label_empty' : 'label.no_articles' 
-} -%}
+{%- import '@Shared/macro/menu.html.twig' as Menu -%}
+<header>
+	<h1>{{ category is defined ? 'writing.category.headline'|trans({'category': category.title}) : 'writing.title'|trans }}</h1>
+	<nav>
+		{%- set category_menu_items -%}
+			{%- for category in categories -%}
+				{{- Menu.add(category.title, 'view_get_category', {'id': category.id}) -}}
+			{%- endfor -%}
+		{%- endset -%}
+		{{- Menu.navigation('categories', [
+			Menu.add('All Topics', 'view_get_some_articles'),
+			category_menu_items
+		]) -}}
+	</nav>
+	<p>{{ category.description ?? 'writing.description'|trans }}</p>
+</header>
+{%- import '@Article/macro/components.html.twig' as ArticleComponent -%}
+{%- if articles is not empty -%}
+	{%- for article in articles -%}	
+	<article>
+		{{- ArticleComponent.snippet(
+			'view_get_article', article.id, article.title, article.description, 
+			'view_get_category', article.category.id, article.category.title 
+		) -}}
+	</article>
+	{%- endfor -%}	
+{%- else -%}
+	<p role='note'>{{ 'label.no_articles' | trans }}</p>
+{%- endif -%}
 
-	{%- block header -%}
-		<h1>{{ 'generic.writing' | trans }}</h1>
-	{%- endblock header -%}
-
-	{%- block item -%}	
-		<article>
-
-			<h2>
-				<a href='{{ path( 'view_get_article', { 'id' : item.id } )  }}'>
-					{{ item.title }}
-				</a>
-			</h2>
-
-			<p>{{ item.description }}</p>
-
-			<dl style='font-size:smaller'>
-				<dt>Published</dt>
-				<dd>12 November 2022</dd>
-				<dt>Category</dt>
-				<dd><a href='{{ path('view_get_category', {'id': item.category.id }) }}'>{{ item.category.title }}</a></dd>
-			</dl>
-
-		</article>
-
-	{%- endblock item -%}	
-
-	{%- block no_items -%}
-		<article>
-			<h1>{{ 'label.no_articles' | trans }}</h1>
-		</article>
-	{%- endblock no_items -%}
-
-{%- endembed -%}
+<footer>
+<nav>
+	{{- Menu.pagination(
+		'pagination', 
+		app.request.get('_route'), 
+		app.request.get('_route_params'), 
+		{},
+		page, pages, size
+	) -}}
+</nav>
+</footer>
 {%- endblock body -%}

@@ -1,0 +1,26 @@
+:root {
+	/* Line-Height */
+	--type-leading-text: 1.6;
+	--type-leading-title: 1.35;
+	/* Font-Family */
+	--type-family-text: system-ui, ui-sans-serif, sans-serif;
+	--type-family-code: ui-monospace, monospace;
+}
+
+body {
+	font-family: var(--type-family-text);
+	line-height: var(--type-leading-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: bold;
+	line-height: var(--type-leading-title);
+}
+
+p {
+	hyphens: auto;
+}
+
+code, var {
+	font-family: var(--type-family-code);
+}

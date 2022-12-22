@@ -1,0 +1,28 @@
+/**
+ * Article Layout
+ */
+article, article > header {
+	display: grid;
+}
+
+article {
+	grid-template-columns: 1fr fit-content(var(--root-size-type-measure)) 1fr;	
+	gap: var(--root-size-layout-gap) 0;
+}
+
+article:only-of-type {
+	gap: var(--root-size-layout-tab) 0;
+}
+
+article > :where(header, figure) {
+	grid-column: 1 / -1;
+}
+
+article > *:where(:not(header, figure)) {
+	grid-column: 2 / -2;
+}
+
+article > header {
+	margin-block-end: var(--root-size-layout-tab);
+	gap: var(--root-size-layout-tab) 0;
+}

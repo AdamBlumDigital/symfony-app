@@ -36,7 +36,7 @@ final class CreateArticleHandler implements MessageHandlerInterface
 		$categoryObject = $this->categoryRepository->findOneBy(['id' => $createArticleCommand->getCategoryId()]);
 		$article = Article::create(
 			new ArticleId(
-				Uuid::v4()->jsonSerialize()	// Return UUID as string, not object
+				Uuid::v7()->jsonSerialize()	// Return UUID as string, not object
 			),
 			$createArticleCommand->getTitle(),
 			$createArticleCommand->getDescription(),

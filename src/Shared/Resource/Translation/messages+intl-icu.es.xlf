@@ -6,6 +6,16 @@
 				<source>generic.skiplink</source>
 				<target>Saltar al Contenido</target>
 			</trans-unit>
+			<trans-unit id="generic.at">
+				<source>generic.at</source>
+				<target>arroba</target>
+				<note>Used in email obfuscation, e.g. (email [at] example [dot] com)</note>
+			</trans-unit>
+			<trans-unit id="generic.dot">
+				<source>generic.dot</source>
+				<target>punto</target>
+				<note>Used in email obfuscation, e.g. (email [at] example [dot] com)</note>
+			</trans-unit>
 			<trans-unit id="generic.page">
 				<source>generic.page</source>
 				<target>Página</target>
@@ -45,6 +55,11 @@
 			<trans-unit id="generic.dismiss">
 				<source>generic.dismiss</source>
 				<target>Despedir</target>
+			</trans-unit>
+			<trans-unit id="note.no_translation">
+				<source>note.no_translation</source>
+				<target>Este contenido no está disponible en su localidad.</target>
+				<note>Used when content is not available in the selected locale.</note>
 			</trans-unit>
 		</body>
 	</file>

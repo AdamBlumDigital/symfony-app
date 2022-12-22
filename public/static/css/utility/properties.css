@@ -1,26 +1,11 @@
 /**
- *	Custom Properties
+ *	Utility/Properties
  */
 :root {
-
-	/**
-	 *	Sizes
-	 */
-	--size-text-max: 50ch;
-	--size-text-min: 25ch;
-
-	--size-tab: 4ch;
-	--size-gap: 1em;
-	--size-padding: 0.5ex;
-
-	--size-border: max(0.2ex, 2px);
-	--size-radius: calc( var(--size-border) * 2 );
-
-	--size-fluid: 4vw;
-	--size-variable: clamp(var(--size-gap), var(--size-fluid), var(--size-tab));
-
-	--size-control: calc(
-		( var(--size-border) + var(--size-padding) ) * 2 + ( 1em * var(--type-leading-text) )
-	);
-
+	--tab: 4ch;
+	--gap: 1em;
+	--padding: 0.5ex;
+	--line: max(0.2ex, 2px);
+	--radius: calc( var(--line) * 2 );
+	--measure: 50ch;
 }

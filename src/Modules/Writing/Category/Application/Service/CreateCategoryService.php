@@ -31,7 +31,7 @@ class CreateCategoryService implements MessageHandlerInterface
 	{
 		$category = Category::create(
 			new CategoryId(
-				Uuid::v4()->jsonSerialize()	// Return UUID as string, not object
+				Uuid::v7()->jsonSerialize()	// Return UUID as string, not object
 			),
 			$createCategoryCommand->getTitle(),	
 			$createCategoryCommand->getSlug(),	

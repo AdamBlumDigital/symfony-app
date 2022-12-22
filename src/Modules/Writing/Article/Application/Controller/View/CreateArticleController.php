@@ -16,6 +16,9 @@ use App\Modules\Writing\Article\Application\Model\CreateArticleRequest;
 use App\Modules\Writing\Article\Domain\Entity\ArticleId;
 use App\Modules\Writing\Article\Application\Event\OnArticleCreationRequestedEvent;
 
+/**
+ *	Not currently in use
+ */
 final class CreateArticleController extends AbstractController
 {
 	private EventDispatcherInterface $eventDispatcher;
