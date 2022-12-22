@@ -22,7 +22,7 @@
 	<article>
 		{{- ArticleComponent.snippet(
 			'view_get_article', article.id, article.title, article.description, 
-			'view_get_category', article.category.id, article.category.title 
+			'view_get_category', article.categoryId, article.categoryTitle 
 		) -}}
 	</article>
 	{%- endfor -%}	
@@ -30,6 +30,7 @@
 	<p role='note'>{{ 'label.no_articles' | trans }}</p>
 {%- endif -%}
 
+{%- if pages > 1 -%}
 <footer>
 <nav>
 	{{- Menu.pagination(
@@ -41,4 +42,5 @@
 	) -}}
 </nav>
 </footer>
+{%- endif -%}
 {%- endblock body -%}

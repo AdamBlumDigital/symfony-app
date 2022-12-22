@@ -26,7 +26,10 @@ class ArticleRepository extends ServiceEntityRepository implements ArticleReposi
 
 	public function findSome(int $page = 1, int $length = 2): Paginator
 	{
-		$query = $this->createQueryBuilder('a')->getQuery();
+		$query = $this->createQueryBuilder('a')
+			->innerJoin('a.category', 'cat')
+			->addSelect('a.id', 'a.title', 'a.description', 'cat.id as categoryId', 'cat.title as categoryTitle')
+			->getQuery();
 
 		$paginator = new Paginator($query);
 
@@ -37,13 +40,15 @@ class ArticleRepository extends ServiceEntityRepository implements ArticleReposi
 
 		return $paginator;
 
-	}	
+	}
 
 	public function findSomeByCategoryId(string $categoryId, int $page = 1, int $length = 2): Paginator
 	{
 		$query = $this->createQueryBuilder('a')
 			->where('a.category = :categoryId')
 			->setParameter('categoryId', $categoryId)
+			->innerJoin('a.category', 'cat')
+			->addSelect('a.id', 'a.title', 'a.description', 'cat.id as categoryId', 'cat.title as categoryTitle')
 			->getQuery()
 		;
 
@@ -56,31 +61,7 @@ class ArticleRepository extends ServiceEntityRepository implements ArticleReposi
 
 		return $paginator;
 
-	}	
-	
-	/**
-	 *	@todo	finish implementing join
-	 */
-	public function findSomeByCategoryIdAlt(string $categoryId, int $page = 1, int $length = 2): Paginator
-	{
-		$query = $this->createQueryBuilder('a')
-			->leftJoin('a.category', 'c')
-			->addSelect('c')
-			->where('c.id = :categoryId')
-			->setParameter('categoryId', $categoryId)
-			->getQuery()
-		;
-
-		$paginator = new Paginator($query);
-
-		$paginator->getQuery()
-			->setFirstResult($length * ($page - 1) )
-			->setMaxResults($length)
-		;
-
-		return $paginator;
-
-	}	
+	}
 
 	public function save(Article $article): void
 	{
