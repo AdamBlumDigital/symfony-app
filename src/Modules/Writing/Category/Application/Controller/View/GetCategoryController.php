@@ -13,23 +13,22 @@ use Symfony\Component\Uid\Uuid;
 
 final class GetCategoryController extends AbstractController
 {
-	use HandleTrait;
+    use HandleTrait;
 
-	public function __construct(MessageBusInterface $messageBus)
-	{
-		$this->messageBus = $messageBus;
-	}
+    public function __construct(MessageBusInterface $messageBus)
+    {
+        $this->messageBus = $messageBus;
+    }
 
-	public function __invoke(Uuid $id): Response
-	{
+    public function __invoke(Uuid $id): Response
+    {
+        $categoryId = (string) $id;
 
-		$categoryId = (string) $id;
+        /** @var string $category */
+        $category = $this->handle(new FindCategoryQuery($categoryId));
 
-		/** @var string $category */
-		$category = $this->handle(new FindCategoryQuery($categoryId));
-
-		return $this->render('@Category/view/single.html.twig', [
-			'category' => $category
-		]);
-	}
+        return $this->render('@Category/view/single.html.twig', [
+            'category' => $category,
+        ]);
+    }
 }

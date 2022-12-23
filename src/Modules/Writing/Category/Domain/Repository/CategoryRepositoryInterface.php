@@ -8,30 +8,30 @@ use App\Modules\Writing\Category\Domain\Entity\Category;
 
 interface CategoryRepositoryInterface
 {
-	/**
-	 *	@return ?array<Category>
-	 *
-	 *	@param	string $id
-	 *	@param	mixed $lockMode
-	 *	@param	mixed $lockVersion
-	 *
-	 *	@todo	Update parameters with proper types
-	 *			once they are determined.
-	 */
-	public function find($id, $lockMode = null, $lockVersion = null);
+    /**
+     *	@param	string $id
+     *	@param	mixed $lockMode
+     *	@param	mixed $lockVersion
+     *
+     *	@return ?array<Category>
+     *
+     *	@todo	Update parameters with proper types
+     *			once they are determined.
+     */
+    public function find($id, $lockMode = null, $lockVersion = null);
 
-	/**
-	 * @return ?Category
-	 *
-	 *	@param	array<mixed> $criteria
-	 *	@param	array<mixed> $orderBy = null
-	 */
-	public function findOneBy(array $criteria, array $orderBy = null);
+    /**
+     *	@param	array<mixed> $criteria
+     *	@param	array<mixed> $orderBy = null
+     *
+     * @return ?Category
+     */
+    public function findOneBy(array $criteria, array $orderBy = null);
 
-	/**
-	 *	@return Category[]
-	 */
-	public function findAll();
+    /**
+     *	@return Category[]
+     */
+    public function findAll();
 
-	public function save(Category $category): void;
+    public function save(Category $category): void;
 }

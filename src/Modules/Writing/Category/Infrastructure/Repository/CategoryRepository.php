@@ -11,6 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<Category>
+ *
  * @method Category|null find($id, $lockMode = null, $lockVersion = null)
  * @method Category|null findOneBy(array $criteria, array $orderBy = null)
  * @method Category[]    findAll()
@@ -18,14 +19,14 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CategoryRepository extends ServiceEntityRepository implements CategoryRepositoryInterface
 {
-	public function __construct(ManagerRegistry $registry)
-	{
-		parent::__construct($registry, Category::class);
-	}
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Category::class);
+    }
 
-	public function save(Category $article): void
-	{
-		$this->_em->persist($article);
-		$this->_em->flush();
-	}
+    public function save(Category $article): void
+    {
+        $this->_em->persist($article);
+        $this->_em->flush();
+    }
 }

@@ -9,8 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class HomepageController extends AbstractController
 {
-	public function __invoke(): Response
-	{
-		return $this->render('@StaticPage/view/homepage.html.twig');
-	}
+    public function __invoke(): Response
+    {
+        return $this->render('@StaticPage/view/homepage.html.twig');
+    }
 }

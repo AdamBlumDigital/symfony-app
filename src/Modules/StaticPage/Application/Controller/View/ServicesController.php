@@ -9,11 +9,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ServicesController extends AbstractController
 {
-	public function __invoke(): Response
-	{
-		return $this->render('@StaticPage/view/services.html.twig', [
-			'email' => 'adam@adamblum.digital',
-			'available'	=> true
-		]);
-	}
+    public function __invoke(): Response
+    {
+        return $this->render('@StaticPage/view/services.html.twig', [
+            'email' => 'adam@adamblum.digital',
+            'available' => true,
+        ]);
+    }
 }

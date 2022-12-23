@@ -4,145 +4,141 @@ declare(strict_types=1);
 
 namespace App\Modules\Writing\Article\Domain\Entity;
 
-use App\Shared\Aggregate\AggregateRoot;
-use App\Modules\Writing\Article\Domain\Entity\ArticleId;
 use App\Modules\Writing\Article\Domain\Event\ArticleCreatedEvent;
 use App\Modules\Writing\Category\Domain\Entity\Category;
-use App\Modules\Writing\Shared\Domain\Entity\ValueObject\CategoryId;
-use DateTimeImmutable;
+use App\Shared\Aggregate\AggregateRoot;
 
 class Article extends AggregateRoot
 {
-	private string $id;
+    private string $id;
 
-	private string $title;
-	
-	private string $description;
-	
-	private ?string $content = null;
+    private string $title;
 
-	private ?Category $category;
+    private string $description;
 
-	private bool $isVisible;
+    private ?string $content = null;
 
-	private DateTimeImmutable $createdAt;
+    private ?Category $category;
 
-	private DateTimeImmutable $updatedAt;
+    private bool $isVisible;
 
-	public function __construct(ArticleId $id)
-	{
-		$this->id = $id->getValue();
-	}
+    private \DateTimeImmutable $createdAt;
 
-	public function getId(): ?ArticleId
-	{
-		return new ArticleId($this->id);
-	}
+    private \DateTimeImmutable $updatedAt;
 
-	public function getCategory(): ?Category
-	{
-		return $this->category;
-	}
+    public function __construct(ArticleId $id)
+    {
+        $this->id = $id->getValue();
+    }
 
-	public function setCategory(?Category $category): self
-	{
-		$this->category = $category;
+    public function getId(): ?ArticleId
+    {
+        return new ArticleId($this->id);
+    }
 
-		return $this;
-	}
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
 
-	public function getIsVisible(): bool
-	{
-		return $this->isVisible;
-	}
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
-	public function setIsVisible(bool $isVisible): self
-	{
-		$this->isVisible = $isVisible;
+        return $this;
+    }
 
-		return $this;
-	}
+    public function getIsVisible(): bool
+    {
+        return $this->isVisible;
+    }
 
-	public function getTitle(): string
-	{
-		return $this->title;
-	}
+    public function setIsVisible(bool $isVisible): self
+    {
+        $this->isVisible = $isVisible;
 
-	public function setTitle(string $title): self
-	{
-		$this->title = $title;
+        return $this;
+    }
 
-		return $this;
-	}
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
 
-	public function getDescription(): string
-	{
-		return $this->description;
-	}
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
 
-	public function setDescription(string $description): self
-	{
-		$this->description = $description;
+        return $this;
+    }
 
-		return $this;
-	}
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
 
-	public function getContent(): ?string
-	{
-		return $this->content;
-	}
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
-	public function setContent(string $content): self
-	{
-		$this->content = $content;
+        return $this;
+    }
 
-		return $this;
-	}
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
 
-	public function getCreatedAt(): ?DateTimeImmutable
-	{
-		return $this->createdAt;
-	}
+    public function setContent(string $content): self
+    {
+        $this->content = $content;
 
-	public function setCreatedAt(DateTimeImmutable $createdAt): self
-	{
-		$this->createdAt = $createdAt;
+        return $this;
+    }
 
-		return $this;
-	}
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
 
-	public function getUpdatedAt(): ?DateTimeImmutable
-	{
-		return $this->updatedAt;
-	}
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
-	public function setUpdatedAt(DateTimeImmutable $updatedAt): self
-	{
-		$this->updatedAt = $updatedAt;
+        return $this;
+    }
 
-		return $this;
-	}
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
 
-	public static function create(
-		ArticleId $articleId, 
-		string $title,
-		string $description,
-		string $content,
-		?Category $category,
-		bool $isVisible
-	): self
-	{
-		$article = new self($articleId);
-		$article->setTitle($title);
-		$article->setDescription($description);
-		$article->setContent($content);
-		$article->setCategory($category);
-		$article->setIsVisible($isVisible);
-		$article->setCreatedAt(new DateTimeImmutable('now'));
-		$article->setUpdatedAt(new DateTimeImmutable('now'));
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
-		$article->recordDomainEvent(new ArticleCreatedEvent($articleId));
+        return $this;
+    }
 
-		return $article;
-	}
+    public static function create(
+        ArticleId $articleId,
+        string $title,
+        string $description,
+        string $content,
+        ?Category $category,
+        bool $isVisible
+    ): self {
+        $article = new self($articleId);
+        $article->setTitle($title);
+        $article->setDescription($description);
+        $article->setContent($content);
+        $article->setCategory($category);
+        $article->setIsVisible($isVisible);
+        $article->setCreatedAt(new \DateTimeImmutable('now'));
+        $article->setUpdatedAt(new \DateTimeImmutable('now'));
+
+        $article->recordDomainEvent(new ArticleCreatedEvent($articleId));
+
+        return $article;
+    }
 }

@@ -13,24 +13,24 @@ use App\Shared\Message\AsyncMessageInterface;
  */
 final class UpdateArticleCommand implements AsyncMessageInterface
 {
-	private string $id;
-	private string $title;
-	private string $description;
-	private string $content;
-	private string $categoryId;
-	private bool $isVisible;
-	
-	public function getId(): string
+    private string $id;
+    private string $title;
+    private string $description;
+    private string $content;
+    private string $categoryId;
+    private bool $isVisible;
+
+    public function getId(): string
     {
         return $this->id;
     }
-	
-	public function setId(string $id): void
+
+    public function setId(string $id): void
     {
         $this->id = $id;
     }
 
-	public function getTitle(): string
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -40,7 +40,7 @@ final class UpdateArticleCommand implements AsyncMessageInterface
         $this->title = $title;
     }
 
-	public function getDescription(): string
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -50,7 +50,7 @@ final class UpdateArticleCommand implements AsyncMessageInterface
         $this->description = $description;
     }
 
-	public function getContent(): string
+    public function getContent(): string
     {
         return $this->content;
     }
@@ -60,7 +60,7 @@ final class UpdateArticleCommand implements AsyncMessageInterface
         $this->content = $content;
     }
 
-	public function getCategoryId(): string
+    public function getCategoryId(): string
     {
         return $this->categoryId;
     }
@@ -70,13 +70,13 @@ final class UpdateArticleCommand implements AsyncMessageInterface
         $this->categoryId = $categoryId;
     }
 
-	public function getIsVisible(): bool
-	{
-		return $this->isVisible;
-	}
+    public function getIsVisible(): bool
+    {
+        return $this->isVisible;
+    }
 
-	public function setIsVisible(bool $isVisible): void
-	{
-		$this->isVisible = $isVisible;
-	}
+    public function setIsVisible(bool $isVisible): void
+    {
+        $this->isVisible = $isVisible;
+    }
 }

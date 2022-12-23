@@ -8,57 +8,56 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 final class OnArticleUpdateRequestedEvent extends Event
 {
-	private string $id;
-	private string $title;
-	private string $description;
-	private string $content;
-	private string $categoryId;
-	private bool $isVisible;
+    private string $id;
+    private string $title;
+    private string $description;
+    private string $content;
+    private string $categoryId;
+    private bool $isVisible;
 
-	public function __construct(
-		string $id,
-		string $title, 
-		string $description, 
-		string $content,
-		string $categoryId,
-		bool $isVisible
-	)
-	{
-		$this->id = $id;
-		$this->title = $title;
-		$this->description = $description;
-		$this->content = $content;
-		$this->categoryId = $categoryId;
-		$this->isVisible = $isVisible;
-	}
-	
-	public function getId(): string
-	{
-		return $this->id;
-	}
+    public function __construct(
+        string $id,
+        string $title,
+        string $description,
+        string $content,
+        string $categoryId,
+        bool $isVisible
+    ) {
+        $this->id = $id;
+        $this->title = $title;
+        $this->description = $description;
+        $this->content = $content;
+        $this->categoryId = $categoryId;
+        $this->isVisible = $isVisible;
+    }
 
-	public function getTitle(): string
-	{
-		return $this->title;
-	}
+    public function getId(): string
+    {
+        return $this->id;
+    }
 
-	public function getDescription(): string
-	{
-		return $this->description;
-	}
-	
-	public function getContent(): string
-	{
-		return $this->content;
-	}
-	
-	public function getCategoryId(): string
-	{
-		return $this->categoryId;
-	}
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
 
-	public function getIsVisible(): bool
-	{
-		return $this->isVisible;
-	}
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
+    public function getCategoryId(): string
+    {
+        return $this->categoryId;
+    }
+
+    public function getIsVisible(): bool
+    {
+        return $this->isVisible;
+    }
 }

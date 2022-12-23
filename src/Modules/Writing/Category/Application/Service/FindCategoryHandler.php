@@ -11,21 +11,19 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 #[AsMessageHandler]
 final class FindCategoryHandler
 {
-	private CategoryRepositoryInterface $categoryRepository;
+    private CategoryRepositoryInterface $categoryRepository;
 
-	public function __construct(CategoryRepositoryInterface $categoryRepository)
-	{
-		$this->categoryRepository = $categoryRepository;
-	}
+    public function __construct(CategoryRepositoryInterface $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
 
-	public function __invoke(FindCategoryQuery $findCategoryQuery): mixed
-	{
-		$categoryId = $findCategoryQuery->getCategoryId();
+    public function __invoke(FindCategoryQuery $findCategoryQuery): mixed
+    {
+        $categoryId = $findCategoryQuery->getCategoryId();
 
-		$category = $this->categoryRepository->find($categoryId);
+        $category = $this->categoryRepository->find($categoryId);
 
-		return $category;
-	}
-
-
+        return $category;
+    }
 }
