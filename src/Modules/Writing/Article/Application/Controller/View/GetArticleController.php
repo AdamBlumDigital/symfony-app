@@ -7,6 +7,7 @@ namespace App\Modules\Writing\Article\Application\Controller\View;
 use App\Modules\Writing\Article\Application\Model\FindArticleQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Uid\Uuid;
@@ -34,8 +35,12 @@ final class GetArticleController extends AbstractController
 
 	public function __invoke(Uuid $id): Response
 	{
-		/** @var string $article */
+
 		$article = $this->handle(new FindArticleQuery($id->__toString()));
+
+		if ( $article === null ) {
+			throw $this->createNotFoundException('Not Found');
+		}
 
 		return $this->render('@Article/view/single.html.twig', [
 			'article' => $article

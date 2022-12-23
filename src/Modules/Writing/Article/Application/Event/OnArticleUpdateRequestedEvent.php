@@ -13,6 +13,7 @@ final class OnArticleUpdateRequestedEvent extends Event
 	private string $description;
 	private string $content;
 	private string $categoryId;
+	private bool $isVisible;
 
 	public function __construct(
 		string $id,
@@ -20,6 +21,7 @@ final class OnArticleUpdateRequestedEvent extends Event
 		string $description, 
 		string $content,
 		string $categoryId,
+		bool $isVisible
 	)
 	{
 		$this->id = $id;
@@ -27,6 +29,7 @@ final class OnArticleUpdateRequestedEvent extends Event
 		$this->description = $description;
 		$this->content = $content;
 		$this->categoryId = $categoryId;
+		$this->isVisible = $isVisible;
 	}
 	
 	public function getId(): string
@@ -52,5 +55,10 @@ final class OnArticleUpdateRequestedEvent extends Event
 	public function getCategoryId(): string
 	{
 		return $this->categoryId;
+	}
+
+	public function getIsVisible(): bool
+	{
+		return $this->isVisible;
 	}
 }

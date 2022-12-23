@@ -27,6 +27,13 @@ interface ArticleRepositoryInterface
 	 *	@param	array<mixed> $orderBy = null
 	 */
 	public function findOneBy(array $criteria, array $orderBy = null);
+	
+	/**
+	 * @return ?Article
+	 *
+	 *	@param	string $id
+	 */
+	public function findIfVisible(string $id);
 
 	/**
 	 *	@return Article[]

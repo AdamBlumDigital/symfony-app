@@ -7,7 +7,6 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
 
-    //$parameters->set('app.locales_supported', 'en|es');
     $parameters->set('app.locales_supported', 'en|es');
 
     $parameters->set('app.locales_default', 'en');

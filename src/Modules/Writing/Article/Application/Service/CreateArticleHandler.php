@@ -4,17 +4,19 @@ declare(strict_types=1);
 
 namespace App\Modules\Writing\Article\Application\Service;
 
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+use Symfony\Component\Uid\Uuid;
+
 use App\Modules\Writing\Article\Application\Model\CreateArticleCommand;
 use App\Modules\Writing\Article\Domain\Entity\Article;
 use App\Modules\Writing\Article\Domain\Entity\ArticleId;
 use App\Modules\Writing\Article\Domain\Repository\ArticleRepositoryInterface;
 use App\Modules\Writing\Category\Domain\Repository\CategoryRepositoryInterface;
 use App\Shared\ValueObject\AggregateRootId;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
-use Symfony\Component\Uid\Uuid;
 
-final class CreateArticleHandler implements MessageHandlerInterface
+#[AsMessageHandler]
+final class CreateArticleHandler
 {
 	private ArticleRepositoryInterface $articleRepository;
 	private CategoryRepositoryInterface $categoryRepository;
@@ -41,7 +43,8 @@ final class CreateArticleHandler implements MessageHandlerInterface
 			$createArticleCommand->getTitle(),
 			$createArticleCommand->getDescription(),
 			$createArticleCommand->getContent(),
-			$categoryObject
+			$categoryObject,
+			$createArticleCommand->getIsVisible()
 		);
 
 		$this->articleRepository->save($article);

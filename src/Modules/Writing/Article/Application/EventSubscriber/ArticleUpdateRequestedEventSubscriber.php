@@ -46,6 +46,7 @@ final class ArticleUpdateRequestedEventSubscriber implements EventSubscriberInte
 		$updateArticleCommand->setDescription($event->getDescription());
 		$updateArticleCommand->setContent($event->getContent());
 		$updateArticleCommand->setCategoryId($event->getCategoryId());
+		$updateArticleCommand->setIsVisible($event->getIsVisible());
 
 		$this->messageBus->dispatch($updateArticleCommand);
 	}

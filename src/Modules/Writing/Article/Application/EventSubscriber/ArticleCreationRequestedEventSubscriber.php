@@ -50,6 +50,7 @@ final class ArticleCreationRequestedEventSubscriber implements EventSubscriberIn
 		$createArticleCommand->setDescription($event->getDescription());
 		$createArticleCommand->setContent($event->getContent());
 		$createArticleCommand->setCategoryId($event->getCategoryId());
+		$createArticleCommand->setIsVisible($event->getIsVisible());
 
 		$this->messageBus->dispatch($createArticleCommand);
 	}

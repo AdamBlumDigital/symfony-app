@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Modules\Writing\Article\Application\Service;
 
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+
 use App\Modules\Writing\Article\Application\Model\FindSomeArticlesQuery;
 use App\Modules\Writing\Article\Domain\Repository\ArticleRepositoryInterface;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-final class FindSomeArticlesHandler implements MessageHandlerInterface
+#[AsMessageHandler]
+final class FindSomeArticlesHandler
 {
 	private ArticleRepositoryInterface $articleRepository;
 

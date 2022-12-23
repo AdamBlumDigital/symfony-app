@@ -18,6 +18,7 @@ final class UpdateArticleCommand implements AsyncMessageInterface
 	private string $description;
 	private string $content;
 	private string $categoryId;
+	private bool $isVisible;
 	
 	public function getId(): string
     {
@@ -68,4 +69,14 @@ final class UpdateArticleCommand implements AsyncMessageInterface
     {
         $this->categoryId = $categoryId;
     }
+
+	public function getIsVisible(): bool
+	{
+		return $this->isVisible;
+	}
+
+	public function setIsVisible(bool $isVisible): void
+	{
+		$this->isVisible = $isVisible;
+	}
 }

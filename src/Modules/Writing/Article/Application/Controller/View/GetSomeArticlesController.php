@@ -6,7 +6,7 @@ namespace App\Modules\Writing\Article\Application\Controller\View;
 
 use App\Modules\Writing\Article\Application\Model\FindSomeArticlesQuery;
 use App\Modules\Writing\Article\Domain\Repository\ArticleRepositoryInterface;
-use App\Modules\Writing\Category\Domain\Repository\CategoryRepositoryInterface;
+//use App\Modules\Writing\Category\Domain\Repository\CategoryRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\HandleTrait;
@@ -20,20 +20,20 @@ final class GetSomeArticlesController extends AbstractController
 	/** see GetArticleController for details */
 	/** @phpstan-ignore-next-line **/
 	private MessageBusInterface $messageBus;
-	private CategoryRepositoryInterface $categoryRepository;
+//	private CategoryRepositoryInterface $categoryRepository;
 
 	public function __construct(
 		MessageBusInterface $messageBus,
-		CategoryRepositoryInterface $categoryRepository
+//		CategoryRepositoryInterface $categoryRepository
 	)
 	{
 		$this->messageBus = $messageBus;
-		$this->categoryRepository = $categoryRepository;
+//		$this->categoryRepository = $categoryRepository;
 	}
 
-	public function __invoke(int $page = 1, int $size = 1): Response
+	public function __invoke(int $page = 1, int $size = 2): Response
 	{
-		$categories = $this->categoryRepository->findAll();
+//		$categories = $this->categoryRepository->findAll();
 
 		$articles = $this->handle(new FindSomeArticlesQuery($page, $size));
 		
@@ -44,7 +44,7 @@ final class GetSomeArticlesController extends AbstractController
 		}
 
 		return $this->render('@Article/view/index.html.twig', [
-			'categories' => $categories,
+//			'categories' => $categories,
 			'articles' => $articles,
 			'page'	=> $page,
 			'size'	=> $size,

@@ -17,6 +17,7 @@ final class CreateArticleCommand implements AsyncMessageInterface
 	private string $description;
 	private string $content;
 	private string $categoryId;
+	private bool $isVisible;
 
 	public function getTitle(): string
     {
@@ -57,4 +58,14 @@ final class CreateArticleCommand implements AsyncMessageInterface
     {
         $this->categoryId = $categoryId;
     }
+
+	public function getIsVisible(): bool
+	{
+		return $this->isVisible;
+	}
+
+	public function setIsVisible(bool $isVisible): void
+	{
+		$this->isVisible = $isVisible;
+	}
 }

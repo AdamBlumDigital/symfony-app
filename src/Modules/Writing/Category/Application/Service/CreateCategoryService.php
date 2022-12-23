@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Modules\Writing\Category\Application\Service;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Uid\Uuid;
 
 use App\Modules\Writing\Category\Domain\Repository\CategoryRepositoryInterface;
@@ -13,7 +13,8 @@ use App\Modules\Writing\Category\Application\Model\CreateCategoryCommand;
 use App\Modules\Writing\Category\Domain\Entity\Category;
 use App\Modules\Writing\Shared\Domain\Entity\ValueObject\CategoryId;
 
-class CreateCategoryService implements MessageHandlerInterface
+#[AsMessageHandler]
+class CreateCategoryService
 {
 	private EventDispatcherInterface $eventDispatcher;
 	private CategoryRepositoryInterface $categoryRepository;

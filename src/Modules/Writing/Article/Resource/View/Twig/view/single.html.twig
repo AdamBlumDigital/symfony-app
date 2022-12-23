@@ -3,6 +3,7 @@
 	{{ parent() }}
 	<meta name='description' content='{{ article.description }}'/>
 {%- endblock meta -%}
+{%- block title %}{{ article.title }}{%- endblock title -%}
 {%- block body -%}
 {%- embed layout.default -%}
 	{%- import '@Article/macro/components.html.twig' as ArticleComponent -%}

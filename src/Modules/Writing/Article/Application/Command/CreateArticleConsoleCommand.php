@@ -10,7 +10,9 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
@@ -20,6 +22,9 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use App\Modules\Writing\Article\Application\Event\OnArticleCreationRequestedEvent;
 use App\Modules\Writing\Category\Domain\Repository\CategoryRepositoryInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Exception\ValidatorFailedException;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  *	@todo	Figure out how to use translations in Console Commands.
@@ -35,6 +40,12 @@ final class CreateArticleConsoleCommand extends Command
 {
 	private EventDispatcherInterface $eventDispatcher;
 	private CategoryRepositoryInterface $categoryRepository;
+
+	private string $articleTitle;
+	private string $articleDescription;
+	private string $articleCategoryId;
+	private string $articleContent;
+	private bool $articleIsVisible;
 
 	public function __construct(
 		EventDispatcherInterface $eventDispatcher,
@@ -57,23 +68,82 @@ final class CreateArticleConsoleCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $io->title('Article Creator');
+		
+		try {
+			$this->articleTitle = $this->setArticleTitle($io);
+			$this->articleDescription = $this->setArticleDescription($io);
+			$this->articleCategoryId = $this->setArticleCategoryId($io);
+			$this->articleContent = $this->setArticleContent($io);
+			$this->articleIsVisible = $this->setArticleIsVisible($io);
+		} catch (\Exception $exception) {
+			$io->error($exception->getMessage());
+			return Command::FAILURE;
+		}
 
-		$title = $io->ask('Enter the Article title', null, function($value) {
-			if (!is_string($value)) {
-				throw new \RuntimeException('The Article Title must be a string');
-			}
+		$articleCategoryObject = $this->categoryRepository->findOneBy(['id' => $this->articleCategoryId]);
+		if ($articleCategoryObject === null) {
+			throw new \InvalidArgumentException(
+				sprintf('No Category found with ID <%s>', $this->articleCategoryId)
+			);
+		}
+		$articleCategoryTitle = $articleCategoryObject->getTitle();
 
-			return $value;
-		});
+		$io->definitionList(
+			'Article Content',
+			new TableSeparator(),
+			['Title' => $this->articleTitle],
+			['Description' => $this->articleDescription],
+			['Category' => $articleCategoryTitle],
+			['Content' => $this->articleContent],
+			['Visible?' => ($this->articleIsVisible) ? 'true' : 'false'],
+		);
 
-		$description = $io->ask('Enter the Article description', null, function($value) {
-			if (!is_string($value)) {
-				throw new \RuntimeException('The Article Description must be a string');
-			}
+		/**
+		 *	Specifies mixed return type, though it always (in this 
+		 *	use case) returns string.
+		 *	@see Symfony\Component\Console\Style\SymfonyStyle:245	
+		 */
+		/* Need to use "phpstan-ignore-next-line" if on level 9 */
+        if ($io->confirm('Create Article?', false)) {
 
-			return $value;
-		});
+			$io->success('Dispatching Creation Request');
 
+			/* Need to use "phpstan-ignore-next-line" if on level 9 */
+			$this->eventDispatcher->dispatch(new OnArticleCreationRequestedEvent(
+				$this->articleTitle, 
+				$this->articleDescription, 
+				$this->articleContent,
+				$this->articleCategoryId,
+				$this->articleIsVisible
+			));
+			return Command::SUCCESS;
+		} else {
+            $io->error('Article Creation aborted.');
+    		return Command::FAILURE;
+		}
+	}
+	
+	private function setArticleTitle(SymfonyStyle $io): string
+	{
+		$title = $io->ask('Enter the Article title', null, Validation::createCallable(
+			new Assert\NotBlank(),
+			new Assert\Length(['min' => 4, 'max' => 255])
+		));
+		return $title;
+	}
+
+	private function setArticleDescription(SymfonyStyle $io): string
+	{
+		$description = $io->ask('Enter the Article description', null, Validation::createCallable(
+			new Assert\NotBlank(),
+			new Assert\Length(['min' => 4, 'max' => 255])
+		));
+
+		return $description;
+	}
+
+	private function setArticleCategoryId(SymfonyStyle $io): string
+	{
 		$categories = $this->categoryRepository->findAll();
 		$categoryArray = array();
 		foreach ($categories as $category) {
@@ -82,59 +152,60 @@ final class CreateArticleConsoleCommand extends Command
 			$categoryArray[$catId] = $catTitle;
 		}
 
+		/**
+		 *	There is no need for the Validator callback because the
+		 *	choice() method already handles this.
+		 */
 		$categoryId = $io->choice('Choose a Category:', $categoryArray);
 
+		return $categoryId;
+	}
+
+	private function setArticleContent(SymfonyStyle $io): string
+	{
 		/**
-		 * Create temporary file in which to
-		 * write content
+		 * Create temporary file in which to write content
 		 */
 		$filesystem = new Filesystem();
 		$tempFile = $filesystem->tempnam('/tmp', 'editor_', '.md');
 
 		/**
-		 *	Open a text editor to edit content
+		 *	Select a text editor to edit content
 		 */
-		$editorProcess = new Process(['vim', $tempFile]);
-		$editorProcess->setTty(true);
-		$editorProcess->setTimeout(3600); // one hour
+		/** defaults to $EDITOR if it exists */
+		$editorEnv = getenv('EDITOR'); // getenv returns string|false
+		$defaultEditor = is_string($editorEnv) ? $editorEnv : null; // pass string|null to ask()
+		$editor = $io->ask('Select text editor', $defaultEditor);
 
-		try {
-			$editorProcess->mustRun();
-		} catch (ProcessFailedException $exception) {
-			$io->error($exception->getMessage());
+		/** ensure that the selected option is in fact an executable */
+		$executableFinder = new ExecutableFinder();
+		$executablePath = $executableFinder->find($editor);
+
+		if ($executablePath === null) {
+			throw new \InvalidArgumentException(sprintf('Process <%s> not found, aborting', $editor));
 		}
 
-		$content = ''; 
+		/** start the editor process */
+		$editorProcess = new Process([$editor, $tempFile]);
+		$editorProcess->setTty(true);
+		$editorProcess->setTimeout(3600); // one hour
+		$editorProcess->mustRun();
 
-		try {
-			$content = file_get_contents($tempFile);
-		} catch (FileNotFoundException $exception) {
-			$io->error($exception->getMessage());
+		$content = file_get_contents($tempFile);
+
+		if ($content === false) {
+			throw new FileNotFoundException('File not found');
 		}
 		
 		$filesystem->remove([$tempFile]);
 
-		/**
-		 *	Specifies mixed return type, though it always (in this 
-		 *	use case) returns string.
-		 *	@see Symfony\Component\Console\Style\SymfonyStyle:245	
-		 */
-		/* Need to use "phpstan-ignore-next-line" if on level 9 */
-        if ($io->confirm(sprintf('Create Article with title %s?', $title), false)) {
+		return $content;
+	}
+	
+	private function setArticleIsVisible(SymfonyStyle $io): bool
+	{
+		$isVisible = $io->confirm('Should this article be publicly visible?', false);
 
-			$io->success('Dispatching Creation Request');
-
-			/* Need to use "phpstan-ignore-next-line" if on level 9 */
-			$this->eventDispatcher->dispatch(new OnArticleCreationRequestedEvent(
-				$title, 
-				$description, 
-				(string) $content, 
-				$categoryId
-			));
-			return Command::SUCCESS;
-		} else {
-            $io->error('Article Creation aborted.');
-    		return Command::FAILURE;
-		}
+		return $isVisible;
 	}
 }

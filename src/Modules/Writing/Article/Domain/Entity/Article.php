@@ -20,8 +20,10 @@ class Article extends AggregateRoot
 	private string $description;
 	
 	private ?string $content = null;
-	
+
 	private ?Category $category;
+
+	private bool $isVisible;
 
 	private DateTimeImmutable $createdAt;
 
@@ -45,6 +47,18 @@ class Article extends AggregateRoot
 	public function setCategory(?Category $category): self
 	{
 		$this->category = $category;
+
+		return $this;
+	}
+
+	public function getIsVisible(): bool
+	{
+		return $this->isVisible;
+	}
+
+	public function setIsVisible(bool $isVisible): self
+	{
+		$this->isVisible = $isVisible;
 
 		return $this;
 	}
@@ -114,7 +128,8 @@ class Article extends AggregateRoot
 		string $title,
 		string $description,
 		string $content,
-		?Category $category
+		?Category $category,
+		bool $isVisible
 	): self
 	{
 		$article = new self($articleId);
@@ -122,6 +137,7 @@ class Article extends AggregateRoot
 		$article->setDescription($description);
 		$article->setContent($content);
 		$article->setCategory($category);
+		$article->setIsVisible($isVisible);
 		$article->setCreatedAt(new DateTimeImmutable('now'));
 		$article->setUpdatedAt(new DateTimeImmutable('now'));
 

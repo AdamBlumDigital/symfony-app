@@ -73,6 +73,11 @@
                 <target>({text})</target>
                 <note>Defines the characters used as 'parenthesis' in other locales</note>
             </trans-unit>
+			<trans-unit id="note.no_translation">
+				<source>note.no_translation</source>
+				<target>This content is not available in your locale.</target>
+				<note>Used when content is not available in the selected locale.</note>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

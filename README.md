@@ -6,12 +6,9 @@ The goal of this project is do avoid strong coupling between
 the framework (Symfony) and the domain. 
 
 
-Basic cURL command for POSTing JSON:
+## To Do
 
-```
-curl -i \
--H "Content-type: application/json" \
--X POST \
--d '{"title": "Example"}' \
-https://localhost:8000/route
-```
+- LocaleListener:
+	- `writing-mode:rtl` for [ar, arc, dv, fa, ha, he, khw, ks, ku, ps, ur, yi]
+	- `ltr vertical tb` [mn, ug]
+	- `rtl vertical tb` [ja, ko, zh? (it's complicated)]

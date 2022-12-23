@@ -15,7 +15,14 @@
 		{%- endif -%}
 		{%- set attrs = attrs | merge({'href': path(route, params)}) -%}
 	{%- endif -%}
-	<li><a {{ attrs|attributes }}>{{ text|trans }}</a></li>
+	{%- set title -%}
+		{%- if text is numeric -%}
+			{{- text|format_number -}}
+		{%- else -%}
+			{{- text|trans -}}
+		{%- endif -%}
+	{%- endset -%}
+	<li><a {{ attrs|attributes }}>{{ title }}</a></li>
 {%- endmacro -%}
 
 

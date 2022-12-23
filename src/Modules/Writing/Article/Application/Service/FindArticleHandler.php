@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Modules\Writing\Article\Application\Service;
 
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+
 use App\Modules\Writing\Article\Application\Model\FindArticleQuery;
 use App\Modules\Writing\Article\Domain\Repository\ArticleRepositoryInterface;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-final class FindArticleHandler implements MessageHandlerInterface
+#[AsMessageHandler]
+final class FindArticleHandler
 {
 	private ArticleRepositoryInterface $articleRepository;
 
@@ -23,7 +25,7 @@ final class FindArticleHandler implements MessageHandlerInterface
 	{
 		$articleId = $findArticleQuery->getArticleId();
 
-		$article = $this->articleRepository->find($articleId);	
+		$article = $this->articleRepository->findIfVisible($articleId);	
 
 		return $article;
 	}

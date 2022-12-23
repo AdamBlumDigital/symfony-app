@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace App\Modules\Writing\Article\Application\Service;
 
+use Symfony\Component\Messenger\Exception\UnrecoverableMessageHandlingException;
+//use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+use Symfony\Component\Uid\Uuid;
+
 use App\Modules\Writing\Article\Application\Model\UpdateArticleCommand;
 use App\Modules\Writing\Article\Domain\Entity\Article;
 use App\Modules\Writing\Article\Domain\Entity\ArticleId;
 use App\Modules\Writing\Article\Domain\Repository\ArticleRepositoryInterface;
 use App\Modules\Writing\Category\Domain\Repository\CategoryRepositoryInterface;
 use App\Shared\ValueObject\AggregateRootId;
-//use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
-use Symfony\Component\Messenger\Exception\UnrecoverableMessageHandlingException;
-use Symfony\Component\Uid\Uuid;
 
-final class UpdateArticleHandler implements MessageHandlerInterface
+#[AsMessageHandler]
+final class UpdateArticleHandler
 {
 	private ArticleRepositoryInterface $articleRepository;
 	private CategoryRepositoryInterface $categoryRepository;
@@ -42,7 +44,6 @@ final class UpdateArticleHandler implements MessageHandlerInterface
 			throw new UnrecoverableMessageHandlingException(sprintf('No Category with ID <%s>', $categoryId));
 		}
 
-
 		$articleId = $updateArticleCommand->getId();
 		$article = $this->articleRepository->findOneBy(['id' => $articleId]);
 
@@ -54,6 +55,7 @@ final class UpdateArticleHandler implements MessageHandlerInterface
 		$article->setDescription($updateArticleCommand->getDescription());
 		$article->setContent($updateArticleCommand->getContent());
 		$article->setCategory($categoryObject);
+		$article->setIsVisible($updateArticleCommand->getIsVisible());
 
 		$this->articleRepository->save($article);
 

@@ -24,14 +24,28 @@ class ArticleRepository extends ServiceEntityRepository implements ArticleReposi
 		parent::__construct($registry, Article::class);
 	}
 
+	public function findIfVisible(string $id): ?Article
+	{
+		$query = $this->createQueryBuilder('a')
+			->where('a.isVisible = true')
+			->andWhere('a.id = :id')
+			->setParameter('id', $id)
+			->getQuery()
+			->getOneOrNullResult()
+		;
+
+		return $query;
+	}
+
 	public function findSome(int $page = 1, int $length = 2): Paginator
 	{
 		$query = $this->createQueryBuilder('a')
+			->where('a.isVisible = true')
 			->innerJoin('a.category', 'cat')
 			->addSelect('a.id', 'a.title', 'a.description', 'cat.id as categoryId', 'cat.title as categoryTitle')
 			->getQuery();
 
-		$paginator = new Paginator($query);
+		$paginator = new Paginator($query, $fetchJoinCollection = false);
 
 		$paginator->getQuery()
 			->setFirstResult($length * ($page - 1) )
@@ -45,14 +59,15 @@ class ArticleRepository extends ServiceEntityRepository implements ArticleReposi
 	public function findSomeByCategoryId(string $categoryId, int $page = 1, int $length = 2): Paginator
 	{
 		$query = $this->createQueryBuilder('a')
-			->where('a.category = :categoryId')
+			->where('a.isVisible = true')
+			->andWhere('a.category = :categoryId')
 			->setParameter('categoryId', $categoryId)
 			->innerJoin('a.category', 'cat')
 			->addSelect('a.id', 'a.title', 'a.description', 'cat.id as categoryId', 'cat.title as categoryTitle')
 			->getQuery()
 		;
 
-		$paginator = new Paginator($query);
+		$paginator = new Paginator($query, $fetchJoinCollection = false);
 
 		$paginator->getQuery()
 			->setFirstResult($length * ($page - 1) )

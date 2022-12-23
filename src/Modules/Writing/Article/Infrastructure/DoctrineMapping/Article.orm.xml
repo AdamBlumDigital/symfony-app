@@ -8,6 +8,7 @@
 		<field name="title" column="title" length="255"/>
 		<field name="description" column="description" length="255"/>
 		<field name="content" column="content" type="text" nullable="true" />
+		<field name="isVisible" column="is_visible" type="boolean"/>
 		<many-to-one 
 			field="category" 
 			target-entity="App\Modules\Writing\Category\Domain\Entity\Category"
