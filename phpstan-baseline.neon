@@ -3,4 +3,4 @@ parameters:
 		-
 			message: "#^Call to function method_exists\\(\\) with 'Symfony\\\\\\\\Component\\\\\\\\Dotenv\\\\\\\\Dotenv' and 'bootEnv' will always evaluate to true\\.$#"
 			count: 1
-			path: tests/bootstrap.php
+			path: tests/phpstan/bootstrap.php

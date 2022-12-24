@@ -17,6 +17,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 			]
 		], 
 		'session' => [
+			'enabled' => false,
 			'handler_id' => null, 
 			'cookie_secure' => 'auto', 
 			'cookie_samesite' => 'lax', 

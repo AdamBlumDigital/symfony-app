@@ -9,7 +9,7 @@ use Twig\TwigFilter;
 
 class HTMLAttributesTwigExtension extends AbstractExtension
 {
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('attributes', [$this, 'attributes']),
@@ -17,11 +17,11 @@ class HTMLAttributesTwigExtension extends AbstractExtension
     }
 
     /**
-     *	@param array<mixed> $array
+     *	@param array{array<string, string>} $array
      */
     public function attributes(array $array): string
     {
-        $callback = fn (string $k, string $v): string => "$k=$v";
+        $callback = function ($k, $v): string { return "$k=$v"; };
 
         $result = implode(' ', array_map($callback, array_keys($array), array_values($array)));
 

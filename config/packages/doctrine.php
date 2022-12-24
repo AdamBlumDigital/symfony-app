@@ -56,10 +56,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 			'cache' => [
 				'pools' => [
 					'doctrine.result_cache_pool' => [
-						'adapter' => 'cache.app'
+						'adapter' => 'cache.adapter.apcu'
 					], 
 					'doctrine.system_cache_pool' => [
-						'adapter' => 'cache.system'
+						'adapter' => 'cache.adapter.apcu'
 					]
 				]
 			]

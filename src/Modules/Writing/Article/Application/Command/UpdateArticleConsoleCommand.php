@@ -154,13 +154,10 @@ final class UpdateArticleConsoleCommand extends Command
         $article = $this->articleRepository->findOneBy(['id' => $articleId]);
 
         if (null === $article) {
-            throw new \Exception(sprintf('No article found with id <%s>', $articleId));
+            throw new \Exception(sprintf('No article found with id <%s>', strval($articleId)));
         }
 
         $articleCategory = $article->getCategory();
-        if (null === $articleCategory) {
-            throw new \Exception('No Category found');
-        }
 
         $this->article = $article;
         $this->articleId = (string) $this->article->getId();
@@ -178,7 +175,7 @@ final class UpdateArticleConsoleCommand extends Command
          */
         $updatedArticleTitle = $io->ask('Update the Article Title', $this->articleTitle);
 
-        return $updatedArticleTitle;
+        return strval($updatedArticleTitle);
     }
 
     private function updateArticleDescription(SymfonyStyle $io): string
@@ -188,7 +185,7 @@ final class UpdateArticleConsoleCommand extends Command
          */
         $updatedArticleDescription = $io->ask('Update the Article Description', $this->articleDescription);
 
-        return $updatedArticleDescription;
+        return strval($updatedArticleDescription);
     }
 
     private function updateArticleContent(SymfonyStyle $io): string
@@ -211,7 +208,7 @@ final class UpdateArticleConsoleCommand extends Command
         /** defaults to $EDITOR if it exists */
         $editorEnv = getenv('EDITOR'); // getenv returns string|false
         $defaultEditor = is_string($editorEnv) ? $editorEnv : null; // pass string|null to ask()
-        $editor = $io->ask('Select text editor', $defaultEditor);
+        $editor = strval($io->ask('Select text editor', $defaultEditor));
 
         /** ensure that the selected option is in fact an executable */
         $executableFinder = new ExecutableFinder();
@@ -236,7 +233,7 @@ final class UpdateArticleConsoleCommand extends Command
         /* Delete the temp file */
         $filesystem->remove([$tempFile]);
 
-        return $updatedArticleContent;
+        return strval($updatedArticleContent);
     }
 
     private function updateArticleCategoryId(SymfonyStyle $io): string
@@ -255,7 +252,7 @@ final class UpdateArticleConsoleCommand extends Command
          */
         $updatedCategoryId = $io->choice('Choose a Category:', $categoryArray, $categoryArray[$this->articleCategoryId]);
 
-        return $updatedCategoryId;
+        return strval($updatedCategoryId);
     }
 
     private function updateArticleIsVisible(SymfonyStyle $io): bool

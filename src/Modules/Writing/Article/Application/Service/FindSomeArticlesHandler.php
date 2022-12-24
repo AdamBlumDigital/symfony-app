@@ -18,7 +18,7 @@ final class FindSomeArticlesHandler
         $this->articleRepository = $articleRepository;
     }
 
-    public function __invoke(FindSomeArticlesQuery $findSomeArticlesQuery): mixed
+    public function __invoke(FindSomeArticlesQuery $findSomeArticlesQuery): \Countable
     {
         $page = $findSomeArticlesQuery->getPageNumber();
         $size = $findSomeArticlesQuery->getPageSize();

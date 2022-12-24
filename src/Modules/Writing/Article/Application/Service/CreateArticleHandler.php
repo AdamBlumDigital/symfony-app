@@ -11,6 +11,7 @@ use App\Modules\Writing\Article\Domain\Repository\ArticleRepositoryInterface;
 use App\Modules\Writing\Category\Domain\Repository\CategoryRepositoryInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+use Symfony\Component\Messenger\Exception\RecoverableMessageHandlingException;
 use Symfony\Component\Uid\Uuid;
 
 #[AsMessageHandler]
@@ -33,6 +34,11 @@ final class CreateArticleHandler
     public function __invoke(CreateArticleCommand $createArticleCommand): void
     {
         $categoryObject = $this->categoryRepository->findOneBy(['id' => $createArticleCommand->getCategoryId()]);
+
+        if (null === $categoryObject) {
+            throw new RecoverableMessageHandlingException(sprintf('Could not find category with ID <%s>', $createArticleCommand->getCategoryId()));
+        }
+
         $article = Article::create(
             new ArticleId(
                 Uuid::v7()->jsonSerialize()	// Return UUID as string, not object

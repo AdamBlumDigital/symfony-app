@@ -55,7 +55,7 @@ final class CreateCategoryConsoleCommand extends Command
 
         $slugger = new AsciiSlugger();
 
-        $slug = $slugger->slug($title);
+        $slug = $slugger->slug(strval($title));
 
         $description = $io->ask('Enter the Category description', null, function ($value) {
             if (!is_string($value)) {
@@ -67,7 +67,7 @@ final class CreateCategoryConsoleCommand extends Command
 
         $asciiSlug = $slug->__toString();
 
-        $this->messageBus->dispatch(new CreateCategoryCommand($title, $asciiSlug, $description));
+        $this->messageBus->dispatch(new CreateCategoryCommand(strval($title), $asciiSlug, strval($description)));
 
         return Command::SUCCESS;
     }

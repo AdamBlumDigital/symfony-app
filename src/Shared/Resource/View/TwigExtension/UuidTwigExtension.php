@@ -11,7 +11,7 @@ use Twig\TwigFilter;
 
 class UuidTwigExtension extends AbstractExtension
 {
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('uuid_date', [$this, 'getDate']),

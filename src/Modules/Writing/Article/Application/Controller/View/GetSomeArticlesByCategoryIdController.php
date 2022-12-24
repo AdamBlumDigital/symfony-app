@@ -13,6 +13,8 @@ use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Uid\Uuid;
 
+use function \is_countable;
+
 final class GetSomeArticlesByCategoryIdController extends AbstractController
 {
     use HandleTrait;
@@ -39,6 +41,10 @@ final class GetSomeArticlesByCategoryIdController extends AbstractController
         $category = $this->handle(new FindCategoryQuery($categoryId));
 
         $articles = $this->handle(new FindSomeArticlesByCategoryQuery($categoryId, $page, $size));
+
+        if (!is_countable($articles)) {
+            throw $this->createNotFoundException('Invalid page');
+        }
 
         $pages = max(ceil(count($articles) / $size), 1);
 

@@ -32,7 +32,7 @@ class ArticleRepository extends ServiceEntityRepository implements ArticleReposi
             ->andWhere('a.id = :id')
             ->setParameter('id', $id)
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_OBJECT)
         ;
 
         return $query;

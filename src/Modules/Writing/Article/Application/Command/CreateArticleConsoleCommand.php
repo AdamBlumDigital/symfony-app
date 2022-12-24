@@ -119,10 +119,11 @@ final class CreateArticleConsoleCommand extends Command
     {
         $title = $io->ask('Enter the Article title', null, Validation::createCallable(
             new Assert\NotBlank(),
+            new Assert\Type(['type' => 'string']),
             new Assert\Length(['min' => 4, 'max' => 255])
         ));
 
-        return $title;
+        return strval($title);
     }
 
     private function setArticleDescription(SymfonyStyle $io): string
@@ -132,7 +133,7 @@ final class CreateArticleConsoleCommand extends Command
             new Assert\Length(['min' => 4, 'max' => 255])
         ));
 
-        return $description;
+        return strval($description);
     }
 
     private function setArticleCategoryId(SymfonyStyle $io): string
@@ -151,7 +152,7 @@ final class CreateArticleConsoleCommand extends Command
          */
         $categoryId = $io->choice('Choose a Category:', $categoryArray);
 
-        return $categoryId;
+        return strval($categoryId);
     }
 
     private function setArticleContent(SymfonyStyle $io): string
@@ -168,7 +169,7 @@ final class CreateArticleConsoleCommand extends Command
         /** defaults to $EDITOR if it exists */
         $editorEnv = getenv('EDITOR'); // getenv returns string|false
         $defaultEditor = is_string($editorEnv) ? $editorEnv : null; // pass string|null to ask()
-        $editor = $io->ask('Select text editor', $defaultEditor);
+        $editor = strval($io->ask('Select text editor', $defaultEditor));
 
         /** ensure that the selected option is in fact an executable */
         $executableFinder = new ExecutableFinder();

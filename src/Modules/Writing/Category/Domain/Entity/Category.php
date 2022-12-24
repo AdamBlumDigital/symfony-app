@@ -20,6 +20,7 @@ class Category extends AggregateRoot
 
     private ?string $description = null;
 
+    /** @var Collection<\App\Modules\Writing\Article\Domain\Entity\Article> */
     private Collection $articles;
 
     private \DateTimeImmutable $createdAt;

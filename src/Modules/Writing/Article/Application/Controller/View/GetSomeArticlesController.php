@@ -34,6 +34,10 @@ final class GetSomeArticlesController extends AbstractController
 
         $articles = $this->handle(new FindSomeArticlesQuery($page, $size));
 
+        if (!\is_countable($articles)) {
+            throw $this->createNotFoundException('Invalid page');
+        }
+
         $pages = max(ceil(count($articles) / $size), 1);
 
         if ($page > $pages) {

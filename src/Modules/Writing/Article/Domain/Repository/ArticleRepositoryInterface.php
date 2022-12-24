@@ -31,7 +31,7 @@ interface ArticleRepositoryInterface
     /**
      * @return ?Article
      */
-    public function findIfVisible(string $id);
+    public function findIfVisible(string $id): ?Article;
 
     /**
      *	@return Article[]
